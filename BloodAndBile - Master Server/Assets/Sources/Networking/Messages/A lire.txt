@@ -1,0 +1,30 @@
+﻿Comme pour le prototype, les messages sur le réseau sont traités dans des fonctions "Handler" correspondantes à un certain Type de message,
+qui est un numéro allant de 0 à 65536. Il ne faut donc pas que des messages de nature différente se retrouve avec le même numéro de Type.
+
+Donc, sur le fichier "Liste numéros.txt" (racine du répertoire Git) devront être répertoriés l'ensemble des numéros utilisés, 
+une description courte de leur utilisation, et la référence pour trouver le moment dans le code où le message de ce type est envoyé 
+(cela vous force à rassembler tous les envois de message d'un certain type en UN endroit) sous la forme :
+
+<Numéro> : <Description>
+	 <NomFichier> - <NomFonction>() - n°<NuméroDeLigne>.
+
+Notez également que, contrairement au prototype, les serveurs de Match et les Clients partagent leur liste de Handlers, et donc les numéros...
+ainsi il ne faut pas qu'un numéro fasse une chose sur un Client et en fasse une autre sur le Match. Le MasterServer, techniquement, n'a pas ce
+problème mais pour des raisons de clareté la même règle sera appliquée à celui-ci.
+
+Avant d'utiliser un ou plusieurs numéros, demandez au reste du groupe pour éviter de découvrir après un merge que le même a été utilisé par deux
+membre de l'équipe. Pour cela, allez sur le canal discord approprié (ou demandez à quelqu'un de le faire pour vous) et indiquez un ensemble de numéros
+que vous allez utiliser. Notez que la borne droite de cet ensemble sera considérée comme NON INCLUE.
+
+Exemple : "Je vais utiliser ces numéros : 10 - 20" Signifie que je peux utiliser les numéros 10, 11, 12, ..., 19. Le 20 est donc toujours disponible
+et le prochain pour écrire "Je vais utiliser ces numéros : 20 - ...".
+
+Pour éviter que les numéros pour le Match, les numéros pour le Client et les numéros pour le Master Server ne soient mélangés, nous limiterons
+les numéros à plusieurs portées :
+
+0  - 20000 (exclu) : Client
+20000 - 40000 (exclu) : Match
+40000 - 65536 : Master Server
+
+Le Master Server ne servant qu'à effectuer le MatchMaking, et éventuellement d'autres fonctionnalités tierces, il nécessitera suremment moins
+de numéros, d'où l'ordre choisi.
