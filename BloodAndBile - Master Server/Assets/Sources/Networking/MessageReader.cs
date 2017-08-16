@@ -20,18 +20,19 @@ public class MessageReader : MonoBehaviour
      * <summary> Ajoute un handler pour le type de message donné. 
      * ATTENTION : le Handler ne doit être crée qu'une seule fois ! Ne pas exécuter cette fonction avec le même handler plusieurs fois.</summary>
      */
-    static public void AddHandler(short messageType, Action<NetworkMessageInfo, NetworkMessage> handlerFunction)
+    static public void AddHandler(ushort messageType, Action<NetworkMessageInfo, NetworkMessage> handlerFunction)
     {
+        if (!Instance.Handlers.ContainsKey(messageType))
+        {
+            Instance.Handlers.Add(messageType, new List<Action<NetworkMessageInfo, NetworkMessage>>());
+        }
+
         if (Instance.Handlers[messageType].Contains(handlerFunction))
         {
             Debug.Log("ATTENTION - MESSAGE READER - ADDHANDLER() - Le handler " + handlerFunction.Method.Name + " a déjà été crée pour le type de message " + messageType + " !");
             return;
         }
 
-        if (!Instance.Handlers.ContainsKey(messageType))
-        {
-            Instance.Handlers.Add(messageType, new List<Action<NetworkMessageInfo, NetworkMessage>>());
-        }
 
         Instance.Handlers[messageType].Add(handlerFunction);
     }
@@ -48,7 +49,7 @@ public class MessageReader : MonoBehaviour
 
     Queue<ReceivedMessage> MessageQueue = new Queue<ReceivedMessage>(); // Queue des messages reçus. "First in first out".
 
-    Dictionary<short, List<Action<NetworkMessageInfo, NetworkMessage>>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
+    Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
                                                       // En leur faisant passer le Message.
     /**
      * <summary> Exécutée lorsque cette instance devient le singleton de cette classe. </summary>
@@ -56,6 +57,7 @@ public class MessageReader : MonoBehaviour
     void Init()
     {
         Debug.Log("Initialisation du MessageReader...");
+        Handlers = new Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>>();
         Receiver = new NetworkReceiver();
     }
 

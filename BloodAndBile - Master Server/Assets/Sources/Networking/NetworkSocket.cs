@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System;
 
 /**
  * <summary> NetworkSocket est une classe statique représentant "l'identité" de la machine sur le réseau : Host ID, connexions en
@@ -83,12 +84,34 @@ public static class NetworkSocket
     }
 
     /**
-     * <summary> Exécutée lorsqu'une connexion est établie. </summary>
+     * <summary> Exécutée lorsqu'une connexion est établie. Déclenche OnConnectionEstablishedCallback. </summary>
      */
      static public void OnConnectionEstablished(int coID)
     {
         ConnectionIDs.Add(coID);
-    } 
+        if (OnConnectionEstablishedCallback != null)
+            OnConnectionEstablishedCallback(coID);
+    }
+
+    static Action<int> OnConnectionEstablishedCallback;
+    static public void RegisterOnConnectionEstablishedCallback(Action<int> cb)
+    {
+        OnConnectionEstablishedCallback += cb;
+    }
+
+    static public void OnDisconnection(int coID)
+    {
+        if(OnDisconnectionCallback != null)
+        {
+            OnDisconnectionCallback(coID);
+        }
+    }
+
+    static Action<int> OnDisconnectionCallback;
+    static public void RegisterOnDisconnectionCallback(Action<int> cb)
+    {
+        OnDisconnectionCallback += cb;
+    }
 
     /**
      * <summary> Déconnecte ce NetworkSocket de la connexion indiquée. </summary>

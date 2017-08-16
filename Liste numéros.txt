@@ -4,7 +4,7 @@ CLIENT : de 0 à 20000 (exclu)
 
 0 : Connexion avec le Master Server établie. Sert de message de demande d'authentification au Client, qui devra répondre avec un nom d'utilisateur + mot de passe. Si le nom d'utilisateur n'existe pas dans les registres du Master Server, un nouveau compte est crée. 
 S'il existe et que le mot de passe est bon, alors l'authentification sera acceptée sans qu'un nouveau compte soit crée. Dans ces deux cas, le Master Server renvoit un message d'acceptation d'identification (1 - contenu 'accepted' = true) et le client a alors accès à la liste des matchs en attente d'un adversaire.
-Sinon, le Master Server revoit un message de refus d'identification (1 - contenu 'accepted' = false) 
+Sinon, le Master Server revoit un message de refus d'identification (1 - contenu 'accepted' = false). NOTE : le message de type 0 n'a pas de contenu, car le contenu est le type.
 
 
 MATCH : de 20000 à 40000 (exclu)

@@ -17,7 +17,7 @@ public class MessageSender : MonoBehaviour
 
     // STATIC
 
-    static void Send(NetworkMessage message, int connectionID, int channelID = -1)
+    static public void Send(NetworkMessage message, int connectionID, int channelID = -1)
     {
         if (!NetworkTransport.IsStarted)
         {

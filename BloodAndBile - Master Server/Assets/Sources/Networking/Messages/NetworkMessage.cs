@@ -6,12 +6,13 @@ using System.Collections.Generic;
  * <summary> Un Message est un "paquet" de données étiquetté par un type (byte).
  * Les Messages sont faits pour être lus par des MessageReader (A ne pas confondre avec MessageReceiver !) afin que leur données soient
  * transmises aux fonctions Handler correspondantes à leur type. </summary>
- */ 
+ */
+[Serializable]
 public class NetworkMessage
 {
-    public short Type; // Ce type de message n'a pas de "Type" car il n'est jamais envoyé. Le type est à définir dans les classes filles.
+    public ushort Type; // Ce type de message n'a pas de "Type" car il n'est jamais envoyé. Le type est à définir dans les classes filles.
 
-    public NetworkMessage(byte type)
+    public NetworkMessage(ushort type)
     {
         Type = type;
     }

@@ -14,8 +14,8 @@ using System.IO;
  */ 
 public class NetworkReceiver
 {
-    public const int STANDARD_BUFFER_SIZE = 1470;
-    public const int FRAGMENTED_BUFFER_SIZE = 1470 * 32; // Le nombre de fragments maximal est de 32.
+    public const int STANDARD_BUFFER_SIZE = 1024;
+    public const int FRAGMENTED_BUFFER_SIZE = 1024 * 32; // Le nombre de fragments maximal est de 32.
 
     // FORMATEUR BINAIRE
     static BinaryFormatter Formatter = new BinaryFormatter();
@@ -53,7 +53,7 @@ public class NetworkReceiver
                 break;
             case (NetworkEventType.DisconnectEvent):
                 Debug.Log("Connexion fermée. ID = " + recConnectionID);
-                NetworkSocket.Disconnect(recConnectionID);
+                NetworkSocket.OnDisconnection(recConnectionID);
                 break;
             case (NetworkEventType.DataEvent):
 

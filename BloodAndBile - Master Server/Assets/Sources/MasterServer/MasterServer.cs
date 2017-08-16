@@ -12,10 +12,13 @@ public class MasterServer : MonoBehaviour
     // STATIC (Singleton)
     static MasterServer Instance;
 
+    ClientsManager ClientsModule;
+
     private void Init()
     {
         DontDestroyOnLoad(gameObject);
         NetworkSocket.Initialise();
+        ClientsModule = new ClientsManager();
     }
 
     private void Awake()
@@ -45,6 +48,17 @@ public class MasterServer : MonoBehaviour
      */ 
     void SetupHandlers()
     {
+        NetworkSocket.RegisterOnConnectionEstablishedCallback(OnClientConnected);
+        NetworkSocket.RegisterOnDisconnectionCallback(ClientsModule.LogOff);
+        MessageReader.AddHandler(0, ClientsModule.Authentification);
+    }
 
+    void OnClientConnected(int coID)
+    {
+        ClientsModule.RegisterUnknownClient(coID);
+        MessageSender.Send(new NetworkMessage(40000), coID, 0); // Envoi de la demande d'authentification.
+        // Le type de message est le type de base "NetworkMessage" car l'unique contenu important du message est son type.
+        // Ce genre de message est appelé "commande" car son utilité réside dans le fait d'appeler les bons handlers chez le récepteur
+        // qui ne traitent pas de contenu, mais engendrent uniquement une réaction.
     }
 }

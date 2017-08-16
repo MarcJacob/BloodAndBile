@@ -82,9 +82,13 @@
   <ItemGroup>
     <Compile Include="Assets\Sources\Debug\Debugger.cs" />
     <Compile Include="Assets\Sources\MasterServer\ClientsManagement\Client.cs" />
+    <Compile Include="Assets\Sources\MasterServer\ClientsManagement\ClientsManager.cs" />
     <Compile Include="Assets\Sources\MasterServer\MasterServer.cs" />
-    <Compile Include="Assets\Sources\Networking\MasterServerConnectionManager.cs" />
+    <Compile Include="Assets\Sources\MasterServer\MatchesManagement\Match.cs" />
+    <Compile Include="Assets\Sources\MasterServer\MatchesManagement\MatchesManager.cs" />
     <Compile Include="Assets\Sources\Networking\MessageReader.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\AuthentificationMessage.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\AuthentificationResponseMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessageReceiver.cs" />
     <Compile Include="Assets\Sources\Networking\MessageSender.cs" />
@@ -98,6 +102,7 @@
     <None Include="Assets\Sources\Networking\Messages\A lire.txt" />
     <None Include="Assets\Sources\Trie.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>
