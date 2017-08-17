@@ -140,4 +140,15 @@ public static class NetworkSocket
             Disconnect(coID);
         }
     }
+
+    static public string GetIPFromConnectionID(int coID)
+    {
+        string IP;
+        int Port;
+        UnityEngine.Networking.Types.NetworkID ID;
+        UnityEngine.Networking.Types.NodeID Node;
+        byte error;
+        NetworkTransport.GetConnectionInfo(HostID, coID, out IP, out Port, out ID, out Node, out error);
+        return IP;
+    }
 }

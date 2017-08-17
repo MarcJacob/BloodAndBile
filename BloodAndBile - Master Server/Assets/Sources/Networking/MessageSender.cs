@@ -68,6 +68,7 @@ public class MessageSender : MonoBehaviour
         }
         else
         {
+            Instance = this;
             Init();
         }
     }

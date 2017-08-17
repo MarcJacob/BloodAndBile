@@ -89,6 +89,7 @@
     <Compile Include="Assets\Sources\Networking\MessageReader.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\AuthentificationMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\AuthentificationResponseMessage.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\MatchCreationMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessageReceiver.cs" />
     <Compile Include="Assets\Sources\Networking\MessageSender.cs" />

@@ -65,4 +65,9 @@ public class Client
         ConnectionID = id;
     }
 
+    public bool Connected()
+    {
+        return ConnectionID > 0;
+    }
+
 }

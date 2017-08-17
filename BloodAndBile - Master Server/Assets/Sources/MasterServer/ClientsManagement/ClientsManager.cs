@@ -13,7 +13,7 @@ public class ClientsManager
     //STATIC
     static ClientsManager Instance;
 
-    static Client[] GetOnlineClients()
+    static public Client[] GetOnlineClients()
     {
         List<Client> clients = new List<Client>();
         foreach(Client c in Instance.OnlineClients.Values)
@@ -23,7 +23,7 @@ public class ClientsManager
         return clients.ToArray();
     }
 
-    static Client GetClientFromConnectionID(int coID)
+    static public Client GetClientFromConnectionID(int coID)
     {
         if (Instance.OnlineClients.ContainsKey(coID))
         {

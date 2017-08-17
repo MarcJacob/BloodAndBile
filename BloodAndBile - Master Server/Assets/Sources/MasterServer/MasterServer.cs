@@ -13,12 +13,14 @@ public class MasterServer : MonoBehaviour
     static MasterServer Instance;
 
     ClientsManager ClientsModule;
+    MatchesManager MatchesModule;
 
     private void Init()
     {
         DontDestroyOnLoad(gameObject);
         NetworkSocket.Initialise();
         ClientsModule = new ClientsManager();
+        MatchesModule = new MatchesManager();
     }
 
     private void Awake()
@@ -51,6 +53,7 @@ public class MasterServer : MonoBehaviour
         NetworkSocket.RegisterOnConnectionEstablishedCallback(OnClientConnected);
         NetworkSocket.RegisterOnDisconnectionCallback(ClientsModule.LogOff);
         MessageReader.AddHandler(0, ClientsModule.Authentification);
+        MessageReader.AddHandler(1, MatchesModule.NewMatch);
     }
 
     void OnClientConnected(int coID)
