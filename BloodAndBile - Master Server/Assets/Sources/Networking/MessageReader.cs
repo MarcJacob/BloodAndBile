@@ -85,7 +85,6 @@ public class MessageReader : MonoBehaviour
             ReceivedMessage msg = MessageQueue.Dequeue();
             if (Handlers.ContainsKey(msg.Message.Type))
             {
-                List<Action<NetworkMessageInfo, NetworkMessage>> handlers = Handlers[msg.Message.Type];
                 foreach (Action<NetworkMessageInfo, NetworkMessage> handler in Handlers[msg.Message.Type])
                 {
                     handler(msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.

@@ -30,7 +30,7 @@ public class PlayingState : ClientState
         */ 
     public override void Init()
     {
-        
+        NetworkSocket.ConnectTo(MatchIP, NetworkSocket.Port);
     }
 
     public override void Inputs()

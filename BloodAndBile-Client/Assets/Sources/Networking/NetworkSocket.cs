@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -88,7 +89,15 @@ public static class NetworkSocket
      static public void OnConnectionEstablished(int coID)
     {
         ConnectionIDs.Add(coID);
-    } 
+        if (OnConnectionEstablishedCallback != null)
+            OnConnectionEstablishedCallback(coID);
+    }
+
+    static Action<int> OnConnectionEstablishedCallback;
+    static public void RegisterOnConnectionEstablishedCallback(Action<int> cb)
+    {
+        OnConnectionEstablishedCallback += cb;
+    }
 
     /**
      * <summary> Déconnecte ce NetworkSocket de la connexion indiquée. </summary>

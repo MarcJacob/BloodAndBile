@@ -27,6 +27,7 @@ public struct AccountCredentials
         // Syntaxe pour ajouter une condition : Conditions.Add(<CodeQuiRenvoieUnBooléen>);
         Conditions.Add(Username.Length > 2); // Nom d'utilisateur au moins 3 caractères de long.
         Conditions.Add(Password.Length > 0);
+        Conditions.Add(Password.ToLower() != Password); // Mot de passe contient au moins une majuscule.
 
         //_____________________________________________________________________________________
 

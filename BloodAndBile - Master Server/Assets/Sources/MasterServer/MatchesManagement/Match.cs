@@ -13,6 +13,7 @@ public class Match
     string IP;
     List<Client> Lobby = new List<Client>();
     string Name;
+    string Password;
     MATCH_STATE MatchState;
 
     public Match(Client host, string ip, string name, string password ="")
@@ -20,6 +21,7 @@ public class Match
         Host = host;
         IP = ip;
         Name = name;
+        Password = password;
         MatchState = MATCH_STATE.OPEN_PUBLIC;
     }
 

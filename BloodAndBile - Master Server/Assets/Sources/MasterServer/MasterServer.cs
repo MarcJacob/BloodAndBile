@@ -53,7 +53,6 @@ public class MasterServer : MonoBehaviour
         NetworkSocket.RegisterOnConnectionEstablishedCallback(OnClientConnected);
         NetworkSocket.RegisterOnDisconnectionCallback(ClientsModule.LogOff);
         MessageReader.AddHandler(0, ClientsModule.Authentification);
-        MessageReader.AddHandler(1, MatchesModule.NewMatch);
     }
 
     void OnClientConnected(int coID)

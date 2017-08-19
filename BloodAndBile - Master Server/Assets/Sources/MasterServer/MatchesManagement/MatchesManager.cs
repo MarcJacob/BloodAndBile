@@ -29,6 +29,7 @@ public class MatchesManager
         {
             Debugger.Log("Création d'un nouveau match : " + '"' + msg.MatchName + '"' + ". Hôte : " + c.GetAccountName() + ' ' + HostIP);
             Matches.Add(msg.MatchName, new Match(c,HostIP, msg.MatchName, msg.Password)); // Création du nouveau match.
+            MessageSender.Send(new MatchCreationResponseMessage(c.GetAccountName(), msg.Password, msg.MatchName, HostIP), info.ConnectionID);
         }
     }
 

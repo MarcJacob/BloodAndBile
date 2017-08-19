@@ -19,7 +19,7 @@ public class Client : MonoBehaviour
     }
 
     static Client Instance;
-    //_______________________________________________
+    //_______________________________________________    
 
     void Start()
     {
@@ -44,6 +44,9 @@ public class Client : MonoBehaviour
         NetworkSocket.Initialise();
         State = new MainMenuState();
         State.Init();
+
+        MessageReader.AddHandler(40002, MatchManager.OnMatchCreated);
+        MessageReader.AddHandler(20000, MatchManager.OnMatchConnected);
     }
 
     private void Update()

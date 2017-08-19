@@ -8,7 +8,15 @@ CLIENT : de 0 à 20000 (exclu)
 1 : Signal de création d'un Match.
 	MatchManager - HostMatch()
 
+2 : Authentification du client au match.
+	MatchData - OnClientIdentified()
+
 MATCH : de 20000 à 40000 (exclu)
+
+20000 : Demande d'authentification au client.
+	MatchManager - OnMatchConnected()
+
+
 
 MASTER SERVER : de 40000 à 65536
 
@@ -18,5 +26,6 @@ MASTER SERVER : de 40000 à 65536
 40001 : Réponse à une tentative d'authentification. Contient l'acceptation ou le refus de l'authentification et dans le dernier cas la raison.
 	ClientsManager - SendAuthentificationResponse()
 
-
+40002 : Réponse du serveur au client quand le Match a été créé.
+	MatchesManager - NewMatch()
 
