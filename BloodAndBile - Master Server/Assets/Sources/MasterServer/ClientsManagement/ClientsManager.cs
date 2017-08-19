@@ -25,6 +25,11 @@ public class ClientsManager
 
     static public Client GetClientFromConnectionID(int coID)
     {
+        if (Instance == null)
+        {
+            Debugger.Log("Le ClientsManager n'a pas été initialisé correctement !");
+            return null;
+        }
         if (Instance.OnlineClients.ContainsKey(coID))
         {
             return Instance.OnlineClients[coID];
@@ -41,7 +46,7 @@ public class ClientsManager
 
     public ClientsManager()
     {
-        if (Instance !=null)
+        if (Instance == null)
         {
             Instance = this;
         }
@@ -52,7 +57,11 @@ public class ClientsManager
      */ 
     public ClientsManager(string knownClientsFolderName)
     {
-        LoadClientsFromFiles(knownClientsFolderName);
+        if (Instance != null)
+        {
+            Instance = this;
+            LoadClientsFromFiles(knownClientsFolderName);
+        }
     }
 
     

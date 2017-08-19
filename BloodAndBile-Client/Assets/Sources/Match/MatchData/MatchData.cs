@@ -53,12 +53,14 @@ public static class MatchData
     static void OnClientConnected(int coID)
     {
         MessageSender.Send(new NetworkMessage(20000), coID, 0);
+        Debugger.Log("Client connecté !");
     }
 
     static void OnClientIdentified(NetworkMessageInfo info, NetworkMessage message)
     {
         MatchConnectionMessage msg = (MatchConnectionMessage)message;
         Players.Add(info.ConnectionID, msg.Username);
+        Debugger.Log("Client identifié : " + msg.Username);
     }
 
     public static void Update()

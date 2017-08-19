@@ -52,6 +52,7 @@ public class MatchesManager
         foreach(string name in cleanup)
         {
             Matches.Remove(name); // Supression du match.
+            Debugger.Log("Supression du match " + name + ".");
         }
     }
 

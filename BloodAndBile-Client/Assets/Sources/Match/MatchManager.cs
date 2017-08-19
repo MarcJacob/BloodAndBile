@@ -18,7 +18,6 @@ public static class MatchManager
     static public void HostMatch(string matchName, string password)
     {
         Hosting = true;
-        Client.ChangeState(new HostingState());
 
         // Envoie d'un signal de création de match au Master Server.
         MessageSender.Send(new MatchCreationMessage(matchName, password), MasterServerConnectionManager.GetMasterServerConnectionID(), 0);
@@ -44,7 +43,7 @@ public static class MatchManager
 
     public static void OnMatchConnected(NetworkMessageInfo info, NetworkMessage message)
     {
-        Username = "TestUsername";
+        Username = "Test";
         MessageSender.Send(new MatchConnectionMessage(Username), info.ConnectionID, 0);
     }
 

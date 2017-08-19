@@ -163,6 +163,7 @@ public class MasterServerConnectionManager : MonoBehaviour
         {
             Authentified = true;
             Debugger.Log("Authentification réussie !");
+            Client.ChangeState(new HostingState());
         }
     }
 }

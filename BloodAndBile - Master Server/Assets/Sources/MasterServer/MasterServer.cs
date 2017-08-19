@@ -21,6 +21,7 @@ public class MasterServer : MonoBehaviour
         NetworkSocket.Initialise();
         ClientsModule = new ClientsManager();
         MatchesModule = new MatchesManager();
+
     }
 
     private void Awake()
@@ -37,11 +38,12 @@ public class MasterServer : MonoBehaviour
 	
 	void Update ()
     {
-		
+        MatchesModule.UpdateMatches();
 	}
 
     private void Start()
     {
+        MatchesModule.Init();
         SetupHandlers();
     }
 

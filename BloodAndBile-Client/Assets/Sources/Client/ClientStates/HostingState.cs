@@ -10,7 +10,7 @@ public class HostingState : ClientState
 {
     public override void Init()
     {
-        MatchManager.HostMatch("MyMatch", "");
+        MatchManager.HostMatch("MyMatch", "test");
     }
 
     public override void Inputs()
@@ -25,6 +25,6 @@ public class HostingState : ClientState
 
     public override void Exit()
     {
-        Client.ChangeState(new PlayingState("127.0.0.1"));
+    
     }
 }
