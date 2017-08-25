@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.0f3</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -84,21 +86,28 @@
     <Compile Include="Assets\Sources\Client\ClientStates\HostingState.cs" />
     <Compile Include="Assets\Sources\Client\ClientStates\MainMenuState.cs" />
     <Compile Include="Assets\Sources\Client\ClientStates\PlayingState.cs" />
+    <Compile Include="Assets\Sources\Debug\Console.cs" />
+    <Compile Include="Assets\Sources\Debug\ConsoleLine.cs" />
     <Compile Include="Assets\Sources\Debug\Debugger.cs" />
     <Compile Include="Assets\Sources\Frontend\SceneManager.cs" />
     <Compile Include="Assets\Sources\Frontend\UIManagement.cs" />
     <Compile Include="Assets\Sources\Frontend\UIs\GameUI.cs" />
+    <Compile Include="Assets\Sources\Input\InputManager.cs" />
     <Compile Include="Assets\Sources\Match\MatchData\MatchData.cs" />
+    <Compile Include="Assets\Sources\Match\MatchInfo.cs" />
     <Compile Include="Assets\Sources\Match\MatchManager.cs" />
     <Compile Include="Assets\Sources\Networking\MasterServerConnectionManager.cs" />
     <Compile Include="Assets\Sources\Networking\MessageReader.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\AuthentificationMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\AuthentificationResponseMessage.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\MatchConnectionResponseMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\MatchConnectionMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\MatchCreationMessage.cs" />
-    <Compile Include="Assets\Sources\Networking\Messages\MatchCreationResponseMessage.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\MatchInfoMessage.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\MatchListMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessage.cs" />
     <Compile Include="Assets\Sources\Networking\Messages\NetworkMessageReceiver.cs" />
+    <Compile Include="Assets\Sources\Networking\Messages\SentMessage.cs" />
     <Compile Include="Assets\Sources\Networking\MessageSender.cs" />
     <Compile Include="Assets\Sources\Networking\NetworkReceiver.cs" />
     <Compile Include="Assets\Sources\Networking\NetworkSocket.cs" />

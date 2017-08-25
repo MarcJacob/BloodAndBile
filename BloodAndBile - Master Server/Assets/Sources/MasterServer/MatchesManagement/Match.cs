@@ -9,19 +9,19 @@ using System.Text;
  */ 
 public class Match
 {
-    Client Host;
-    string IP;
-    List<Client> Lobby = new List<Client>();
-    string Name;
-    string Password;
-    MATCH_STATE MatchState;
+    public Client Host;
+    public MatchInfo Info;
 
-    public Match(Client host, string ip, string name, string password ="")
+    public MATCH_STATE MatchState;
+
+    public Match(Client host, string ip, int Port, string name, bool Locked = false)
     {
         Host = host;
-        IP = ip;
-        Name = name;
-        Password = password;
+        Info.HostIP = ip;
+        Info.MatchName = name;
+        Info.Locked = Locked;
+        Info.HostPort = Port;
+        Info.HostName = Host.GetAccountName();
         MatchState = MATCH_STATE.OPEN_PUBLIC;
     }
 
@@ -38,14 +38,9 @@ public class Match
     {
         return MatchState == MATCH_STATE.ENDED;
     }
-
-    public string GetName()
-    {
-        return Name;
-    }
 }
 
-enum MATCH_STATE
+public enum MATCH_STATE
 {
     OPEN_PRIVATE,
     OPEN_PUBLIC,

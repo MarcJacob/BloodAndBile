@@ -4,7 +4,7 @@ using System.Collections.Generic;
 [Serializable]
 public class MatchCreationMessage : NetworkMessage
 {
-    public MatchCreationMessage(string matchName, string password) : base (1)
+    public MatchCreationMessage(string matchName, string password, string ip) : base (1)
     {
         MatchName = matchName;
         Password = password;

@@ -10,7 +10,7 @@ using UnityEngine;
  * Cette classe s'occupe UNIQUEMENT de retransmettre les messages vers les fonctions handlers correspondantes. </summary>
  * 
  * CLASSE SINGLETON
- */ 
+ */
 public class MessageReader : MonoBehaviour
 {
     // STATIC
@@ -24,17 +24,10 @@ public class MessageReader : MonoBehaviour
     {
         if (!Instance.Handlers.ContainsKey(messageType))
         {
-            Instance.Handlers.Add(messageType, new List<Action<NetworkMessageInfo, NetworkMessage>>());
+            Instance.Handlers.Add(messageType, handlerFunction);
         }
-
-        if (Instance.Handlers[messageType].Contains(handlerFunction))
-        {
-            Debug.Log("ATTENTION - MESSAGE READER - ADDHANDLER() - Le handler " + handlerFunction.Method.Name + " a déjà été crée pour le type de message " + messageType + " !");
-            return;
-        }
-
-
-        Instance.Handlers[messageType].Add(handlerFunction);
+        else
+            Instance.Handlers[messageType] += (handlerFunction);
     }
 
     /**
@@ -49,23 +42,23 @@ public class MessageReader : MonoBehaviour
 
     Queue<ReceivedMessage> MessageQueue = new Queue<ReceivedMessage>(); // Queue des messages reçus. "First in first out".
 
-    Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
-                                                      // En leur faisant passer le Message.
-    /**
-     * <summary> Exécutée lorsque cette instance devient le singleton de cette classe. </summary>
-     **/ 
+    Dictionary<ushort, Action<NetworkMessageInfo, NetworkMessage>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
+                                                                             // En leur faisant passer le Message.
+                                                                             /**
+                                                                              * <summary> Exécutée lorsque cette instance devient le singleton de cette classe. </summary>
+                                                                              **/
     void Init()
     {
-        Debug.Log("Initialisation du MessageReader...");
-        Handlers = new Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>>();
+        Debugger.Log("Initialisation du MessageReader...");
+        Handlers = new Dictionary<ushort, Action<NetworkMessageInfo, NetworkMessage>>();
         Receiver = new NetworkReceiver();
     }
 
-    void Start()
+    void Awake()
     {
         if (Instance != null)
         {
-            Debug.Log("Seconde instance de MessageReader détectée ! Destruction...");
+            Debugger.Log("Seconde instance de MessageReader détectée ! Destruction...");
             Destroy(gameObject);
         }
         else
@@ -77,7 +70,7 @@ public class MessageReader : MonoBehaviour
 
     /**
      * <summary> Update() normal de la classe MonoBehaviour (component). Dans ce cas, s'occupe de traiter la queue des messages. </summary>
-     */ 
+     */
     void Update()
     {
         while (MessageQueue.Count > 0)
@@ -85,10 +78,7 @@ public class MessageReader : MonoBehaviour
             ReceivedMessage msg = MessageQueue.Dequeue();
             if (Handlers.ContainsKey(msg.Message.Type))
             {
-                foreach (Action<NetworkMessageInfo, NetworkMessage> handler in Handlers[msg.Message.Type])
-                {
-                    handler(msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.
-                }
+                Handlers[msg.Message.Type](msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.
             }
         }
 

@@ -7,7 +7,7 @@ using System.Text;
  * <summary> Structure de données contenant un ensemble de données correspondantes à un compte Client. </summary>
  */ 
 [Serializable]
-public struct AccountCredentials
+public class AccountCredentials
 {
     public string Username;
     public string Password;

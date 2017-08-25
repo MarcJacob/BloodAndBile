@@ -24,12 +24,11 @@ public class MatchesManager
     {
         MatchCreationMessage msg = (MatchCreationMessage)message;
         Client c = ClientsManager.GetClientFromConnectionID(info.ConnectionID);
-        string HostIP = NetworkSocket.GetIPFromConnectionID(info.ConnectionID);
+        ConnectionInfo coInfo = NetworkSocket.GetConnectionInfoFromConnectionID(info.ConnectionID);
         if (c != null && c.Connected())
         {
-            Debugger.Log("Création d'un nouveau match : " + '"' + msg.MatchName + '"' + ". Hôte : " + c.GetAccountName() + ' ' + HostIP);
-            Matches.Add(msg.MatchName, new Match(c,HostIP, msg.MatchName, msg.Password)); // Création du nouveau match.
-            MessageSender.Send(new MatchCreationResponseMessage(c.GetAccountName(), msg.Password, msg.MatchName, HostIP), info.ConnectionID);
+            Debugger.Log("Création d'un nouveau match : " + '"' + msg.MatchName + '"' + ". Hôte : " + c.GetAccountName() + ' ' + coInfo.IP + ' ' + coInfo.Port);
+            Matches.Add(msg.MatchName, new Match(c, coInfo.IP, coInfo.Port, msg.MatchName, msg.Password != "")); // Création du nouveau match.
         }
     }
 
@@ -45,7 +44,7 @@ public class MatchesManager
             m.Update();
             if (m.IsOver())
             {
-                cleanup.Add(m.GetName());
+                cleanup.Add(m.Info.MatchName);
             }
         }
 
@@ -56,11 +55,26 @@ public class MatchesManager
         }
     }
 
+    void SendMatchList(NetworkMessageInfo info, NetworkMessage msg)
+    {
+        List<MatchInfo> OpenMatches = new List<MatchInfo>();
+        foreach(Match match in Matches.Values)
+        {
+            if (match.MatchState == MATCH_STATE.OPEN_PUBLIC)
+            {
+                OpenMatches.Add(match.Info);
+            }
+        }
+
+        MessageSender.Send(new MatchListMessage(OpenMatches.ToArray()), info.ConnectionID, 0);
+    }
+
     public void Init()
     {
         // Setup des handlers
 
         MessageReader.AddHandler(1, NewMatch);
+        MessageReader.AddHandler(3, SendMatchList);
     }
     
 }

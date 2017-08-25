@@ -13,7 +13,7 @@ public class Client : MonoBehaviour
 
     static public void ChangeState(ClientState newState)
     {
-        State.Exit();
+        State.OnExit();
         State = newState;
         State.Init();
     }
@@ -42,12 +42,28 @@ public class Client : MonoBehaviour
     {
         GameObject.DontDestroyOnLoad(gameObject); // Fait que cet objet ne sera pas détruit lors d'un changement de scène.
         NetworkSocket.Initialise();
-        State = new MainMenuState();
+        State = new MainMenuState(); // Premier état : MainMenuState
         State.Init();
 
-        MessageReader.AddHandler(40002, MatchManager.OnMatchCreated);
-        MessageReader.AddHandler(20000, MatchManager.OnMatchConnected);
+        // Setup des handlers liés au MatchManager.
+        MatchManager.HandlersSetup();
+
+        // Setup des handlers liés au Client (messages de type 2xxxx ou 4xxxxx)
+        MessageReader.AddHandler(20000, OnConnectedToMatch);
+
+        //Setup des Inputs.
+        InputManager.AddHandler("Exit", Quit);
     }
+
+
+    /**
+     * <summary> Réponse à une demande d'identification du match. </summary>
+     */ 
+    public static void OnConnectedToMatch(NetworkMessageInfo info, NetworkMessage message)
+    {
+        MessageSender.Send(new MatchConnectionMessage(MasterServerConnectionManager.GetAccountCredentials().Username), info.ConnectionID, 0);
+    }
+
 
     private void Update()
     {
@@ -57,5 +73,11 @@ public class Client : MonoBehaviour
             State.Inputs();
             State.Update();
         }
+    }
+
+    void Quit(object[] parameters)
+    {
+        Debugger.Log("Fermeture du jeu...");
+        Application.Quit();
     }
 }

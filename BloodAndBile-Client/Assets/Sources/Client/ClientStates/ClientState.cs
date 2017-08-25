@@ -8,7 +8,7 @@ public abstract class ClientState
     public abstract void Init();
     public abstract void Inputs();
     public abstract void Update();
-    public abstract void Exit();
+    public abstract void OnExit();
 }
 
 /*

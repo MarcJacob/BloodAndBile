@@ -79,7 +79,7 @@ public static class NetworkSocket
         NetworkTransport.Connect(HostID, ip, port, 0, out error);
         if (error != 0)
         {
-            Debug.Log("ERREUR LORS DE L'ENVOIE D'UNE DEMANDE DE CONNEXION : " + (NetworkError)error);
+            Debugger.Log("ERREUR LORS DE L'ENVOIE D'UNE DEMANDE DE CONNEXION : " + (NetworkError)error);
         }
     }
 
@@ -122,7 +122,7 @@ public static class NetworkSocket
         NetworkTransport.Disconnect(HostID, coID, out error);
         if (error != 0)
         {
-            Debug.Log("ERREUR LORS DE L'ENVOIE D'UN SIGNAL DE DECONNEXION : " + (NetworkError)error);
+            Debugger.Log("ERREUR LORS DE L'ENVOIE D'UN SIGNAL DE DECONNEXION : " + (NetworkError)error);
         }
         else
         {
@@ -141,14 +141,13 @@ public static class NetworkSocket
         }
     }
 
-    static public string GetIPFromConnectionID(int coID)
+    static public ConnectionInfo GetConnectionInfoFromConnectionID(int coID)
     {
-        string IP;
-        int Port;
+        ConnectionInfo info = new ConnectionInfo();
         UnityEngine.Networking.Types.NetworkID ID;
         UnityEngine.Networking.Types.NodeID Node;
         byte error;
-        NetworkTransport.GetConnectionInfo(HostID, coID, out IP, out Port, out ID, out Node, out error);
-        return IP;
+        NetworkTransport.GetConnectionInfo(HostID, coID, out info.IP, out info.Port, out ID, out Node, out error);
+        return info;
     }
 }

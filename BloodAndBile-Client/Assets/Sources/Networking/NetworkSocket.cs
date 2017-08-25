@@ -60,10 +60,10 @@ public static class NetworkSocket
 
             config.PacketSize = 1470;
 
-            HostTopology ht = new HostTopology(config, 4);
+            HostTopology ht = new HostTopology(config, 12);
+            
 
-
-            HostID = NetworkTransport.AddHost(ht, Port);
+            HostID = NetworkTransport.AddHost(ht);
             Initialised = true;
         }
     }
@@ -79,7 +79,7 @@ public static class NetworkSocket
         NetworkTransport.Connect(HostID, ip, port, 0, out error);
         if (error != 0)
         {
-            Debug.Log("ERREUR LORS DE L'ENVOIE D'UNE DEMANDE DE CONNEXION : " + (NetworkError)error);
+            Debugger.Log("ERREUR LORS DE L'ENVOIE D'UNE DEMANDE DE CONNEXION : " + (NetworkError)error);
         }
     }
 
@@ -99,6 +99,11 @@ public static class NetworkSocket
         OnConnectionEstablishedCallback += cb;
     }
 
+    static public void UnregisterOnConnectionEstablishedCallback(Action<int> cb)
+    {
+        OnConnectionEstablishedCallback -= cb;
+    }
+
     /**
      * <summary> Déconnecte ce NetworkSocket de la connexion indiquée. </summary>
      */
@@ -108,7 +113,7 @@ public static class NetworkSocket
         NetworkTransport.Disconnect(HostID, coID, out error);
         if (error != 0)
         {
-            Debug.Log("ERREUR LORS DE L'ENVOIE D'UN SIGNAL DE DECONNEXION : " + (NetworkError)error);
+            Debugger.Log("ERREUR LORS DE L'ENVOIE D'UN SIGNAL DE DECONNEXION : " + (NetworkError)error);
         }
         else
         {

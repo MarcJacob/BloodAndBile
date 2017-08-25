@@ -41,19 +41,18 @@ public class NetworkReceiver
             }
             else
             {
-                Debug.Log("ERREUR - NETWORKRECEIVER - RECEPTION() - " + (NetworkError)error);
+                Debugger.Log("ERREUR - NETWORKRECEIVER - RECEPTION() - " + (NetworkError)error);
             }
         }
 
         switch(e)
         {
             case (NetworkEventType.ConnectEvent):
-                Debug.Log("Connexion établie. ID = " + recConnectionID);
+                Debugger.Log("Connexion établie. ID = " + recConnectionID);
                 NetworkSocket.OnConnectionEstablished(recConnectionID);
                 break;
             case (NetworkEventType.DisconnectEvent):
-                Debug.Log("Connexion fermée. ID = " + recConnectionID);
-                NetworkSocket.Disconnect(recConnectionID);
+                Debugger.Log("Connexion fermée. ID = " + recConnectionID);
                 break;
             case (NetworkEventType.DataEvent):
 

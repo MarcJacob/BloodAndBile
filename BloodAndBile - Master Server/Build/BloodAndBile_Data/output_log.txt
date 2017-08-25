@@ -1,0 +1,103 @@
+Initialize engine version: 2017.1.0f3 (472613c02cf7)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.1]
+    Renderer: NVIDIA GeForce GTX 1070 (ID=0x1b81)
+    Vendor:   NVIDIA
+    VRAM:     8120 MB
+    Driver:   22.21.13.8205
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.Timeline.dll (this message is harmless)
+Loading C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\UnityEngine.Timeline.dll into Unity Child Domain
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\System.dll (this message is harmless)
+Platform assembly: C:\Users\march\Documents\GitHub\BloodAndBile\BloodAndBile - Master Server\Build\BloodAndBile_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.021 seconds
+<RI> Initializing input.
+<RI> Input initialized.
+<RI> Initialized touch support.
+UnloadTime: 0.893444 ms
+Initialisation du MessageReader...
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'ConnectToMatch'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'CreateMatch'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'Exit'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'Log'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'Help'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'ConnectToMasterServer'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Nouvelle commande : 'SetAccountCredentials'
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 28fc -> priority: 1 
+  Thread -> id: 46a8 -> priority: 1 
+  Thread -> id: 28a0 -> priority: 1 
+  Thread -> id: 4ee8 -> priority: 1 
+---- ConnectToMasterServer lol LOL
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Tentative de connexion au Master Server. IP : 109.24.189.54 Port : 25000
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Connexion établie. ID = 1
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Envoi d'une demande d'authentification au Master Server.
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Authentification réussie !
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Liste des matchs reçue :
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Pas de matchs !
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Liste des matchs reçue :
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+Pas de matchs !
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+
+---- CreateMatch Test
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/DebugBindings.gen.cpp Line: 51)
+

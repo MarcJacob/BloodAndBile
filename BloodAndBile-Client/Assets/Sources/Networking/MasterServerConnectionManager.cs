@@ -21,7 +21,25 @@ public class MasterServerConnectionManager : MonoBehaviour
 
     static public void SetCredentials(string Username, string Password)
     {
-        Instance.Account = new AccountCredentials(Username, Password);
+        Instance.Account.Username = Username;
+        Instance.Account.Password = Password;
+    }
+
+    static public void SetCredentials(object[] parameters)
+    {
+        if (parameters.Length < 1)
+        {
+            Debugger.Log("ERREUR - Nombre d'arguments insuffisant pour SetCredentials() Fichier : MasterServerConnectionManager.cs", Color.red);
+        }
+        else
+        {
+            SetCredentials((string)parameters[0], (string)parameters[1]);
+        }
+    }
+
+    static public AccountCredentials GetAccountCredentials()
+    {
+        return Instance.Account;
     }
 
     static public int GetMasterServerConnectionID()
@@ -34,32 +52,51 @@ public class MasterServerConnectionManager : MonoBehaviour
     public string MasterServerIP; // - IP du Master Server. 
     public int MasterServerPort; // - Port du Master Server. // TODO : Charger l'IP et le Port du Master Server depuis un fichier de config.
 
-    AccountCredentials Account;
+    AccountCredentials Account = new AccountCredentials("", "");
 
+    bool CredentialsReady = false; // Les informations de compte ont-elles été tapés par l'utilisateur ?
     bool Connected = false; // Sommes-nous connectés au Master Server ?
     bool Authentified = false; // Sommes-nous authentifiés sur le Master Server ?
-    int MasterServerConnectionID;
+    int MasterServerConnectionID = -1; // -1 = déconnecté.
     float ConnectionAttemptFrequency = 0.1f; // Combien de fois par seconde essayons nous de nous connecter au Master Server ?
     float CurrentConnectionAttemptCooldown = 0f; // Cooldown
 
     /**
      * <summary> Tente une connexion au Master Server à l'IP MasterServerIP et au Port MasterServerPort. </summary>
      */ 
+    void AttemptConnection(object[] parameters)
+    {
+        CurrentConnectionAttemptCooldown = 1f / ConnectionAttemptFrequency;
+        if (parameters != null)
+        {
+            Account.Username = (string)parameters[0];
+            Account.Password = (string)parameters[1];
+        }
+        if (Account.IsValid())
+        {
+            NetworkSocket.ConnectTo(MasterServerIP, MasterServerPort);
+            Debugger.Log("Tentative de connexion au Master Server. IP : " + MasterServerIP + " Port : " + MasterServerPort);
+            CredentialsReady = true;
+        }
+        else
+            Debugger.Log("Informations de compte invalides !");
+    }
+
     void AttemptConnection()
     {
-        NetworkSocket.ConnectTo(MasterServerIP, MasterServerPort);
+        AttemptConnection(null);
     }
 
     /**
-    * <summary> Executé lorsque la connexion au Master Server n'est pas établie. </summary>
+    * <summary> Executé lorsque la connexion au Master Server n'est pas établie mais que le client souhaite être connecté (infos de compte
+    * tapés). </summary>
     */
     void StateDisconnected()
     {
         CurrentConnectionAttemptCooldown -= Time.deltaTime;
         if (CurrentConnectionAttemptCooldown <= 0)
         {
-            Debug.Log("Tentative de connexion au Master Server...");
-            CurrentConnectionAttemptCooldown = 1.0f / (float)ConnectionAttemptFrequency;
+            Debugger.Log("Tentative de connexion au Master Server...");
             AttemptConnection();
         }
     }
@@ -70,7 +107,9 @@ public class MasterServerConnectionManager : MonoBehaviour
      */
     void OnMasterServerDisconnected()
     {
-
+        Debugger.Log("Déconnecté du Master Server !");
+        Connected = false;
+        Authentified = false;
     }
 
     /**
@@ -88,9 +127,6 @@ public class MasterServerConnectionManager : MonoBehaviour
     {
         Connected = true;
         MasterServerConnectionID = info.ConnectionID;
-
-        Account.Username = "TestUsername";
-        Account.Password = "TestPassword";
         SendMasterServerAuthentificationRequest();
     }
 
@@ -100,7 +136,7 @@ public class MasterServerConnectionManager : MonoBehaviour
         {
             StateConnected();
         }
-        else
+        else if (CredentialsReady)
         {
             StateDisconnected();
         }
@@ -124,6 +160,9 @@ public class MasterServerConnectionManager : MonoBehaviour
     {
         MessageReader.AddHandler(40000, OnMasterServerConnected);
         MessageReader.AddHandler(40001, OnMasterServerAuthentificationResponse);
+
+        InputManager.AddHandler("ConnectToMasterServer", AttemptConnection);
+        InputManager.AddHandler("SetAccountCredentials", SetCredentials);
     }
 
     /**
@@ -133,20 +172,14 @@ public class MasterServerConnectionManager : MonoBehaviour
     {
         Debugger.Log("Envoi d'une demande d'authentification au Master Server.");
         // Vérifier que les informations sont valides.
-        bool accountValid = Account.IsValid();
-        if (Connected && accountValid)
+        if (Connected)
         {
             // Envoyer les informations de compte en réponse au Master Server.
             MessageSender.Send(new AuthentificationMessage(Account.Username, Account.Password), MasterServerConnectionID, 0);
         }
         else
         {
-            if (!Connected)
-            {
-                Debugger.Log("Impossible d'envoyer une demande d'authentification sans être connecté !");
-            }
-            else
-                Debugger.Log("Informations de compte invalides !");
+            Debugger.Log("Impossible d'envoyer une demande d'authentification sans être connecté !");
         }
 
     }
@@ -163,7 +196,6 @@ public class MasterServerConnectionManager : MonoBehaviour
         {
             Authentified = true;
             Debugger.Log("Authentification réussie !");
-            Client.ChangeState(new HostingState());
         }
     }
 }

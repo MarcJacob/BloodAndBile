@@ -9,12 +9,18 @@ CLIENT : de 0 à 20000 (exclu)
 	MatchManager - HostMatch()
 
 2 : Authentification du client au match.
-	MatchData - OnClientIdentified()
+	TODO
+
+3 : Demande de la liste des matchs.
+	MainMenuState - Update()
 
 MATCH : de 20000 à 40000 (exclu)
 
 20000 : Demande d'authentification au client.
-	MatchManager - OnMatchConnected()
+	HostingState - SendIdentificationRequest()
+
+20001 : Réponse à une identification du client.
+	HostingState - SendIdentificationResponse()
 
 
 
@@ -26,6 +32,5 @@ MASTER SERVER : de 40000 à 65536
 40001 : Réponse à une tentative d'authentification. Contient l'acceptation ou le refus de l'authentification et dans le dernier cas la raison.
 	ClientsManager - SendAuthentificationResponse()
 
-40002 : Réponse du serveur au client quand le Match a été créé.
-	MatchesManager - NewMatch()
+40002 : Réponse du serveur au client demandant une liste des matchs ouverts.
 

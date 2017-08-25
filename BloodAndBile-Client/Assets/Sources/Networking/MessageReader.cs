@@ -24,17 +24,19 @@ public class MessageReader : MonoBehaviour
     {
         if (!Instance.Handlers.ContainsKey(messageType))
         {
-            Instance.Handlers.Add(messageType, new List<Action<NetworkMessageInfo, NetworkMessage>>());
+            Instance.Handlers.Add(messageType, handlerFunction);
         }
-        if (Instance.Handlers[messageType].Contains(handlerFunction))
+        else
+            Instance.Handlers[messageType] += (handlerFunction);
+    }
+
+    static public void RemoveHandler(ushort messageType, Action<NetworkMessageInfo, NetworkMessage> handlerFunction)
+    {
+        if (Instance.Handlers.ContainsKey(messageType))
         {
-            Debug.Log("ATTENTION - MESSAGE READER - ADDHANDLER() - Le handler " + handlerFunction.Method.Name + " a déjà été crée pour le type de message " + messageType + " !");
-            return;
+            Instance.Handlers[messageType] -= handlerFunction;
         }
 
-
-
-        Instance.Handlers[messageType].Add(handlerFunction);
     }
 
     /**
@@ -49,15 +51,15 @@ public class MessageReader : MonoBehaviour
 
     Queue<ReceivedMessage> MessageQueue = new Queue<ReceivedMessage>(); // Queue des messages reçus. "First in first out".
 
-    Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
+    Dictionary<ushort, Action<NetworkMessageInfo, NetworkMessage>> Handlers; // Dictionnaire liant un type de message à un ensemble de fonctions "Handler" à exécuter
                                                       // En leur faisant passer le Message.
     /**
      * <summary> Exécutée lorsque cette instance devient le singleton de cette classe. </summary>
      **/ 
     void Init()
     {
-        Debug.Log("Initialisation du MessageReader...");
-        Handlers = new Dictionary<ushort, List<Action<NetworkMessageInfo, NetworkMessage>>>();
+        Debugger.Log("Initialisation du MessageReader...");
+        Handlers = new Dictionary<ushort, Action<NetworkMessageInfo, NetworkMessage>>();
         Receiver = new NetworkReceiver();
     }
 
@@ -65,7 +67,7 @@ public class MessageReader : MonoBehaviour
     {
         if (Instance != null)
         {
-            Debug.Log("Seconde instance de MessageReader détectée ! Destruction...");
+            Debugger.Log("Seconde instance de MessageReader détectée ! Destruction...");
             Destroy(gameObject);
         }
         else
@@ -85,11 +87,7 @@ public class MessageReader : MonoBehaviour
             ReceivedMessage msg = MessageQueue.Dequeue();
             if (Handlers.ContainsKey(msg.Message.Type))
             {
-                List<Action<NetworkMessageInfo, NetworkMessage>> handlers = Handlers[msg.Message.Type];
-                foreach (Action<NetworkMessageInfo, NetworkMessage> handler in Handlers[msg.Message.Type])
-                {
-                    handler(msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.
-                }
+                Handlers[msg.Message.Type](msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.
             }
         }
 

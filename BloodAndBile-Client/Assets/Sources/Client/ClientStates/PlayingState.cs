@@ -10,27 +10,16 @@ public class PlayingState : ClientState
 {
     // Propriétés.
 
-    string MatchIP; // IP de l'hôte du match.
+    MatchData Match; // Match en cours
+    string[] Lobby;
+    int HostConnectionID;
 
-    //
-
-        // CONSTRUCTEUR
-
-        /**
-         * <summary> Initialise le PlayingState. Nécessite une adresse IP ("127.0.0.1" si localhost) pour savoir à quel match se connecter.
-         *  </summary>
-         */ 
-    public PlayingState(string IP)
-    {
-        MatchIP = IP;
-    }
-    
     /**
         * <summary> Tentative de connexion au Match à l'IP spécifiée dans le constructeur et setup des handlers. </summary>
         */ 
     public override void Init()
     {
-        NetworkSocket.ConnectTo(MatchIP, NetworkSocket.Port);
+        MessageReader.AddHandler(20002, OnMatchInfoReceived);
     }
 
     public override void Inputs()
@@ -43,8 +32,16 @@ public class PlayingState : ClientState
         
     }
 
-    public override void Exit()
+    public override void OnExit()
     {
         
+    }
+
+    void OnMatchInfoReceived(NetworkMessageInfo info, NetworkMessage msg)
+    {
+        HostConnectionID = info.ConnectionID;
+        MatchInfoMessage message = (MatchInfoMessage)msg;
+        Match.UpdateMatchInfo(message.Info);
+        Lobby = message.Lobby;
     }
 }
