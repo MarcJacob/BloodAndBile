@@ -1,0 +1,18 @@
+Asset = "Possession" en anglais.
+
+Assets = endroit où toutes les données de jeu sont présentes (code source, modèles, textures, animations....)
+
+Comment les organiser ?
+
+4 dossiers : Bulk, Resources, Sources et Misc
+
+Resources contient tous les fichiers qu'il faudra charger au début ou durant l'utilisation de l'application. Il peut par exemple contenir des Prefabs, des matériaux (textures et effets particules)... Dès que vous voulez utiliser
+Resources.Load avec quelque chose, il doit se trouver dans ce dossier ou dans un dossier en dessous de celui ci.
+
+Sources contient l'INTEGRALITE du code source du jeu. Chaque fichier est trié dans des dossiers et sous dossier en fonction de son rôle. L'objectif est de pouvoir rapidement aller se renseigner sur le fonctionnement du code dans une
+certaine partie du jeu. Il est TRES important que le trie soit CONSISTANT et soit fait SANS EXCEPTIONS.
+
+Bulk contient le reste des fichiers. Les fichiers dans Bulk ne seront pas chargés directement en mémoire en jeu mais seront utilisés dans la plupart des cas pour constituer des objets qui eux se trouveront dans Resources. Bulk
+contient notamment tous les fichiers importés (fichiers .blend pour les modèles 3D, fichiers image pour les textures..).
+
+Misc contient des fichiers inclassables mais auquel nous souhaitons un accès rapide et simple à retenir, comme par exemple ce fichier. Ne pas en abuser !

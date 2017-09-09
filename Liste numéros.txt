@@ -2,35 +2,23 @@
 
 CLIENT : de 0 à 20000 (exclu)
 
-0 : Tentative d'authentification au Master Server.
-	MasterServerConnectionManager - SendMasterServerAuthentificationRequest()
+0 : Demande de transfert de la liste des Match Servers au Master Server.
+	Client - MatchServerSearchState - SendMatchServersListRequest()
 
-1 : Signal de création d'un Match.
-	MatchManager - HostMatch()
-
-2 : Authentification du client au match.
-	TODO
-
-3 : Demande de la liste des matchs.
-	MainMenuState - Update()
 
 MATCH : de 20000 à 40000 (exclu)
 
-20000 : Demande d'authentification au client.
-	HostingState - SendIdentificationRequest()
 
-20001 : Réponse à une identification du client.
-	HostingState - SendIdentificationResponse()
+MASTER SERVER : de 40000 à 60000 (exclu)
 
+Confondus : de 60000 à 65536
 
+60000 : Message d'authentification.
+	Client - LoginState - SendMasterServerAuthentificationMessage()
+	Client - MatchMaking - SendMatchServerAuthentificationMessage()
+	MatchServer - MasterServerConnectionModule - SendMasterServerAuthentificationMessage()
 
-MASTER SERVER : de 40000 à 65536
-
-40000 : Demande d'authentification au client.
-	MasterServer - OnClientConnected()
-
-40001 : Réponse à une tentative d'authentification. Contient l'acceptation ou le refus de l'authentification et dans le dernier cas la raison.
-	ClientsManager - SendAuthentificationResponse()
-
-40002 : Réponse du serveur au client demandant une liste des matchs ouverts.
-
+60001 : Message de réponse.
+	MasterServer - ClientsManagerModule - SendClientAuthentificationResponse()
+	MasterServer - MatchServersManagerModule - SendMatchServerAuthentificationResponse()
+	MatchServer - ClientsManagerModule - SendClientAuthentificationResponse()

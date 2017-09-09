@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{4DF41301-A14B-4175-8B9F-03F90E4F372D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <NoStandardLibraries>false</NoStandardLibraries>
+    <AssemblyName>BloodAndBileEngine</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Builds\DLLs\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Builds\DLLs\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RootNamespace>BloodAndBileEngine</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="UnityEditor">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Debug\Console.cs" />
+    <Compile Include="Debug\ConsoleLine.cs" />
+    <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Input\InputHandlersManager.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Networking\ConnectionInfo.cs" />
+    <Compile Include="Networking\HandlersManager.cs" />
+    <Compile Include="Networking\MessageReader.cs" />
+    <Compile Include="Networking\MessageSender.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessageInfo.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\AuthentificationMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\ConditionCheckResponseMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\IPListMessage.cs" />
+    <Compile Include="Networking\Messaging\ReceivedMessage.cs" />
+    <Compile Include="Networking\Messaging\SentMessage.cs" />
+    <Compile Include="Networking\NetworkReceiver.cs" />
+    <Compile Include="Networking\NetworkSocket.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Networking\Messaging\A lire.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
+  <ProjectExtensions>
+    <VisualStudio AllowExistingFolder="true" />
+  </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>call Deploy.bat</PostBuildEvent>
+  </PropertyGroup>
+</Project>

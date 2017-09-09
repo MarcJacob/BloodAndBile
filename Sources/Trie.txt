@@ -1,0 +1,3 @@
+Ici expliquer le rôle de chaque sous-dossier.
+
+Engine : Contient l'ensemble du code source "tech" utilisé par tous les programmes Blood And Bile, comme le Networking ou le Debugger.

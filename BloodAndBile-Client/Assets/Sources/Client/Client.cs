@@ -1,83 +1,57 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BloodAndBileEngine.Networking;
 
 /**
- * <summary> Gère l'état actuel du client (Menu principal, en recherche, en connexion, en cours de match, post-match). 
- * Contient les informations de Match comme les joueurs présents. </summary>
- */
-public class Client : MonoBehaviour
-{
-    // Gestion de l'état du client && Singleton.
-    static ClientState State; // Etat actuel du client.
+ * <summary> Gestion des états du client et de la transition entre eux. </summary>
+ * 
+ * SINGLETON
+ */ 
+public class Client : MonoBehaviour {
 
-    static public void ChangeState(ClientState newState)
-    {
-        State.OnExit();
-        State = newState;
-        State.Init();
-    }
-
+    // STATIC
     static Client Instance;
-    //_______________________________________________    
-
-    void Start()
+    static IClientState CurrentState;
+    static public IClientState GetCurrentState()
     {
-        // Si l'Instance n'a pas encore été "revendiquée", la prendre. Sinon, détruire cet objet.
-        if (Instance == null)
+        return CurrentState;
+    }
+    static public void ChangeState(IClientState state)
+    {
+        if (CurrentState != null)
+        CurrentState.OnExit();
+
+        CurrentState = state;
+        CurrentState.OnEntry();
+    }
+    //
+
+	void Start () {
+	    if (Instance == null)
         {
             Instance = this;
-            Init();
-        }
+            NetworkSocket.Initialise(24999); // Initialise un Socket pour cette application sur le port 24999.
+        }	
         else
         {
             Destroy(gameObject);
         }
-    }
+	}
 
-    /**
-     * <summary> Exécutée quand cette instance de Client devient le Singleton. </summary>
-     */
-    private void Init()
+	void Update ()
     {
-        GameObject.DontDestroyOnLoad(gameObject); // Fait que cet objet ne sera pas détruit lors d'un changement de scène.
-        NetworkSocket.Initialise();
-        State = new MainMenuState(); // Premier état : MainMenuState
-        State.Init();
-
-        // Setup des handlers liés au MatchManager.
-        MatchManager.HandlersSetup();
-
-        // Setup des handlers liés au Client (messages de type 2xxxx ou 4xxxxx)
-        MessageReader.AddHandler(20000, OnConnectedToMatch);
-
-        //Setup des Inputs.
-        InputManager.AddHandler("Exit", Quit);
-    }
-
-
-    /**
-     * <summary> Réponse à une demande d'identification du match. </summary>
-     */ 
-    public static void OnConnectedToMatch(NetworkMessageInfo info, NetworkMessage message)
-    {
-        MessageSender.Send(new MatchConnectionMessage(MasterServerConnectionManager.GetAccountCredentials().Username), info.ConnectionID, 0);
-    }
-
-
-    private void Update()
-    {
-        // Exécution de l'état actuel.
-        if (State != null)
+		if (CurrentState != null)
         {
-            State.Inputs();
-            State.Update();
+            CurrentState.OnUpdate();
         }
-    }
+        else
+        {
+            ChangeState(new LoginState());
+        }
+	}
 
-    void Quit(object[] parameters)
-    {
-        Debugger.Log("Fermeture du jeu...");
-        Application.Quit();
-    }
+    // INFORMATIONS CLIENT (Statiques)
+
+    static public string Username;
 }
