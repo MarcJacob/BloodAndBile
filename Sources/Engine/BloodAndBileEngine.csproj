@@ -52,6 +52,7 @@
     <Compile Include="Debug\Console.cs" />
     <Compile Include="Debug\ConsoleLine.cs" />
     <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />
@@ -71,6 +72,7 @@
   <ItemGroup>
     <Content Include="Networking\Messaging\A lire.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />
