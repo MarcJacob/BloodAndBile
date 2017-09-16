@@ -100,6 +100,7 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
+Assets/Sources/Actor/Actor.cs
 Assets/Sources/Client/Client.cs
 Assets/Sources/Client/States/IClientState.cs
 Assets/Sources/Client/States/LoginState.cs

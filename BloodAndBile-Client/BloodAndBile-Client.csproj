@@ -83,6 +83,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Sources\Actor\Actor.cs" />
     <Compile Include="Assets\Sources\Client\Client.cs" />
     <Compile Include="Assets\Sources\Client\States\IClientState.cs" />
     <Compile Include="Assets\Sources\Client\States\LoginState.cs" />
