@@ -10,6 +10,8 @@ public static class MatchCreator
 {
     public static Match CreateMatch(int[] players)
     {
-        return new Match();
+        Match m = new Match();
+        m.SetPlayerConnectionIDs(players);
+        return m;
     }
 }

@@ -9,10 +9,14 @@ public class MatchesManagerModule : IMatchServerModule
     MatchUpdater[] Updaters;
     int PlayersPerMatch = 1;
 
-    public MatchesManagerModule(PlayersManagerModule players, int maxUpdaters = 20)
+    public MatchesManagerModule(PlayersManagerModule players, int maxUpdaters = 1)
     {
         PlayersManager = players;
         Updaters = new MatchUpdater[maxUpdaters];
+        for(int i = 0; i < maxUpdaters; i++)
+        {
+            Updaters[i] = new MatchUpdater();
+        }
     }
 
     public void Update()
@@ -40,6 +44,7 @@ public class MatchesManagerModule : IMatchServerModule
                     if (Updaters[currentUpdaterID].GetNumberOfMatches() <= matchesPerUpdater)
                     {
                         Updaters[currentUpdaterID].AddMatch(newMatch);
+                        BloodAndBileEngine.Debugger.Log("Création d'un match !");
                         matchesPerUpdater = -1;
                     }
                     else

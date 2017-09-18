@@ -22,4 +22,13 @@ public class MatchState
         CurrentMatch = match;
     }
 
+    public MatchState()
+    {
+
+    }
+
+    public void SetMatch(Match m)
+    {
+        CurrentMatch = m;
+    }
 }

@@ -8,7 +8,7 @@ using System.Text;
  */ 
 public class MatchModule
 {
-    Match ModuleMatch; // Référence au Match actuel.
+    protected Match ModuleMatch; // Référence au Match actuel.
 
     public MatchModule(Match m)
     {

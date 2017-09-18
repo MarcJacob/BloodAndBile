@@ -24,7 +24,8 @@ namespace BloodAndBileEngine
                                                                          * 3 = UnreliableStateUpdate,
                                                                          * 4 = ReliableSequenced,
                                                                          * 5 = UnreliableFragmented, 
-                                                                         * 6 = ReliableFragmented </summary>
+                                                                         * 6 = ReliableFragmented 
+                                                                         * 7 = StateUpdate </summary>
                                                                          */
             static public List<byte> ChannelIDs { get; set; } // Liste des canaux.
 
@@ -59,6 +60,9 @@ namespace BloodAndBileEngine
                                                                                    // gros car il est possible de les envoyer en fragments.
                     ChannelIDs.Add(config.AddChannel(QosType.UnreliableFragmented)); // Canal UnreliableFragmented : comme ReliableFragmented, mais les messages ne seront
                                                                                      // pas forcément reçus.
+
+                    ChannelIDs.Add(config.AddChannel(QosType.StateUpdate)); // Canal StateUpdate : comme un unreliable, mais seul le message le plus
+                    // récent sera lu (si un message arrive en retard, il ne sera pas lu).
 
                     config.PacketSize = 1470;
 
