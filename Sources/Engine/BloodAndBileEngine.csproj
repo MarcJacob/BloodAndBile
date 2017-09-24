@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -54,6 +54,8 @@
     <Compile Include="Debug\Debugger.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Map\Cell.cs" />
+    <Compile Include="Map\World.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />
     <Compile Include="Networking\HandlersManager.cs" />
     <Compile Include="Networking\MessageReader.cs" />
@@ -69,6 +71,7 @@
     <Compile Include="Networking\NetworkSocket.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Map\Description.txt" />
     <Content Include="Networking\Messaging\A lire.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSHARP.Targets" />
