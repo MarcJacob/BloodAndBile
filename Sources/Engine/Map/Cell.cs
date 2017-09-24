@@ -22,6 +22,9 @@ public class Cell
         Entities = new List<Entity>();
     }
 
-
+    public void AddEntity(Entity entity)
+    {
+        Entities.Add(entity);
+    }
 
 }

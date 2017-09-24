@@ -22,7 +22,7 @@ public abstract class Entity
         Rotation = rot;
         Size = size;
         Height = height;
-        world.GetCellFromPosition(pos).Entities.add(this);
+        world.GetCellFromPosition(pos).AddEntity(this);
         Destroyed = false;
     }
 
