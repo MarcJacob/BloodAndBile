@@ -33,6 +33,12 @@ public class Match
         return null;
     }
 
+    public T AddModule<T>(T module) where T : MatchModule
+    {
+        Modules.Add(module);
+        return module;
+    }
+
     public void Start()
     {
         BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnPlayerDisconnected);
@@ -62,12 +68,6 @@ public class Match
         {
             BloodAndBileEngine.Networking.MessageSender.Send(message, coID, channelID);
         }
-    }
-
-    MatchModule AddModule(MatchModule module)
-    {
-        Modules.Add(module);
-        return module;
     }
 
     public void Update()

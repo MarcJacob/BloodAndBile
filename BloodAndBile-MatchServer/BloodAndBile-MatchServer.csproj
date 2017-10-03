@@ -88,6 +88,7 @@
     <Compile Include="Assets\Sources\Match\MatchModules\IStateUpdater.cs" />
     <Compile Include="Assets\Sources\Match\MatchModules\MatchModule.cs" />
     <Compile Include="Assets\Sources\Match\MatchModules\StateUpdateModule.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\WorldStateModule.cs" />
     <Compile Include="Assets\Sources\Match\MatchStates\MatchState.cs" />
     <Compile Include="Assets\Sources\MatchServer\MatchServer.cs" />
     <Compile Include="Assets\Sources\MatchServer\MatchUpdater\MatchUpdater.cs" />

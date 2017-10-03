@@ -70,6 +70,10 @@
     <Compile Include="Networking\Messaging\SentMessage.cs" />
     <Compile Include="Networking\NetworkReceiver.cs" />
     <Compile Include="Networking\NetworkSocket.cs" />
+    <Compile Include="WorldState\WorldState.cs" />
+    <Compile Include="WorldState\WorldStateData\CellSystem\Cell.cs" />
+    <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />
+    <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Networking\Messaging\A lire.txt" />

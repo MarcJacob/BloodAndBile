@@ -41,7 +41,7 @@ namespace BloodAndBileEngine
         {
             Destroyed = true;
         }
-        public abstract void Update();
+        public abstract void Update(float deltaTime);
 
     }
 }
