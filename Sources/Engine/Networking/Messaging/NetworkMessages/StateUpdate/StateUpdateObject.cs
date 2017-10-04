@@ -34,6 +34,6 @@ namespace BloodAndBileEngine.Networking.Messaging.NetworkMessages
 
     public enum StateUpdateObjectType
     {
-        // Exemple : ENTITY_POSITIONS = 0
+        ENTITY_POSITIONS = 0,
     }
 }

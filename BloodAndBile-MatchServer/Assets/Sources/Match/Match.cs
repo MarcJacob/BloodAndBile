@@ -43,7 +43,6 @@ public class Match
     {
         BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnPlayerDisconnected);
 
-        AddModule(new StateUpdateModule(this));
         foreach (MatchModule modules in Modules)
         {
             modules.Initialise(); // Initialisation des modules.

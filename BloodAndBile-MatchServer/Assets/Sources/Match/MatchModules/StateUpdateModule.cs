@@ -41,6 +41,8 @@ public class StateUpdateModule : MatchModule
     public override void Update()
     {
         base.Update();
+        CookStateUpdate();
+        SendStateUpdate();
     }
 
     public override void Stop()

@@ -16,7 +16,7 @@ namespace BloodAndBileEngine.WorldState
 
         List<Entity> EntitiesInCell = new List<Entity>(); // Entités présentes dans cette cellule.
 
-        WeakReference CellSystemRef;
+        WeakReference CellSystemRef; // Référence "faible" : n'empêchera pas le garbage collector de se débarasser du CellSystem lié.
         CellSystem GetCellSystem()
         {
             if (CellSystemRef.IsAlive)
@@ -34,7 +34,7 @@ namespace BloodAndBileEngine.WorldState
             Position = pos;
             Dimensions = dim;
             Heights = h;
-            CellSystemRef.Target = system;
+            CellSystemRef = new WeakReference(system);
         }
 
         /// <summary>
@@ -87,6 +87,11 @@ namespace BloodAndBileEngine.WorldState
         public void AddEntity(Entity e)
         {
             if (!EntitiesInCell.Contains(e)) EntitiesInCell.Add(e);
+        }
+
+        public Entity[] GetEntities()
+        {
+            return EntitiesInCell.ToArray();
         }
 
         public void UpdateEntities(float deltaTime)

@@ -105,6 +105,7 @@ Assets/Sources/Match/MatchCreator.cs
 Assets/Sources/Match/MatchModules/IStateUpdater.cs
 Assets/Sources/Match/MatchModules/MatchModule.cs
 Assets/Sources/Match/MatchModules/StateUpdateModule.cs
+Assets/Sources/Match/MatchModules/WorldStateModule.cs
 Assets/Sources/Match/MatchStates/MatchState.cs
 Assets/Sources/MatchServer/MatchServer.cs
 Assets/Sources/MatchServer/MatchUpdater/MatchUpdater.cs
