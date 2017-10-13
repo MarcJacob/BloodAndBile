@@ -14,26 +14,16 @@ namespace BloodAndBileEngine.Networking.Messaging.NetworkMessages
     /// le client, mais il pourrait aussi arriver trop tard et se faire "remplacer" par un autre StateUpdate plus récent
     /// (le client ne lira que le dernier message reçu).
     /// </summary>
+    [Serializable]
     public struct StateUpdateObject
     {
-        public StateUpdateObjectType Type;
+        public string Type;
         public object Information;
 
-        public StateUpdateObject(int typeNumber, object info)
-        {
-            Information = info;
-            Type = (StateUpdateObjectType)typeNumber;
-        }
-
-        public StateUpdateObject(StateUpdateObjectType type, object info)
+        public StateUpdateObject(string type, object info)
         {
             Information = info;
             Type = type;
         }
-    }
-
-    public enum StateUpdateObjectType
-    {
-        ENTITY_POSITIONS = 0,
     }
 }

@@ -8,7 +8,22 @@ using System.Text;
  */ 
 public class MatchModule
 {
-    protected Match ModuleMatch; // Référence au Match actuel.
+    protected Match ModuleMatch// Référence au Match actuel.
+    {
+        get
+        {
+            if (match.IsAlive)
+                return (Match)match.Target;
+            else
+                return null;
+        }
+        set
+        {
+            match.Target = value;
+        }
+    }
+
+    private WeakReference match = new WeakReference(null);
 
     public MatchModule(Match m)
     {

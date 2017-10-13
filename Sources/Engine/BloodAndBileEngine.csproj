@@ -62,6 +62,7 @@
     <Compile Include="Networking\Messaging\NetworkMessageInfo.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\AuthentificationMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\CellArrayMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\ConditionCheckResponseMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\IPListMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateMessage.cs" />

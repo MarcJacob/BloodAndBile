@@ -123,8 +123,8 @@ public class MatchmakingState : IClientState
 
     void OnMatchStarted(BloodAndBileEngine.Networking.NetworkMessageInfo info, BloodAndBileEngine.Networking.NetworkMessage message)
     {
-        BloodAndBileEngine.Debugger.Log("Match started !");
-        // Switch vers le PlayingState.
 
+        // Switch vers le OnlinePlayingState.
+        Client.ChangeState(new OnlinePlayingState(MatchServerConnectionID));
     }
 }

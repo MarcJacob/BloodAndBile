@@ -12,6 +12,7 @@ public class StateUpdateModule : MatchModule
     IStateUpdater[] StateUpdaterModules; // Ensemble des modules participants à la construction de messages StateUpdate.
 
     BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateMessage StateUpdateMessage;
+    BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateConstructionMessage StateConstructionMessage;
 
     public StateUpdateModule(Match match) : base(match)
     {
@@ -35,7 +36,8 @@ public class StateUpdateModule : MatchModule
         StateUpdaterModules = StateUpdaters.ToArray();
 
         BloodAndBileEngine.Debugger.Log("StateUpdateModule Initialisé ! " + StateUpdaterModules.Length + " modules StateUpdater.");
-
+        CookConstructionState();
+        SendStateConstruction();
     }
 
     public override void Update()
@@ -62,7 +64,7 @@ public class StateUpdateModule : MatchModule
 
         foreach(IStateUpdater module in StateUpdaterModules)
         {
-            foreach(BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject stateUpdate in module.GetStateUpdateInformations())
+            foreach(BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject stateUpdate in module.GetStateUpdateInformation())
             {
                 stateUpdates.Add(stateUpdate);
             }
@@ -71,11 +73,31 @@ public class StateUpdateModule : MatchModule
         StateUpdateMessage = new BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateMessage(stateUpdates.ToArray());
     }
 
+    void CookConstructionState()
+    {
+        List<BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject> stateUpdates = new List<BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject>();
+
+        foreach (IStateUpdater module in StateUpdaterModules)
+        {
+            foreach (BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject stateUpdate in module.GetConstructionStateInformation())
+            {
+                stateUpdates.Add(stateUpdate);
+            }
+        }
+
+        StateConstructionMessage = new BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateConstructionMessage(stateUpdates.ToArray());
+    }
+
     /// <summary>
     /// Envoi le message StateUpdate dans son état actuel vers les joueurs connectés à ce match sur le canal 7.
     /// </summary>
     void SendStateUpdate()
     {
-        ModuleMatch.SendMessageToPlayers(StateUpdateMessage, 7);
+        ModuleMatch.SendMessageToPlayers(StateUpdateMessage, 1);
+    }
+
+    void SendStateConstruction()
+    {
+        ModuleMatch.SendMessageToPlayers(StateConstructionMessage, 0);
     }
 }

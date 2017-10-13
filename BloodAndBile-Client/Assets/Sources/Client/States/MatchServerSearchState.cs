@@ -106,6 +106,8 @@ public class MatchServerSearchState : IClientState
         else
         {
             BloodAndBileEngine.Debugger.Log("Pas de Match Servers !", UnityEngine.Color.red);
+            // Retour au MainMenuState
+            Client.ChangeState(new MainMenuState());
         }
     }
 

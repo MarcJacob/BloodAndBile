@@ -25,7 +25,7 @@ public class MasterServerConnectionModule : IMatchServerModule
 
     string MasterServerIP = "127.0.0.1"; // IP par défaut : local.
     string MasterServerPassword = "DevMatchServer"; // Mot de passe par défaut.
-    string MyIP = "109.24.189.54"; // IP de Match Server par défaut.
+    string MyIP = "127.0.0.1"; // IP de Match Server par défaut.
 
     void SetMasterServerInfos(object[] args)
     {

@@ -12,12 +12,12 @@ public static class MatchCreator
     {
         Match m = new Match();
         m.SetPlayerConnectionIDs(players);
-        m.AddModule<WorldStateModule>(new WorldStateModule(m)); // Création du World State lié au match
+        m.AddModule<MapStateModule>(new MapStateModule(m)); // Création du World State lié au match
         m.AddModule<StateUpdateModule>(new StateUpdateModule(m)); // Création du module StateUpdate
 
         // Création du WorldState initial.
 
-        BloodAndBileEngine.WorldState.WorldState startWorldState = m.GetModule<WorldStateModule>().GetWorldState();
+        BloodAndBileEngine.WorldState.WorldState startWorldState = m.GetModule<MapStateModule>().GetWorldState();
         // Objectif : initialise le startWorldState en fonction des informations dont on dispose.
 
         // INITIALISER TOUS LES WorldStateData ici !

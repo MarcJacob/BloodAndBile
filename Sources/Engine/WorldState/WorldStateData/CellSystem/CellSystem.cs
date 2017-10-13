@@ -17,7 +17,7 @@ namespace BloodAndBileEngine.WorldState
     public class CellSystem : IWorldStateData
     {
         Cell[] Cells;
-
+        float[] ConstructionData;
         /// <summary>
         /// Initialise un CellSystem à partir d'un tableau de float.
         /// Taille du tableau : Nombre de cellules * (3+2+2) = Nombre de cellules * 7.
@@ -50,6 +50,7 @@ namespace BloodAndBileEngine.WorldState
 
                 // Initialisation du tableau Cells
                 Cells = cells.ToArray();
+                ConstructionData = data;
             }
         }
 
@@ -84,6 +85,11 @@ namespace BloodAndBileEngine.WorldState
         public Cell[] GetCells()
         {
             return Cells;
+        }
+
+        public float[] GetCellConstructionData()
+        {
+            return ConstructionData;
         }
     }
 }

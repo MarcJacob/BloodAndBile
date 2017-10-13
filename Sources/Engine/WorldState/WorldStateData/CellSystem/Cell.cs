@@ -8,6 +8,7 @@ using System.Text;
 /// </summary>
 namespace BloodAndBileEngine.WorldState
 {
+    [Serializable]
     public class Cell
     {
         UnityEngine.Vector3 Position; // Position de l'angle nord-ouest de cette cellule.

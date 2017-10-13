@@ -10,8 +10,6 @@ public class Match
 
     public bool Ongoing = true; // Ce match est-il en cours ?
 
-    MatchState CurrentState;
-
     List<MatchModule> Modules = new List<MatchModule>();
 
     public MatchModule[] GetModules()
@@ -43,14 +41,17 @@ public class Match
     {
         BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnPlayerDisconnected);
 
+
+        // Envoi d'un message de commencement du match.
+        BloodAndBileEngine.Networking.NetworkMessage message = new BloodAndBileEngine.Networking.NetworkMessage(20001);
+        SendMessageToPlayers(message, 0);
+
+        // Initialisation des modules
         foreach (MatchModule modules in Modules)
         {
             modules.Initialise(); // Initialisation des modules.
         }
 
-        // Envoi d'un message de commencement du match.
-        BloodAndBileEngine.Networking.NetworkMessage message = new BloodAndBileEngine.Networking.NetworkMessage(20001);
-        SendMessageToPlayers(message, 0);
     }
 
     public void SetPlayerConnectionIDs(int[] ids)
