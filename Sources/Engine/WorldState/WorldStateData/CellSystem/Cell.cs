@@ -11,6 +11,9 @@ namespace BloodAndBileEngine.WorldState
     [Serializable]
     public class Cell
     {
+        int ID; // ID de cette cellule. Est déterminé par sa place dans le tableau des cellules du CellSystem.
+
+
         UnityEngine.Vector3 Position; // Position de l'angle nord-ouest de cette cellule.
         UnityEngine.Vector2 Dimensions; // Longueur et largeur de la cellule.
         UnityEngine.Vector2 Heights; // Hauteurs de l'angle nord-est et sud-ouest. 0 = plat par rapport à l'angle nord-ouest.
@@ -30,11 +33,12 @@ namespace BloodAndBileEngine.WorldState
             }
         }
 
-        public Cell(CellSystem system, UnityEngine.Vector3 pos, UnityEngine.Vector2 dim, UnityEngine.Vector2 h)
+        public Cell(CellSystem system, int id, UnityEngine.Vector3 pos, UnityEngine.Vector2 dim, UnityEngine.Vector2 h)
         {
             Position = pos;
             Dimensions = dim;
             Heights = h;
+            ID = id;
             CellSystemRef = new WeakReference(system);
         }
 
@@ -53,8 +57,10 @@ namespace BloodAndBileEngine.WorldState
         {
             if (Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
             {
-                float xHeight = Dimensions.x / Heights.x * x;
-                float yHeight = Dimensions.y / Heights.y * y;
+                x = (x - Position.x) / Dimensions.x;
+                y = (y - Position.y) / Dimensions.y;
+                float xHeight = Heights.x * x;
+                float yHeight = Heights.y * y;
 
                 return Position.y + xHeight + yHeight; // ATTENTION : Pour Position, l'élément y est la hauteur !
             }
@@ -87,8 +93,33 @@ namespace BloodAndBileEngine.WorldState
 
         public void AddEntity(Entity e)
         {
-            if (!EntitiesInCell.Contains(e)) EntitiesInCell.Add(e);
+            if (!EntitiesInCell.Contains(e)) { EntitiesInCell.Add(e); e.SetCellID(ID); }
         }
+
+        public void RemoveEntity(Entity e)
+        {
+            EntitiesInCell.Remove(e);
+        }
+
+        public void RemoveEntity(int entityID)
+        {
+            int index = -1;
+            int i = 0;
+            while (index < 0 && i < EntitiesInCell.Count)
+            {
+                if (EntitiesInCell[i].ID == entityID)
+                {
+                    index = i;
+                }
+                else
+                {
+                    i++;
+                }
+            }
+
+            if (index >= 0) EntitiesInCell.RemoveAt(index);
+        } // Devrait être légèrement plus rapide que la surcharge prenant
+        // une entité en paramètre.
 
         public Entity[] GetEntities()
         {
@@ -127,6 +158,10 @@ namespace BloodAndBileEngine.WorldState
                         }
                     }
                 }
+            }
+            foreach(Entity e in DestroyedEntities)
+            {
+                EntitiesInCell.Remove(e);
             }
         }
     }

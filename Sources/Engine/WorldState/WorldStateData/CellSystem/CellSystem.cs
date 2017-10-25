@@ -44,7 +44,7 @@ namespace BloodAndBileEngine.WorldState
                     UnityEngine.Vector3 cellPos = new UnityEngine.Vector3(data[cellID], data[cellID + 1], data[cellID + 2]);
                     UnityEngine.Vector2 cellDimensions = new UnityEngine.Vector2(data[cellID + 3], data[cellID + 4]);
                     UnityEngine.Vector2 cellHeights = new UnityEngine.Vector2(data[cellID + 5], data[cellID + 6]);
-                    newCell = new Cell(this, cellPos, cellDimensions, cellHeights);
+                    newCell = new Cell(this, cellID / 7, cellPos, cellDimensions, cellHeights);
                     cells.Add(newCell);
                 }
 

@@ -7,6 +7,7 @@ using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 /// le StateUpdate contenant les informations importantes sur les entités comme :
 /// - Leur position
 /// - Leur rotation
+/// - Ce que les modules d'entité souhaitent ajouter.
 /// (Ajouter à la liste au fur et à mesure).
 /// </summary>
 public class EntitiesStateModule : MatchModule, IStateUpdater
