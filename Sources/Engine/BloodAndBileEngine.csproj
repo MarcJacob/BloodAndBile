@@ -56,6 +56,7 @@
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
     <Compile Include="Entities\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
+    <Compile Include="Entities\EntityComponentSynchroniser\EntitySynchronizationDataObject.cs" />
     <Compile Include="Entities\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />

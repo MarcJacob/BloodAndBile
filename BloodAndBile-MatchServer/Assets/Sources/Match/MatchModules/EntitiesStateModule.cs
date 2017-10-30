@@ -12,6 +12,9 @@ using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 /// </summary>
 public class EntitiesStateModule : MatchModule, IStateUpdater
 {
+    List<int> CreatedEntitiesID; // Identifiant des entités créées depuis le dernier StateUpdate.
+
+
     public EntitiesStateModule(Match match) : base(match)
     {
 
@@ -32,13 +35,31 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Stop();
     }
 
+    // Lance une mise à jour de chaque EntitySynchroniserComponent et regroupe leurs
+    // EntitySynchronizationDataObjects dans un objet StateUpdateObject portant le nom "EntitySynchronization".
+    // Renvoi également un StateUpdateObject "CreatedEntities" et un StateUpdateObject "DestroyedEntities".
     public StateUpdateObject[] GetStateUpdateInformation()
     {
+        StateUpdateObject EntitySyncObject = new StateUpdateObject("EntitySynchronization", null);
+        List<BloodAndBileEngine.EntitySynchronizationDataObject> SyncDataObjectList = new List<BloodAndBileEngine.EntitySynchronizationDataObject>();
+        foreach(BloodAndBileEngine.Entity entity in ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetAllEntities())
+        {
+            BloodAndBileEngine.EntitySynchroniserComponent syncComponent = entity.GetComponent<BloodAndBileEngine.EntitySynchroniserComponent>();
+            if (syncComponent != null)
+            {
+                syncComponent.Update(0f);
+                SyncDataObjectList.Add(syncComponent.GetSynchronizationData());
+            }
+        }
+
+        EntitySyncObject.Information = SyncDataObjectList.ToArray();
+        return new StateUpdateObject[] { EntitySyncObject };
 
     }
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
-
+        // Pas d'informations de construction.
+        return new StateUpdateObject[0];
     }
 }

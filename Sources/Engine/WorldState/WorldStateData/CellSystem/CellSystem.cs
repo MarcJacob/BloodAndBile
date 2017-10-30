@@ -91,5 +91,20 @@ namespace BloodAndBileEngine.WorldState
         {
             return ConstructionData;
         }
+
+        // Renvoi l'intégralité des Entités se trouvant dans ce CellSystem.
+        public Entity[] GetAllEntities()
+        {
+            List<Entity> entities = new List<Entity>();
+            foreach(Cell cell in Cells)
+            {
+                foreach(Entity entity in cell.GetEntities())
+                {
+                    entities.Add(entity);
+                }
+            }
+
+            return entities.ToArray();
+        }
     }
 }

@@ -15,7 +15,7 @@ namespace BloodAndBileEngine.Networking.Messaging.NetworkMessages
     /// (le client ne lira que le dernier message reçu).
     /// </summary>
     [Serializable]
-    public struct StateUpdateObject
+    public class StateUpdateObject
     {
         public string Type;
         public object Information;

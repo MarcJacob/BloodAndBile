@@ -10,8 +10,46 @@ using System.Text;
 /// </summary>
 namespace BloodAndBileEngine
 {
-    class EntitySynchroniserComponent
+    public class EntitySynchroniserComponent : EntityComponent
     {
+        EntitySynchronizationDataObject SynchData; // Données de synchronisation.
+        // Modifiées soit par une Update de ce component ou la réception
+        // d'un StateUpdate contenant le StateUpdateObject portant le nom
+        // "EntitiesSynchronization".
 
+
+        public EntitySynchroniserComponent(Entity linked) : base(linked)
+        {
+            SynchData = new EntitySynchronizationDataObject(linked.ID);
+        }
+
+        public EntitySynchronizationDataObject GetSynchronizationData()
+        {
+            return SynchData;
+        }
+
+        public override void Initialise()
+        {
+            
+        }
+
+        // Met à jour l'objet "EntitySynchroniserObject" lié à cette instance.
+        public override void Update(float deltaTime)
+        {
+            // A chaque synchronisation : récolte des données de synchronisation auprès de chaque
+            // component de l'entité implémentant IEntitySynchroniser.
+            foreach(EntityComponent component in LinkedEntity.GetComponents())
+            {
+                if (component is IEntitySynchroniser)
+                {
+                    ((IEntitySynchroniser)component).GetSynchInfo(SynchData);
+                }
+            }
+        }
+
+        public override uint GetComponentID()
+        {
+            return 0; // Component ID 0 : Le Synchronizer lui même.
+        }
     }
 }

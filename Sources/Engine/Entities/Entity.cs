@@ -9,8 +9,8 @@ namespace BloodAndBileEngine
 {
     public class Entity
     {
-        public int ID { get; private set; }
-        protected static int LastID = 0; // Les ID d'entité sont distribuées au niveau machine ! Pour un MatchServer, il n'y aura qu'une seule
+        public uint ID { get; private set; }
+        protected static uint LastID = 0; // Les ID d'entité sont distribuées au niveau machine ! Pour un MatchServer, il n'y aura qu'une seule
         // entité 0 pour tous les matchs, par exemple.
         public Vector3 Position { get; set; }
         public Quaternion Rotation { get; set; }
@@ -51,6 +51,11 @@ namespace BloodAndBileEngine
                 }
             }
             return null;
+        }
+
+        public EntityComponent[] GetComponents()
+        {
+            return Components.ToArray();
         }
 
         public Entity(Vector3 pos, Quaternion rot, float size, float height)
@@ -107,7 +112,7 @@ namespace BloodAndBileEngine
         }
         public override int GetHashCode()
         {
-            return ID;
+            return (int)ID;
         }
     }
 }

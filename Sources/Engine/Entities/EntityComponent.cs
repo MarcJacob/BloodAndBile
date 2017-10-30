@@ -11,7 +11,7 @@ namespace BloodAndBileEngine
 {
     public abstract class EntityComponent
     {
-        Entity LinkedEntity; // Entité auquel ce Component est lié.
+        protected Entity LinkedEntity; // Entité auquel ce Component est lié.
 
         public EntityComponent(Entity linked)
         {
@@ -20,5 +20,10 @@ namespace BloodAndBileEngine
 
         abstract public void Initialise(); // Appelé lorsque ce Component est ajouté à une Entité.
         abstract public void Update(float deltaTime); // Appelé à chaque mise à jour de l'entité.
+
+        // Renvoi l'identifiant du Component.
+        // Utilisé pour la synchronisation des Components sur un réseau : l'identifiant de chaque
+        // components sera le même sur toutes les machines.
+        abstract public uint GetComponentID();
     }
 }
