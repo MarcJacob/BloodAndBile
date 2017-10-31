@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 728306815}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -108,77 +108,6 @@ NavMeshSettings:
     tileSize: 256
     accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &21341193
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 5
-  m_Component:
-  - component: {fileID: 21341196}
-  - component: {fileID: 21341195}
-  - component: {fileID: 21341194}
-  m_Layer: 0
-  m_Name: Terrain
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
-  m_IsActive: 1
---- !u!154 &21341194
-TerrainCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 21341193}
-  m_Material: {fileID: 0}
-  m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 5dffb59f422e0084eb3b9d494f72b562, type: 2}
-  m_EnableTreeColliders: 1
---- !u!218 &21341195
-Terrain:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 21341193}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_TerrainData: {fileID: 15600000, guid: 5dffb59f422e0084eb3b9d494f72b562, type: 2}
-  m_TreeDistance: 5000
-  m_TreeBillboardDistance: 50
-  m_TreeCrossFadeLength: 5
-  m_TreeMaximumFullLODCount: 50
-  m_DetailObjectDistance: 80
-  m_DetailObjectDensity: 1
-  m_HeightmapPixelError: 5
-  m_SplatMapDistance: 1000
-  m_HeightmapMaximumLOD: 0
-  m_CastShadows: 1
-  m_DrawHeightmap: 1
-  m_DrawTreesAndFoliage: 1
-  m_ReflectionProbeUsage: 1
-  m_MaterialType: 0
-  m_LegacySpecular:
-    serializedVersion: 2
-    rgba: 4286545791
-  m_LegacyShininess: 0.078125
-  m_MaterialTemplate: {fileID: 0}
-  m_BakeLightProbesForTrees: 1
-  m_ScaleInLightmap: 0.0512
-  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
---- !u!4 &21341196
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 21341193}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 7
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &230323394
 GameObject:
   m_ObjectHideFlags: 0
@@ -203,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 230323394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1137725539, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
+  m_Script: {fileID: 1137725539, guid: b57383949b41eff4082063ae4388ae4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Frequency: 20
@@ -249,7 +178,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 670340024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1081237219, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
+  m_Script: {fileID: -1081237219, guid: b57383949b41eff4082063ae4388ae4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextLinePrefab: {fileID: 1612439136291140, guid: 403c2b7766afdb44681983c10b2a496f,
@@ -669,7 +598,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: 
 --- !u!222 &756360940
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -836,7 +765,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1490976139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1521079683, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
+  m_Script: {fileID: 1521079683, guid: b57383949b41eff4082063ae4388ae4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1490976141

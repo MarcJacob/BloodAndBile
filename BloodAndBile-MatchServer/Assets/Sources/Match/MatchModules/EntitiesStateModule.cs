@@ -32,13 +32,13 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Stop();
     }
 
-    public StateUpdateObject[] GetStateUpdateInformation()
+    public StateUpdateObject[] GetStateUpdateInformation() 
     {
-
+        return null;
     }
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
-
+        return null;
     }
 }

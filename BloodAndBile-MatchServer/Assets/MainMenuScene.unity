@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -178,22 +178,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 670340024}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1581665741, guid: eb1a6d82edc2e5f46853726c75fca794, type: 3}
+  m_Script: {fileID: -1081237219, guid: 74bd52a2e0026c944854668736dcc056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextArea: {fileID: 0}
-  CommandInput: {fileID: 0}
-  NumberOfLines: 0
-  HeightPerLine: 18
-  TextLines: []
-  Enabled: 1
   TextLinePrefab: {fileID: 1612439136291140, guid: 403c2b7766afdb44681983c10b2a496f,
     type: 2}
-  helpColor:
-    r: 0
-    g: 1
-    b: 1
-    a: 1
 --- !u!114 &670340026
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -314,8 +303,6 @@ MonoBehaviour:
   m_Script: {fileID: -1081237219, guid: a8b3e432ae2212445833f9766d979292, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TextLinePrefab: {fileID: 1612439136291140, guid: 403c2b7766afdb44681983c10b2a496f,
-    type: 2}
 --- !u!1 &671300501
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,20 +485,6 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
-  m_FalloffTable:
-    m_Table[0]: 0
-    m_Table[1]: 0
-    m_Table[2]: 0
-    m_Table[3]: 0
-    m_Table[4]: 0
-    m_Table[5]: 0
-    m_Table[6]: 0
-    m_Table[7]: 0
-    m_Table[8]: 0
-    m_Table[9]: 0
-    m_Table[10]: 0
-    m_Table[11]: 0
-    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -627,7 +600,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 801933300}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1137725539, guid: a8b3e432ae2212445833f9766d979292, type: 3}
+  m_Script: {fileID: 1137725539, guid: 74bd52a2e0026c944854668736dcc056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Frequency: 20
@@ -668,7 +641,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 963445514}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1521079683, guid: a8b3e432ae2212445833f9766d979292, type: 3}
+  m_Script: {fileID: 1521079683, guid: 74bd52a2e0026c944854668736dcc056, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &963445516
