@@ -15,10 +15,18 @@ public class MainMenuState : IClientState
 
     public void OnEntry()
     {
+
         NetworkHandlers = new BloodAndBileEngine.Networking.HandlersManager();
         InputHandlers = new InputHandlersManager();
         BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnDisconnected);
         InputHandlers.Add("StartMatchmaking", StartMatchmaking);
+        if (ClientConnectionsManager.GetConnectionIDFromName("MasterServer") == -1)
+        {
+            BloodAndBileEngine.Debugger.Log("Pas de connexion à un Master Server ! Retour au LoginState...", UnityEngine.Color.red);
+            Client.ChangeState(new LoginState());
+        }
+
+
     }
 
     public void OnUpdate()
@@ -30,6 +38,7 @@ public class MainMenuState : IClientState
     {
         BloodAndBileEngine.Networking.NetworkSocket.UnregisterOnDisconnectionCallback(OnDisconnected);
         NetworkHandlers.Clear();
+        InputHandlers.Clear();
     }
 
     void OnDisconnected(int coID)

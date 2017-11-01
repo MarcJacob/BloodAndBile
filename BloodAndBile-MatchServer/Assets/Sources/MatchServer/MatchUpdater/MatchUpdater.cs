@@ -9,11 +9,13 @@ using System.Threading;
 public class MatchUpdater
 {
     Thread UpdateThread;
-    List<Match> Matches; // Ensemble de matchs à mettre à jour.
+    List<Match> Matches = new List<Match>(); // Ensemble de matchs à mettre à jour.
 
     public MatchUpdater()
     {
+        // Création du Thread de mise à jour du match.
         UpdateThread = new Thread(() => { while (true) { UpdateMatches(); } });
+        BloodAndBileEngine.Debugger.Log("Création MatchUpdater...");
         UpdateThread.Start();
     }
 
@@ -21,6 +23,7 @@ public class MatchUpdater
     {
         if(!Matches.Contains(m))
         {
+            BloodAndBileEngine.Debugger.Log("Ajout d'un match au MatchUpdater !");
             Matches.Add(m);
             m.Start();
         }
@@ -28,9 +31,19 @@ public class MatchUpdater
 
     void UpdateMatches()
     {
+        List<Match> endedMatches = new List<Match>();
         foreach(Match match in Matches)
         {
             match.Update();
+            if (match.Ongoing == false)
+            {
+                endedMatches.Add(match);
+            }
+        }
+
+        foreach(Match match in endedMatches)
+        {
+            Matches.Remove(match);
         }
     }
 

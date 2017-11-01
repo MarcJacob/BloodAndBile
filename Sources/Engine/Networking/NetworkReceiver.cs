@@ -19,7 +19,7 @@ namespace BloodAndBileEngine
         public class NetworkReceiver
         {
             public const int STANDARD_BUFFER_SIZE = 1024;
-            public const int FRAGMENTED_BUFFER_SIZE = 1024 * 32; // Le nombre de fragments maximal est de 32.
+            public const int FRAGMENTED_BUFFER_SIZE = 1024 * 10; // Le nombre de fragments maximal est de 32.
 
             // FORMATEUR BINAIRE
             static BinaryFormatter Formatter = new BinaryFormatter();

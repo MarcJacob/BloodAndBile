@@ -52,7 +52,11 @@
     <Compile Include="Debug\Console.cs" />
     <Compile Include="Debug\ConsoleLine.cs" />
     <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Entities\Controllers\Controller.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\EntityComponent.cs" />
+    <Compile Include="Entities\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
+    <Compile Include="Entities\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Map\Cell.cs" />
@@ -64,12 +68,20 @@
     <Compile Include="Networking\Messaging\NetworkMessageInfo.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\AuthentificationMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\CellArrayMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\ConditionCheckResponseMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\IPListMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateObject.cs" />
     <Compile Include="Networking\Messaging\ReceivedMessage.cs" />
     <Compile Include="Networking\Messaging\SentMessage.cs" />
     <Compile Include="Networking\NetworkReceiver.cs" />
     <Compile Include="Networking\NetworkSocket.cs" />
+    <Compile Include="WorldState\WorldState.cs" />
+    <Compile Include="WorldState\WorldStateData\CellSystem\Cell.cs" />
+    <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />
+    <Compile Include="WorldState\WorldStateData\ControllersManager\ControllersManager.cs" />
+    <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Map\Description.txt" />

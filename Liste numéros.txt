@@ -8,6 +8,14 @@ CLIENT : de 0 à 20000 (exclu)
 
 MATCH : de 20000 à 40000 (exclu)
 
+20000 : Message StateUpdate (mise à jour régulière des "World" locaux aux clients par rapport au World du MatchServer).
+
+20002 : IDEM, mais contient les informations de "construction" (Premier StateUpdate après la création d'un match).
+
+20001 : Message de signal du début d'un match.
+	MatchServer - Match - Start()
+
+
 
 MASTER SERVER : de 40000 à 60000 (exclu)
 

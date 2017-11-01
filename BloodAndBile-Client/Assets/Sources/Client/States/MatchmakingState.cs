@@ -51,6 +51,7 @@ public class MatchmakingState : IClientState
 
             BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnConnectionLost);
             BloodAndBileEngine.Networking.NetworkSocket.RegisterOnConnectionEstablishedCallback(OnConnectionEstablished);
+            NetworkHandlers.Add<BloodAndBileEngine.Networking.NetworkMessage>(20001, OnMatchStarted);
             NetworkHandlers.Add<BloodAndBileEngine.Networking.NetworkMessages.ConditionCheckResponseMessage>(60001, OnAuthentificationResponseReceived);
 
             ConnectToMatchServer(); // Lancement de la connexion au Match Server.
@@ -120,5 +121,10 @@ public class MatchmakingState : IClientState
         }
     }
 
+    void OnMatchStarted(BloodAndBileEngine.Networking.NetworkMessageInfo info, BloodAndBileEngine.Networking.NetworkMessage message)
+    {
 
+        // Switch vers le OnlinePlayingState.
+        Client.ChangeState(new OnlinePlayingState(MatchServerConnectionID));
+    }
 }

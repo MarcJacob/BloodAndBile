@@ -7700,7 +7700,11 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
     </member>
     <member name="P:UnityEngine.Caching.enabled">
       <summary>
+<<<<<<< HEAD
         <para>Is Caching enabled?</para>
+=======
+        <para>Gets or sets the current cache in which AssetBundles should be cached.</para>
+>>>>>>> master
       </summary>
     </member>
     <member name="P:UnityEngine.Caching.expirationDelay">
@@ -7715,7 +7719,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
     </member>
     <member name="P:UnityEngine.Caching.ready">
       <summary>
-        <para>Is caching ready?</para>
+        <para>Returns true if Caching system is ready for use.</para>
       </summary>
     </member>
     <member name="P:UnityEngine.Caching.spaceFree">
@@ -7732,6 +7736,7 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <summary>
         <para>This is a WebPlayer-only function.</para>
       </summary>
+<<<<<<< HEAD
       <param name="string">Signature The authentification signature provided by Unity.</param>
       <param name="int">Size The number of bytes allocated to this cache.</param>
       <param name="name"></param>
@@ -7739,6 +7744,13 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <param name="size"></param>
       <param name="signature"></param>
       <param name="expiration"></param>
+=======
+      <param name="assetBundleName">The AssetBundle name.</param>
+      <param name="hash">Version needs to be cleaned.</param>
+      <returns>
+        <para>Returns true when cache clearing succeeded.  Can return false if any cached bundle is in use.</para>
+      </returns>
+>>>>>>> master
     </member>
     <member name="M:UnityEngine.Caching.Authorize(System.String,System.String,System.Int64,System.Int32,System.String)">
       <summary>
@@ -7784,10 +7796,20 @@ See Also: WWW.assetBundle, WWW.LoadFromCacheOrDownload.</param>
       <summary>
         <para>Checks if an AssetBundle is cached.</para>
       </summary>
-      <param name="string">Url The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
-      <param name="int">Version The version number of the AssetBundle to check for. Negative values are not allowed.</param>
-      <param name="url"></param>
-      <param name="version"></param>
+      <param name="url">The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
+      <param name="version">The version number of the AssetBundle to check for. Negative values are not allowed.</param>
+      <param name="hash">Hash128 which is used as the version of the AssetBundle.</param>
+      <returns>
+        <para>True if an AssetBundle matching the url and version parameters has previously been loaded using WWW.LoadFromCacheOrDownload() and is currently stored in the cache. Returns false if the AssetBundle is not in cache, either because it has been flushed from the cache or was never loaded using the Caching API.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Caching.IsVersionCached(System.String,UnityEngine.Hash128)">
+      <summary>
+        <para>Checks if an AssetBundle is cached.</para>
+      </summary>
+      <param name="url">The filename of the AssetBundle. Domain and path information are stripped from this string automatically.</param>
+      <param name="version">The version number of the AssetBundle to check for. Negative values are not allowed.</param>
+      <param name="hash">Hash128 which is used as the version of the AssetBundle.</param>
       <returns>
         <para>True if an AssetBundle matching the url and version parameters has previously been loaded using WWW.LoadFromCacheOrDownload() and is currently stored in the cache. Returns false if the AssetBundle is not in cache, either because it has been flushed from the cache or was never loaded using the Caching API.</para>
       </returns>
@@ -15986,7 +16008,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
+      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
     </member>
@@ -15995,7 +16017,7 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
+      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
     </member>
@@ -16004,9 +16026,25 @@ Changing this value affects any subsequently loaded shaders. Initially this valu
         <para>Copies source texture into destination render texture with a shader.</para>
       </summary>
       <param name="source">Source texture.</param>
-      <param name="dest">Destination RenderTexture, or null to blit directly to screen.</param>
+      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
       <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
       <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
+<<<<<<< HEAD
+=======
+      <param name="offset">Offset applied to the source texture coordinate.</param>
+      <param name="scale">Scale applied to the source texture coordinate.</param>
+    </member>
+    <member name="M:UnityEngine.Graphics.Blit(UnityEngine.Texture,UnityEngine.RenderTexture,UnityEngine.Vector2,UnityEngine.Vector2)">
+      <summary>
+        <para>Copies source texture into destination render texture with a shader.</para>
+      </summary>
+      <param name="source">Source texture.</param>
+      <param name="dest">The destination RenderTexture. Set this to null to blit directly to screen. See description for more information.</param>
+      <param name="mat">Material to use. Material's shader could do some post-processing effect, for example.</param>
+      <param name="pass">If -1 (default), draws all passes in the material. Otherwise, draws given pass only.</param>
+      <param name="offset">Offset applied to the source texture coordinate.</param>
+      <param name="scale">Scale applied to the source texture coordinate.</param>
+>>>>>>> master
     </member>
     <member name="M:UnityEngine.Graphics.BlitMultiTap(UnityEngine.Texture,UnityEngine.RenderTexture,UnityEngine.Material,UnityEngine.Vector2[])">
       <summary>
@@ -22662,9 +22700,19 @@ Only usable on Android, Windows Phone or Windows Tablets.</para>
         <para>iPad Pro 9.7", first generation.</para>
       </summary>
     </member>
+    <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro10Inch2Gen">
+      <summary>
+        <para>iPad Pro 10.5", second generation 10" iPad.</para>
+      </summary>
+    </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro1Gen">
       <summary>
-        <para>iPad Pro, first generation.</para>
+        <para>iPad Pro 12.9", first generation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.iOS.DeviceGeneration.iPadPro2Gen">
+      <summary>
+        <para>iPad Pro 12.9", second generation.</para>
       </summary>
     </member>
     <member name="F:UnityEngine.iOS.DeviceGeneration.iPadUnknown">
@@ -35410,9 +35458,11 @@ To get the current particle age, simply multiply X by Y.</para>
       <summary>
         <para>Makes the collision detection system ignore all collisions between collider1 and collider2.</para>
       </summary>
+      <param name="start">Start point.</param>
+      <param name="end">End point.</param>
+      <param name="ignore">Ignore collision.</param>
       <param name="collider1"></param>
       <param name="collider2"></param>
-      <param name="ignore"></param>
     </member>
     <member name="M:UnityEngine.Physics.IgnoreLayerCollision(System.Int32,System.Int32,System.Boolean)">
       <summary>
@@ -43070,7 +43120,16 @@ A scene may be invalid if, for example, you tried to open a scene that does not 
       <param name="lhs"></param>
       <param name="rhs"></param>
     </member>
+<<<<<<< HEAD
     <member name="?:UnityEngine.SceneManagement.Scene.op_NotEqual(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene)">
+=======
+    <member name="P:UnityEngine.RenderTexture.vrUsage">
+      <summary>
+        <para>If this RenderTexture is a VR eye texture used in stereoscopic rendering, this property decides what special rendering occurs, if any.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.RenderTexture.width">
+>>>>>>> master
       <summary>
         <para>Returns true if the Scenes are different.</para>
       </summary>
@@ -43148,19 +43207,45 @@ A scene may be invalid if, for example, you tried to open a scene that does not 
       <summary>
         <para>Get a scene struct from a build index.</para>
       </summary>
+<<<<<<< HEAD
       <param name="buildIndex">Build index as shown in the Build Settings window.</param>
       <returns>
         <para>A reference to the scene, if valid. If not, an invalid scene is returned.</para>
       </returns>
+=======
+      <param name="width">Width in pixels.</param>
+      <param name="height">Height in pixels.</param>
+      <param name="depthBuffer">Depth buffer bits (0, 16 or 24). Note that only 24 bit depth has stencil buffer.</param>
+      <param name="format">Render texture format.</param>
+      <param name="readWrite">Color space conversion mode.</param>
+      <param name="msaaSamples">Number of antialiasing samples to store in the texture. Valid values are 1, 2, 4, and 8. Throws an exception if any other value is passed.</param>
+      <param name="memorylessMode">Render texture memoryless mode.</param>
+      <param name="desc">Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.</param>
+      <param name="antiAliasing"></param>
+      <param name="vrUsage"></param>
+>>>>>>> master
     </member>
     <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneByName(System.String)">
       <summary>
         <para>Searches through the scenes added to the SceneManager for a scene with the given name.</para>
       </summary>
+<<<<<<< HEAD
       <param name="name">Name of scene to find.</param>
       <returns>
         <para>A reference to the scene, if valid. If not, an invalid scene is returned.</para>
       </returns>
+=======
+      <param name="width">Width in pixels.</param>
+      <param name="height">Height in pixels.</param>
+      <param name="depthBuffer">Depth buffer bits (0, 16 or 24). Note that only 24 bit depth has stencil buffer.</param>
+      <param name="format">Render texture format.</param>
+      <param name="readWrite">Color space conversion mode.</param>
+      <param name="msaaSamples">Number of antialiasing samples to store in the texture. Valid values are 1, 2, 4, and 8. Throws an exception if any other value is passed.</param>
+      <param name="memorylessMode">Render texture memoryless mode.</param>
+      <param name="desc">Use this RenderTextureDesc for the settings when creating the temporary RenderTexture.</param>
+      <param name="antiAliasing"></param>
+      <param name="vrUsage"></param>
+>>>>>>> master
     </member>
     <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneByPath(System.String)">
       <summary>
@@ -44062,7 +44147,2683 @@ You can only move root GameObjects from one Scene to another. This means the Gam
     </member>
     <member name="M:UnityEngine.ShaderVariantCollection.Clear">
       <summary>
+<<<<<<< HEAD
         <para>Remove all shader variants from the collection.</para>
+=======
+        <para>Adds a force to the Rigidbody.</para>
+      </summary>
+      <param name="force">Force vector in world coordinates.</param>
+      <param name="mode">Type of force to apply.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddForce(UnityEngine.Vector3,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a force to the Rigidbody.</para>
+      </summary>
+      <param name="force">Force vector in world coordinates.</param>
+      <param name="mode">Type of force to apply.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddForce(System.Single,System.Single,System.Single)">
+      <summary>
+        <para>Adds a force to the Rigidbody.</para>
+      </summary>
+      <param name="x">Size of force along the world x-axis.</param>
+      <param name="y">Size of force along the world y-axis.</param>
+      <param name="z">Size of force along the world z-axis.</param>
+      <param name="mode">Type of force to apply.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddForce(System.Single,System.Single,System.Single,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a force to the Rigidbody.</para>
+      </summary>
+      <param name="x">Size of force along the world x-axis.</param>
+      <param name="y">Size of force along the world y-axis.</param>
+      <param name="z">Size of force along the world z-axis.</param>
+      <param name="mode">Type of force to apply.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddForceAtPosition(UnityEngine.Vector3,UnityEngine.Vector3)">
+      <summary>
+        <para>Applies force at position. As a result this will apply a torque and force on the object.</para>
+      </summary>
+      <param name="force">Force vector in world coordinates.</param>
+      <param name="position">Position in world coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddForceAtPosition(UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.ForceMode)">
+      <summary>
+        <para>Applies force at position. As a result this will apply a torque and force on the object.</para>
+      </summary>
+      <param name="force">Force vector in world coordinates.</param>
+      <param name="position">Position in world coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeForce(UnityEngine.Vector3)">
+      <summary>
+        <para>Adds a force to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="force">Force vector in local coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeForce(UnityEngine.Vector3,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a force to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="force">Force vector in local coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeForce(System.Single,System.Single,System.Single)">
+      <summary>
+        <para>Adds a force to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="x">Size of force along the local x-axis.</param>
+      <param name="y">Size of force along the local y-axis.</param>
+      <param name="z">Size of force along the local z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeForce(System.Single,System.Single,System.Single,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a force to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="x">Size of force along the local x-axis.</param>
+      <param name="y">Size of force along the local y-axis.</param>
+      <param name="z">Size of force along the local z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeTorque(UnityEngine.Vector3)">
+      <summary>
+        <para>Adds a torque to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="torque">Torque vector in local coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeTorque(UnityEngine.Vector3,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a torque to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="torque">Torque vector in local coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeTorque(System.Single,System.Single,System.Single)">
+      <summary>
+        <para>Adds a torque to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="x">Size of torque along the local x-axis.</param>
+      <param name="y">Size of torque along the local y-axis.</param>
+      <param name="z">Size of torque along the local z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddRelativeTorque(System.Single,System.Single,System.Single,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a torque to the rigidbody relative to its coordinate system.</para>
+      </summary>
+      <param name="x">Size of torque along the local x-axis.</param>
+      <param name="y">Size of torque along the local y-axis.</param>
+      <param name="z">Size of torque along the local z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddTorque(UnityEngine.Vector3)">
+      <summary>
+        <para>Adds a torque to the rigidbody.</para>
+      </summary>
+      <param name="torque">Torque vector in world coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddTorque(UnityEngine.Vector3,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a torque to the rigidbody.</para>
+      </summary>
+      <param name="torque">Torque vector in world coordinates.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddTorque(System.Single,System.Single,System.Single)">
+      <summary>
+        <para>Adds a torque to the rigidbody.</para>
+      </summary>
+      <param name="x">Size of torque along the world x-axis.</param>
+      <param name="y">Size of torque along the world y-axis.</param>
+      <param name="z">Size of torque along the world z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.AddTorque(System.Single,System.Single,System.Single,UnityEngine.ForceMode)">
+      <summary>
+        <para>Adds a torque to the rigidbody.</para>
+      </summary>
+      <param name="x">Size of torque along the world x-axis.</param>
+      <param name="y">Size of torque along the world y-axis.</param>
+      <param name="z">Size of torque along the world z-axis.</param>
+      <param name="mode"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.ClosestPointOnBounds(UnityEngine.Vector3)">
+      <summary>
+        <para>The closest point to the bounding box of the attached colliders.</para>
+      </summary>
+      <param name="position"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.GetPointVelocity(UnityEngine.Vector3)">
+      <summary>
+        <para>The velocity of the rigidbody at the point worldPoint in global space.</para>
+      </summary>
+      <param name="worldPoint"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.GetRelativePointVelocity(UnityEngine.Vector3)">
+      <summary>
+        <para>The velocity relative to the rigidbody at the point relativePoint.</para>
+      </summary>
+      <param name="relativePoint"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.IsSleeping">
+      <summary>
+        <para>Is the rigidbody sleeping?</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.MovePosition(UnityEngine.Vector3)">
+      <summary>
+        <para>Moves the rigidbody to position.</para>
+      </summary>
+      <param name="position">The new position for the Rigidbody object.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.MoveRotation(UnityEngine.Quaternion)">
+      <summary>
+        <para>Rotates the rigidbody to rotation.</para>
+      </summary>
+      <param name="rot">The new rotation for the Rigidbody.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.ResetCenterOfMass">
+      <summary>
+        <para>Reset the center of mass of the rigidbody.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.ResetInertiaTensor">
+      <summary>
+        <para>Reset the inertia tensor value and rotation.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.SetDensity(System.Single)">
+      <summary>
+        <para>Sets the mass based on the attached colliders assuming a constant density.</para>
+      </summary>
+      <param name="density"></param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.Sleep">
+      <summary>
+        <para>Forces a rigidbody to sleep at least one frame.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.SweepTest(UnityEngine.Vector3,UnityEngine.RaycastHit&amp;,System.Single,UnityEngine.QueryTriggerInteraction)">
+      <summary>
+        <para>Tests if a rigidbody would collide with anything, if it was moved through the scene.</para>
+      </summary>
+      <param name="direction">The direction into which to sweep the rigidbody.</param>
+      <param name="hitInfo">If true is returned, hitInfo will contain more information about where the collider was hit (See Also: RaycastHit).</param>
+      <param name="maxDistance">The length of the sweep.</param>
+      <param name="queryTriggerInteraction">Specifies whether this query should hit Triggers.</param>
+      <returns>
+        <para>True when the rigidbody sweep intersects any collider, otherwise false.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.SweepTestAll(UnityEngine.Vector3,System.Single,UnityEngine.QueryTriggerInteraction)">
+      <summary>
+        <para>Like Rigidbody.SweepTest, but returns all hits.</para>
+      </summary>
+      <param name="direction">The direction into which to sweep the rigidbody.</param>
+      <param name="maxDistance">The length of the sweep.</param>
+      <param name="queryTriggerInteraction">Specifies whether this query should hit Triggers.</param>
+      <returns>
+        <para>An array of all colliders hit in the sweep.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody.WakeUp">
+      <summary>
+        <para>Forces a rigidbody to wake up.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.Rigidbody2D">
+      <summary>
+        <para>Rigidbody physics component for 2D sprites.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.angularDrag">
+      <summary>
+        <para>Coefficient of angular drag.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.angularVelocity">
+      <summary>
+        <para>Angular velocity in degrees per second.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.attachedColliderCount">
+      <summary>
+        <para>Returns the number of Collider2D attached to this Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.bodyType">
+      <summary>
+        <para>The physical behaviour type of the Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.centerOfMass">
+      <summary>
+        <para>The center of mass of the rigidBody in local space.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.collisionDetectionMode">
+      <summary>
+        <para>The method used by the physics engine to check if two objects have collided.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.constraints">
+      <summary>
+        <para>Controls which degrees of freedom are allowed for the simulation of this Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.drag">
+      <summary>
+        <para>Coefficient of drag.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.fixedAngle">
+      <summary>
+        <para>Should the rigidbody be prevented from rotating?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.freezeRotation">
+      <summary>
+        <para>Controls whether physics will change the rotation of the object.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.gravityScale">
+      <summary>
+        <para>The degree to which this object is affected by gravity.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.inertia">
+      <summary>
+        <para>The rigidBody rotational inertia.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.interpolation">
+      <summary>
+        <para>Physics interpolation used between updates.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.isKinematic">
+      <summary>
+        <para>Should this rigidbody be taken out of physics control?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.mass">
+      <summary>
+        <para>Mass of the rigidbody.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.position">
+      <summary>
+        <para>The position of the rigidbody.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.rotation">
+      <summary>
+        <para>The rotation of the rigidbody.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.sharedMaterial">
+      <summary>
+        <para>The PhysicsMaterial2D that is applied to all Collider2D attached to this Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.simulated">
+      <summary>
+        <para>Indicates whether the rigid body should be simulated or not by the physics system.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.sleepMode">
+      <summary>
+        <para>The sleep state that the rigidbody will initially be in.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.useAutoMass">
+      <summary>
+        <para>Should the total rigid-body mass be automatically calculated from the Collider2D.density of attached colliders?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.useFullKinematicContacts">
+      <summary>
+        <para>Should kinematickinematic and kinematicstatic collisions be allowed?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.velocity">
+      <summary>
+        <para>Linear velocity of the rigidbody.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Rigidbody2D.worldCenterOfMass">
+      <summary>
+        <para>Gets the center of mass of the rigidBody in global space.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.AddForce(UnityEngine.Vector2,UnityEngine.ForceMode2D)">
+      <summary>
+        <para>Apply a force to the rigidbody.</para>
+      </summary>
+      <param name="force">Components of the force in the X and Y axes.</param>
+      <param name="mode">The method used to apply the specified force.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.AddForceAtPosition(UnityEngine.Vector2,UnityEngine.Vector2,UnityEngine.ForceMode2D)">
+      <summary>
+        <para>Apply a force at a given position in space.</para>
+      </summary>
+      <param name="force">Components of the force in the X and Y axes.</param>
+      <param name="position">Position in world space to apply the force.</param>
+      <param name="mode">The method used to apply the specified force.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.AddRelativeForce(UnityEngine.Vector2,UnityEngine.ForceMode2D)">
+      <summary>
+        <para>Adds a force to the rigidbody2D relative to its coordinate system.</para>
+      </summary>
+      <param name="relativeForce">Components of the force in the X and Y axes.</param>
+      <param name="mode">The method used to apply the specified force.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.AddTorque(System.Single,UnityEngine.ForceMode2D)">
+      <summary>
+        <para>Apply a torque at the rigidbody's centre of mass.</para>
+      </summary>
+      <param name="torque">Torque to apply.</param>
+      <param name="mode">The force mode to use.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.Cast(UnityEngine.Vector2,UnityEngine.RaycastHit2D[],System.Single)">
+      <summary>
+        <para>All the Collider2D shapes attached to the Rigidbody2D are cast into the scene starting at each collider position ignoring the colliders attached to the same Rigidbody2D.</para>
+      </summary>
+      <param name="direction">Vector representing the direction to cast each Collider2D shape.</param>
+      <param name="results">Array to receive results.</param>
+      <param name="distance">Maximum distance over which to cast the shape(s).</param>
+      <returns>
+        <para>The number of results returned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.Cast(UnityEngine.Vector2,UnityEngine.ContactFilter2D,UnityEngine.RaycastHit2D[],System.Single)">
+      <summary>
+        <para>All the Collider2D shapes attached to the Rigidbody2D are cast into the scene starting at each collider position ignoring the colliders attached to the same Rigidbody2D.</para>
+      </summary>
+      <param name="direction">Vector representing the direction to cast each Collider2D shape.</param>
+      <param name="contactFilter">Filter results defined by the contact filter.</param>
+      <param name="results">Array to receive results.</param>
+      <param name="distance">Maximum distance over which to cast the shape(s).</param>
+      <returns>
+        <para>The number of results returned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.Distance(UnityEngine.Collider2D)">
+      <summary>
+        <para>Calculates the minimum distance of this collider against all Collider2D attached to this Rigidbody2D.</para>
+      </summary>
+      <param name="collider">A collider used to calculate the minimum distance against all colliders attached to this Rigidbody2D.</param>
+      <returns>
+        <para>The minimum distance of collider against all colliders attached to this Rigidbody2D.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetAttachedColliders(UnityEngine.Collider2D[])">
+      <summary>
+        <para>Returns all Collider2D that are attached to this Rigidbody2D.</para>
+      </summary>
+      <param name="results">An array of Collider2D used to receive the results.</param>
+      <returns>
+        <para>Returns the number of Collider2D placed in the results array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetContacts(UnityEngine.ContactPoint2D[])">
+      <summary>
+        <para>Retrieves all contact points for all of the collider(s) attached to this rigidbody.</para>
+      </summary>
+      <param name="contacts">An array of ContactPoint2D used to receive the results.</param>
+      <returns>
+        <para>Returns the number of contacts placed in the contacts array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetContacts(UnityEngine.Collider2D[])">
+      <summary>
+        <para>Retrieves all colliders in contact with any of the collider(s) attached to this rigidbody.</para>
+      </summary>
+      <param name="colliders">An array of Collider2D used to receive the results.</param>
+      <returns>
+        <para>Returns the number of colliders placed in the colliders array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetContacts(UnityEngine.ContactFilter2D,UnityEngine.ContactPoint2D[])">
+      <summary>
+        <para>Retrieves all contact points for all of the collider(s) attached to this rigidbody, with the results filtered by the ContactFilter2D.</para>
+      </summary>
+      <param name="contactFilter">The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.</param>
+      <param name="contacts">An array of ContactPoint2D used to receive the results.</param>
+      <returns>
+        <para>Returns the number of contacts placed in the contacts array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetContacts(UnityEngine.ContactFilter2D,UnityEngine.Collider2D[])">
+      <summary>
+        <para>Retrieves all colliders in contact with any of the collider(s) attached to this rigidbody, with the results filtered by the ContactFilter2D.</para>
+      </summary>
+      <param name="contactFilter">The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.</param>
+      <param name="colliders">An array of Collider2D used to receive the results.</param>
+      <returns>
+        <para>Returns the number of colliders placed in the colliders array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetPoint(UnityEngine.Vector2)">
+      <summary>
+        <para>Get a local space point given the point point in rigidBody global space.</para>
+      </summary>
+      <param name="point">The global space point to transform into local space.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetPointVelocity(UnityEngine.Vector2)">
+      <summary>
+        <para>The velocity of the rigidbody at the point Point in global space.</para>
+      </summary>
+      <param name="point">The global space point to calculate velocity for.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetRelativePoint(UnityEngine.Vector2)">
+      <summary>
+        <para>Get a global space point given the point relativePoint in rigidBody local space.</para>
+      </summary>
+      <param name="relativePoint">The local space point to transform into global space.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetRelativePointVelocity(UnityEngine.Vector2)">
+      <summary>
+        <para>The velocity of the rigidbody at the point Point in local space.</para>
+      </summary>
+      <param name="relativePoint">The local space point to calculate velocity for.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetRelativeVector(UnityEngine.Vector2)">
+      <summary>
+        <para>Get a global space vector given the vector relativeVector in rigidBody local space.</para>
+      </summary>
+      <param name="relativeVector">The local space vector to transform into a global space vector.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.GetVector(UnityEngine.Vector2)">
+      <summary>
+        <para>Get a local space vector given the vector vector in rigidBody global space.</para>
+      </summary>
+      <param name="vector">The global space vector to transform into a local space vector.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsAwake">
+      <summary>
+        <para>Is the rigidbody "awake"?</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsSleeping">
+      <summary>
+        <para>Is the rigidbody "sleeping"?</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsTouching(UnityEngine.Collider2D)">
+      <summary>
+        <para>Checks whether the collider  is touching any of the collider(s) attached to this rigidbody or not.</para>
+      </summary>
+      <param name="collider">The collider to check if it is touching any of the collider(s) attached to this rigidbody.</param>
+      <returns>
+        <para>Whether the collider is touching any of the collider(s) attached to this rigidbody or not.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsTouching(UnityEngine.Collider2D,UnityEngine.ContactFilter2D)">
+      <summary>
+        <para>Checks whether the collider  is touching any of the collider(s) attached to this rigidbody or not with the results filtered by the ContactFilter2D.</para>
+      </summary>
+      <param name="collider">The collider to check if it is touching any of the collider(s) attached to this rigidbody.</param>
+      <param name="contactFilter">The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.</param>
+      <returns>
+        <para>Whether the collider is touching any of the collider(s) attached to this rigidbody or not.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsTouching(UnityEngine.ContactFilter2D)">
+      <summary>
+        <para>Checks whether any collider is touching any of the collider(s) attached to this rigidbody or not with the results filtered by the ContactFilter2D.</para>
+      </summary>
+      <param name="contactFilter">The contact filter used to filter the results differently, such as by layer mask, Z depth, or normal angle.</param>
+      <returns>
+        <para>Whether any collider is touching any of the collider(s) attached to this rigidbody or not.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.IsTouchingLayers(System.Int32)">
+      <summary>
+        <para>Checks whether any of the collider(s) attached to this rigidbody are touching any colliders on the specified layerMask or not.</para>
+      </summary>
+      <param name="layerMask">Any colliders on any of these layers count as touching.</param>
+      <returns>
+        <para>Whether any of the collider(s) attached to this rigidbody are touching any colliders on the specified layerMask or not.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.MovePosition(UnityEngine.Vector2)">
+      <summary>
+        <para>Moves the rigidbody to position.</para>
+      </summary>
+      <param name="position">The new position for the Rigidbody object.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.MoveRotation(System.Single)">
+      <summary>
+        <para>Rotates the rigidbody to angle (given in degrees).</para>
+      </summary>
+      <param name="angle">The new rotation angle for the Rigidbody object.</param>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.OverlapCollider(UnityEngine.ContactFilter2D,UnityEngine.Collider2D[])">
+      <summary>
+        <para>Get a list of all colliders that overlap all colliders attached to this Rigidbody2D.</para>
+      </summary>
+      <param name="contactFilter">The contact filter used to filter the results differently, such as by layer mask, Z depth.  Note that normal angle is not used for overlap testing.</param>
+      <param name="results">The array to receive results.  The size of the array determines the maximum number of results that can be returned.</param>
+      <returns>
+        <para>Returns the number of results placed in the results array.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.OverlapPoint(UnityEngine.Vector2)">
+      <summary>
+        <para>Check if any of the Rigidbody2D colliders overlap a point in space.</para>
+      </summary>
+      <param name="point">A point in world space.</param>
+      <returns>
+        <para>Whether the point overlapped any of the Rigidbody2D colliders.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.Sleep">
+      <summary>
+        <para>Make the rigidbody "sleep".</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Rigidbody2D.WakeUp">
+      <summary>
+        <para>Disables the "sleeping" state of a rigidbody.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodyConstraints">
+      <summary>
+        <para>Use these flags to constrain motion of Rigidbodies.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezeAll">
+      <summary>
+        <para>Freeze rotation and motion along all axes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezePosition">
+      <summary>
+        <para>Freeze motion along all axes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezePositionX">
+      <summary>
+        <para>Freeze motion along the X-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezePositionY">
+      <summary>
+        <para>Freeze motion along the Y-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezePositionZ">
+      <summary>
+        <para>Freeze motion along the Z-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezeRotation">
+      <summary>
+        <para>Freeze rotation along all axes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezeRotationX">
+      <summary>
+        <para>Freeze rotation along the X-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezeRotationY">
+      <summary>
+        <para>Freeze rotation along the Y-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.FreezeRotationZ">
+      <summary>
+        <para>Freeze rotation along the Z-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints.None">
+      <summary>
+        <para>No constraints.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodyConstraints2D">
+      <summary>
+        <para>Use these flags to constrain motion of the Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.FreezeAll">
+      <summary>
+        <para>Freeze rotation and motion along all axes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.FreezePosition">
+      <summary>
+        <para>Freeze motion along the X-axis and Y-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.FreezePositionX">
+      <summary>
+        <para>Freeze motion along the X-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.FreezePositionY">
+      <summary>
+        <para>Freeze motion along the Y-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.FreezeRotation">
+      <summary>
+        <para>Freeze rotation along the Z-axis.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyConstraints2D.None">
+      <summary>
+        <para>No constraints.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodyInterpolation">
+      <summary>
+        <para>Rigidbody interpolation mode.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation.Extrapolate">
+      <summary>
+        <para>Extrapolation will predict the position of the rigidbody based on the current velocity.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation.Interpolate">
+      <summary>
+        <para>Interpolation will always lag a little bit behind but can be smoother than extrapolation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation.None">
+      <summary>
+        <para>No Interpolation.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodyInterpolation2D">
+      <summary>
+        <para>Interpolation mode for Rigidbody2D objects.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation2D.Extrapolate">
+      <summary>
+        <para>Smooth an object's movement based on an estimate of its position in the next frame.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation2D.Interpolate">
+      <summary>
+        <para>Smooth movement based on the object's positions in previous frames.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyInterpolation2D.None">
+      <summary>
+        <para>Do not apply any smoothing to the object's movement.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodySleepMode2D">
+      <summary>
+        <para>Settings for a Rigidbody2D's initial sleep state.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodySleepMode2D.NeverSleep">
+      <summary>
+        <para>Rigidbody2D never automatically sleeps.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodySleepMode2D.StartAsleep">
+      <summary>
+        <para>Rigidbody2D is initially asleep.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodySleepMode2D.StartAwake">
+      <summary>
+        <para>Rigidbody2D is initially awake.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RigidbodyType2D">
+      <summary>
+        <para>The physical behaviour type of the Rigidbody2D.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyType2D.Dynamic">
+      <summary>
+        <para>Sets the Rigidbody2D to have dynamic behaviour.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyType2D.Kinematic">
+      <summary>
+        <para>Sets the Rigidbody2D to have kinematic behaviour.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RigidbodyType2D.Static">
+      <summary>
+        <para>Sets the Rigidbody2D to have static behaviour.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RotationDriveMode">
+      <summary>
+        <para>Control ConfigurableJoint's rotation with either X &amp; YZ or Slerp Drive.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RotationDriveMode.Slerp">
+      <summary>
+        <para>Use Slerp drive.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RotationDriveMode.XYAndZ">
+      <summary>
+        <para>Use XY &amp; Z Drive.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RPC">
+      <summary>
+        <para>Attribute for setting up RPC functions.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RPCMode">
+      <summary>
+        <para>Option for who will receive an RPC, used by NetworkView.RPC.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RPCMode.All">
+      <summary>
+        <para>Sends to everyone.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RPCMode.AllBuffered">
+      <summary>
+        <para>Sends to everyone and adds to the buffer.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RPCMode.Others">
+      <summary>
+        <para>Sends to everyone except the sender.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RPCMode.OthersBuffered">
+      <summary>
+        <para>Sends to everyone except the sender and adds to the buffer.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RPCMode.Server">
+      <summary>
+        <para>Sends to the server only.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RuntimeAnimatorController">
+      <summary>
+        <para>Runtime representation of the AnimatorController. It can be used to change the Animator's controller during runtime.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.RuntimeAnimatorController.animationClips">
+      <summary>
+        <para>Retrieves all AnimationClip used by the controller.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RuntimeInitializeLoadType">
+      <summary>
+        <para>Set RuntimeInitializeOnLoadMethod type.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimeInitializeLoadType.AfterSceneLoad">
+      <summary>
+        <para>After scene is loaded.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimeInitializeLoadType.BeforeSceneLoad">
+      <summary>
+        <para>Before scene is loaded.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.RuntimeInitializeOnLoadMethodAttribute">
+      <summary>
+        <para>Allow a runtime class method to be initialized when a game is loaded at runtime
+      without action from the user.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.RuntimeInitializeOnLoadMethodAttribute.loadType">
+      <summary>
+        <para>Set RuntimeInitializeOnLoadMethod type.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.RuntimeInitializeOnLoadMethodAttribute.#ctor">
+      <summary>
+        <para>Creation of the runtime class used when scenes are loaded.</para>
+      </summary>
+      <param name="loadType">Determine whether methods are called before or after the
+        scene is loaded.</param>
+    </member>
+    <member name="M:UnityEngine.RuntimeInitializeOnLoadMethodAttribute.#ctor(UnityEngine.RuntimeInitializeLoadType)">
+      <summary>
+        <para>Creation of the runtime class used when scenes are loaded.</para>
+      </summary>
+      <param name="loadType">Determine whether methods are called before or after the
+        scene is loaded.</param>
+    </member>
+    <member name="T:UnityEngine.RuntimePlatform">
+      <summary>
+        <para>The platform application is running. Returned by Application.platform.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.tvOS">
+      <summary>
+        <para>In the player on the Apple's tvOS.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.Android">
+      <summary>
+        <para>In the player on Android devices.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.IPhonePlayer">
+      <summary>
+        <para>In the player on the iPhone.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.LinuxEditor">
+      <summary>
+        <para>In the Unity editor on Linux.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.LinuxPlayer">
+      <summary>
+        <para>In the player on Linux.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.OSXDashboardPlayer">
+      <summary>
+        <para>In the Dashboard widget on macOS.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.OSXEditor">
+      <summary>
+        <para>In the Unity editor on macOS.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.OSXPlayer">
+      <summary>
+        <para>In the player on macOS.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.OSXWebPlayer">
+      <summary>
+        <para>In the web player on macOS.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.PS4">
+      <summary>
+        <para>In the player on the Playstation 4.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.PSP2">
+      <summary>
+        <para>In the player on the PS Vita.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.SamsungTVPlayer">
+      <summary>
+        <para>In the player on Samsung Smart TV.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.Switch">
+      <summary>
+        <para>In the player on Nintendo Switch.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.TizenPlayer">
+      <summary>
+        <para>In the player on Tizen.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WebGLPlayer">
+      <summary>
+        <para>In the player on WebGL?</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WiiU">
+      <summary>
+        <para>In the player on Wii U.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WindowsEditor">
+      <summary>
+        <para>In the Unity editor on Windows.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WindowsPlayer">
+      <summary>
+        <para>In the player on Windows.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WindowsWebPlayer">
+      <summary>
+        <para>In the web player on Windows.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WSAPlayerARM">
+      <summary>
+        <para>In the player on Windows Store Apps when CPU architecture is ARM.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WSAPlayerX64">
+      <summary>
+        <para>In the player on Windows Store Apps when CPU architecture is X64.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.WSAPlayerX86">
+      <summary>
+        <para>In the player on Windows Store Apps when CPU architecture is X86.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.RuntimePlatform.XboxOne">
+      <summary>
+        <para>In the player on Xbox One.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SamsungTV">
+      <summary>
+        <para>Interface into SamsungTV specific functionality.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.airMouseConnected">
+      <summary>
+        <para>Returns true if there is an air mouse available.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.gamePadMode">
+      <summary>
+        <para>Changes the type of input the gamepad produces.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.gestureMode">
+      <summary>
+        <para>Changes the type of input the gesture camera produces.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.gestureWorking">
+      <summary>
+        <para>Returns true if the camera sees a hand.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.touchPadMode">
+      <summary>
+        <para>The type of input the remote's touch pad produces.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SamsungTV.GamePadMode">
+      <summary>
+        <para>Types of input the gamepad can produce.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.GamePadMode.Default">
+      <summary>
+        <para>Joystick style input.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.GamePadMode.Mouse">
+      <summary>
+        <para>Mouse style input.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SamsungTV.GestureMode">
+      <summary>
+        <para>Types of input the gesture camera can produce.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.GestureMode.Joystick">
+      <summary>
+        <para>Two hands control two joystick axes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.GestureMode.Mouse">
+      <summary>
+        <para>Hands control the mouse pointer.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.GestureMode.Off">
+      <summary>
+        <para>No gesture input from the camera.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SamsungTV.OpenAPI">
+      <summary>
+        <para>Access to TV specific information.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.OpenAPI.serverType">
+      <summary>
+        <para>The server type. Possible values:
+Developing, Development, Invalid, Operating.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.OpenAPI.timeOnTV">
+      <summary>
+        <para>Get local time on TV.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SamsungTV.OpenAPI.uid">
+      <summary>
+        <para>Get UID from TV.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SamsungTV.SetSystemLanguage(UnityEngine.SystemLanguage)">
+      <summary>
+        <para>Set the system language that is returned by Application.SystemLanguage.</para>
+      </summary>
+      <param name="language"></param>
+    </member>
+    <member name="T:UnityEngine.SamsungTV.TouchPadMode">
+      <summary>
+        <para>Types of input the remote's touchpad can produce.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.TouchPadMode.Dpad">
+      <summary>
+        <para>Remote dependent. On 2013 TVs dpad directions are determined by swiping in the correlating direction. On 2014 and 2015 TVs the remote has dpad buttons.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.TouchPadMode.Joystick">
+      <summary>
+        <para>Touchpad works like an analog joystick. Not supported on the 2015 TV as there is no touchpad.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SamsungTV.TouchPadMode.Mouse">
+      <summary>
+        <para>Touchpad controls a remote curosr like a laptop's touchpad. This can be replaced by airmouse functionality which is available on 2014 and 2015 TVs.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ScaleMode">
+      <summary>
+        <para>Scaling mode to draw textures with.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScaleMode.ScaleAndCrop">
+      <summary>
+        <para>Scales the texture, maintaining aspect ratio, so it completely covers the position rectangle passed to GUI.DrawTexture. If the texture is being draw to a rectangle with a different aspect ratio than the original, the image is cropped.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScaleMode.ScaleToFit">
+      <summary>
+        <para>Scales the texture, maintaining aspect ratio, so it completely fits withing the position rectangle passed to GUI.DrawTexture.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScaleMode.StretchToFill">
+      <summary>
+        <para>Stretches the texture to fill the complete rectangle passed in to GUI.DrawTexture.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SceneManagement.LoadSceneMode">
+      <summary>
+        <para>Used when loading a scene in a player.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SceneManagement.LoadSceneMode.Additive">
+      <summary>
+        <para>Adds the scene to the current loaded scenes.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SceneManagement.LoadSceneMode.Single">
+      <summary>
+        <para>Closes all current loaded scenes and loads a scene.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SceneManagement.Scene">
+      <summary>
+        <para>Run-time data structure for *.unity file.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.buildIndex">
+      <summary>
+        <para>Returns the index of the scene in the Build Settings. Always returns -1 if the scene was loaded through an AssetBundle.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.isDirty">
+      <summary>
+        <para>Returns true if the scene is modifed.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.isLoaded">
+      <summary>
+        <para>Returns true if the scene is loaded.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.name">
+      <summary>
+        <para>Returns the name of the scene.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.path">
+      <summary>
+        <para>Returns the relative path of the scene. Like: "AssetsMyScenesMyScene.unity".</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.Scene.rootCount">
+      <summary>
+        <para>The number of root transforms of this scene.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.Scene.GetRootGameObjects">
+      <summary>
+        <para>Returns all the root game objects in the scene.</para>
+      </summary>
+      <returns>
+        <para>An array of game objects.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.Scene.GetRootGameObjects(System.Collections.Generic.List`1&lt;UnityEngine.GameObject&gt;)">
+      <summary>
+        <para>Returns all the root game objects in the scene.</para>
+      </summary>
+      <param name="rootGameObjects">A list which is used to return the root game objects.</param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.Scene.IsValid">
+      <summary>
+        <para>Whether this is a valid scene.
+A scene may be invalid if, for example, you tried to open a scene that does not exist. In this case, the scene returned from EditorSceneManager.OpenScene would return False for IsValid.</para>
+      </summary>
+      <returns>
+        <para>Whether this is a valid scene.</para>
+      </returns>
+    </member>
+    <member name="?:UnityEngine.SceneManagement.Scene.op_Equal(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Returns true if the Scenes are equal.</para>
+      </summary>
+      <param name="lhs"></param>
+      <param name="rhs"></param>
+    </member>
+    <member name="?:UnityEngine.SceneManagement.Scene.op_NotEqual(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Returns true if the Scenes are different.</para>
+      </summary>
+      <param name="lhs"></param>
+      <param name="rhs"></param>
+    </member>
+    <member name="T:UnityEngine.SceneManagement.SceneManager">
+      <summary>
+        <para>Scene management at run-time.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEngine.SceneManagement.SceneManager.activeSceneChanged(UnityEngine.Events.UnityAction`2&lt;UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene&gt;)">
+      <summary>
+        <para>Add a delegate to this to get notifications when the active scene has changed</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.SceneManager.sceneCount">
+      <summary>
+        <para>The total number of currently loaded scenes.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SceneManagement.SceneManager.sceneCountInBuildSettings">
+      <summary>
+        <para>Number of scenes in Build Settings.</para>
+      </summary>
+    </member>
+    <member name="?:UnityEngine.SceneManagement.SceneManager.sceneLoaded(UnityEngine.Events.UnityAction`2&lt;UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.LoadSceneMode&gt;)">
+      <summary>
+        <para>Add a delegate to this to get notifications when a scene has loaded.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="?:UnityEngine.SceneManagement.SceneManager.sceneUnloaded(UnityEngine.Events.UnityAction`1&lt;UnityEngine.SceneManagement.Scene&gt;)">
+      <summary>
+        <para>Add a delegate to this to get notifications when a scene has unloaded</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.CreateScene(System.String)">
+      <summary>
+        <para>Create an empty new scene at runtime with the given name.</para>
+      </summary>
+      <param name="sceneName">The name of the new scene. It cannot be empty or null, or same as the name of the existing scenes.</param>
+      <returns>
+        <para>A reference to the new scene that was created, or an invalid scene if creation failed.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetActiveScene">
+      <summary>
+        <para>Gets the currently active scene.</para>
+      </summary>
+      <returns>
+        <para>The active scene.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetAllScenes">
+      <summary>
+        <para>Returns an array of all the scenes currently open in the hierarchy.</para>
+      </summary>
+      <returns>
+        <para>Array of Scenes in the Hierarchy.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneAt(System.Int32)">
+      <summary>
+        <para>Get the scene at index in the SceneManager's list of added scenes.</para>
+      </summary>
+      <param name="index">Index of the scene to get. Index must be greater than or equal to 0 and less than SceneManager.sceneCount.</param>
+      <returns>
+        <para>A reference to the scene at the index specified.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneByBuildIndex(System.Int32)">
+      <summary>
+        <para>Get a scene struct from a build index.</para>
+      </summary>
+      <param name="buildIndex">Build index as shown in the Build Settings window.</param>
+      <returns>
+        <para>A reference to the scene, if valid. If not, an invalid scene is returned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneByName(System.String)">
+      <summary>
+        <para>Searches through the scenes added to the SceneManager for a scene with the given name.</para>
+      </summary>
+      <param name="name">Name of scene to find.</param>
+      <returns>
+        <para>A reference to the scene, if valid. If not, an invalid scene is returned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.GetSceneByPath(System.String)">
+      <summary>
+        <para>Searches all scenes added to the SceneManager for a scene that has the given asset path.</para>
+      </summary>
+      <param name="scenePath">Path of the scene. Should be relative to the project folder. Like: "AssetsMyScenesMyScene.unity".</param>
+      <returns>
+        <para>A reference to the scene, if valid. If not, an invalid scene is returned.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.LoadScene(System.Int32,UnityEngine.SceneManagement.LoadSceneMode)">
+      <summary>
+        <para>Loads the scene by its name or index in Build Settings.</para>
+      </summary>
+      <param name="sceneName">Name or path of the scene to load.</param>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to load.</param>
+      <param name="mode">Allows you to specify whether or not to load the scene additively.
+        See SceneManagement.LoadSceneMode for more information about the options.</param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.LoadScene(System.String,UnityEngine.SceneManagement.LoadSceneMode)">
+      <summary>
+        <para>Loads the scene by its name or index in Build Settings.</para>
+      </summary>
+      <param name="sceneName">Name or path of the scene to load.</param>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to load.</param>
+      <param name="mode">Allows you to specify whether or not to load the scene additively.
+        See SceneManagement.LoadSceneMode for more information about the options.</param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(System.String,UnityEngine.SceneManagement.LoadSceneMode)">
+      <summary>
+        <para>Loads the scene asynchronously in the background.</para>
+      </summary>
+      <param name="sceneName">Name or path of the scene to load.</param>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to load.</param>
+      <param name="mode">If LoadSceneMode.Single then all current scenes will be unloaded before loading.</param>
+      <returns>
+        <para>Use the AsyncOperation to determine if the operation has completed.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.LoadSceneAsync(System.Int32,UnityEngine.SceneManagement.LoadSceneMode)">
+      <summary>
+        <para>Loads the scene asynchronously in the background.</para>
+      </summary>
+      <param name="sceneName">Name or path of the scene to load.</param>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to load.</param>
+      <param name="mode">If LoadSceneMode.Single then all current scenes will be unloaded before loading.</param>
+      <returns>
+        <para>Use the AsyncOperation to determine if the operation has completed.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.MergeScenes(UnityEngine.SceneManagement.Scene,UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>This will merge the source scene into the destinationScene.</para>
+      </summary>
+      <param name="sourceScene">The scene that will be merged into the destination scene.</param>
+      <param name="destinationScene">Existing scene to merge the source scene into.</param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.MoveGameObjectToScene(UnityEngine.GameObject,UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Move a GameObject from its current scene to a new Scene.</para>
+      </summary>
+      <param name="go">GameObject to move.</param>
+      <param name="scene">Scene to move into.</param>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.SetActiveScene(UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Set the scene to be active.</para>
+      </summary>
+      <param name="scene">The scene to be set.</param>
+      <returns>
+        <para>Returns false if the scene is not loaded yet.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadScene(System.Int32)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to unload.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Returns true if the scene is unloaded.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadScene(System.String)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to unload.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Returns true if the scene is unloaded.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadScene(UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in the Build Settings to unload.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Returns true if the scene is unloaded.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(System.Int32)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in BuildSettings.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Use the AsyncOperation to determine if the operation has completed.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(System.String)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in BuildSettings.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Use the AsyncOperation to determine if the operation has completed.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(UnityEngine.SceneManagement.Scene)">
+      <summary>
+        <para>Destroys all GameObjects associated with the given scene and removes the scene from the SceneManager.</para>
+      </summary>
+      <param name="sceneBuildIndex">Index of the scene in BuildSettings.</param>
+      <param name="sceneName">Name or path of the scene to unload.</param>
+      <param name="scene">Scene to unload.</param>
+      <returns>
+        <para>Use the AsyncOperation to determine if the operation has completed.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.SceneManagement.SceneUtility">
+      <summary>
+        <para>Scene and Build Settings related utilities.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneUtility.GetBuildIndexByScenePath(System.String)">
+      <summary>
+        <para>Get the build index from a scene path.</para>
+      </summary>
+      <param name="scenePath">Scene path (e.g: "AssetsScenesScene1.unity").</param>
+      <returns>
+        <para>Build index.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.SceneManagement.SceneUtility.GetScenePathByBuildIndex(System.Int32)">
+      <summary>
+        <para>Get the scene path from a build index.</para>
+      </summary>
+      <param name="buildIndex"></param>
+      <returns>
+        <para>Scene path (e.g "AssetsScenesScene1.unity").</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.Screen">
+      <summary>
+        <para>Access to display information.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.autorotateToLandscapeLeft">
+      <summary>
+        <para>Allow auto-rotation to landscape left?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.autorotateToLandscapeRight">
+      <summary>
+        <para>Allow auto-rotation to landscape right?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.autorotateToPortrait">
+      <summary>
+        <para>Allow auto-rotation to portrait?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.autorotateToPortraitUpsideDown">
+      <summary>
+        <para>Allow auto-rotation to portrait, upside down?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.currentResolution">
+      <summary>
+        <para>The current screen resolution (Read Only).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.dpi">
+      <summary>
+        <para>The current DPI of the screen / device (Read Only).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.fullScreen">
+      <summary>
+        <para>Is the game running fullscreen?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.height">
+      <summary>
+        <para>The current height of the screen window in pixels (Read Only).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.lockCursor">
+      <summary>
+        <para>Should the cursor be locked?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.orientation">
+      <summary>
+        <para>Specifies logical orientation of the screen.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.resolutions">
+      <summary>
+        <para>All fullscreen resolutions supported by the monitor (Read Only).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.showCursor">
+      <summary>
+        <para>Should the cursor be visible?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.sleepTimeout">
+      <summary>
+        <para>A power saving setting, allowing the screen to dim some time after the last active user interaction.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Screen.width">
+      <summary>
+        <para>The current width of the screen window in pixels (Read Only).</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Screen.SetResolution(System.Int32,System.Int32,System.Boolean)">
+      <summary>
+        <para>Switches the screen resolution.</para>
+      </summary>
+      <param name="width"></param>
+      <param name="height"></param>
+      <param name="fullscreen"></param>
+      <param name="preferredRefreshRate"></param>
+    </member>
+    <member name="M:UnityEngine.Screen.SetResolution(System.Int32,System.Int32,System.Boolean,System.Int32)">
+      <summary>
+        <para>Switches the screen resolution.</para>
+      </summary>
+      <param name="width"></param>
+      <param name="height"></param>
+      <param name="fullscreen"></param>
+      <param name="preferredRefreshRate"></param>
+    </member>
+    <member name="T:UnityEngine.ScreenCapture">
+      <summary>
+        <para>Functionality to take Screenshots.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ScreenCapture.CaptureScreenshot(System.String,System.Int32)">
+      <summary>
+        <para>Captures a screenshot at path filename as a PNG file.</para>
+      </summary>
+      <param name="filename">Pathname to save the screenshot file to.</param>
+      <param name="superSize">Factor by which to increase resolution.</param>
+    </member>
+    <member name="T:UnityEngine.ScreenOrientation">
+      <summary>
+        <para>Describes screen orientation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScreenOrientation.AutoRotation">
+      <summary>
+        <para>Auto-rotates the screen as necessary toward any of the enabled orientations.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScreenOrientation.LandscapeLeft">
+      <summary>
+        <para>Landscape orientation, counter-clockwise from the portrait orientation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScreenOrientation.LandscapeRight">
+      <summary>
+        <para>Landscape orientation, clockwise from the portrait orientation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScreenOrientation.Portrait">
+      <summary>
+        <para>Portrait orientation.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ScreenOrientation.PortraitUpsideDown">
+      <summary>
+        <para>Portrait orientation, upside down.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ScriptableObject">
+      <summary>
+        <para>A class you can derive from if you want to create objects that don't need to be attached to game objects.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ScriptableObject.CreateInstance(System.String)">
+      <summary>
+        <para>Creates an instance of a scriptable object.</para>
+      </summary>
+      <param name="className">The type of the ScriptableObject to create, as the name of the type.</param>
+      <param name="type">The type of the ScriptableObject to create, as a System.Type instance.</param>
+      <returns>
+        <para>The created ScriptableObject.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.ScriptableObject.CreateInstance(System.Type)">
+      <summary>
+        <para>Creates an instance of a scriptable object.</para>
+      </summary>
+      <param name="className">The type of the ScriptableObject to create, as the name of the type.</param>
+      <param name="type">The type of the ScriptableObject to create, as a System.Type instance.</param>
+      <returns>
+        <para>The created ScriptableObject.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.ScriptableObject.CreateInstance">
+      <summary>
+        <para>Creates an instance of a scriptable object.</para>
+      </summary>
+      <returns>
+        <para>The created ScriptableObject.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.Scripting.PreserveAttribute">
+      <summary>
+        <para>PreserveAttribute prevents byte code stripping from removing a class, method, field, or property.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.Security">
+      <summary>
+        <para>Webplayer security related class. Not supported from 5.4.0 onwards.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Security.LoadAndVerifyAssembly(System.Byte[],System.String)">
+      <summary>
+        <para>Loads an assembly and checks that it is allowed to be used in the webplayer. (Web Player is no Longer Supported).</para>
+      </summary>
+      <param name="assemblyData">Assembly to verify.</param>
+      <param name="authorizationKey">Public key used to verify assembly.</param>
+      <returns>
+        <para>Loaded, verified, assembly, or null if the assembly cannot be verfied.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Security.LoadAndVerifyAssembly(System.Byte[])">
+      <summary>
+        <para>Loads an assembly and checks that it is allowed to be used in the webplayer. (Web Player is no Longer Supported).</para>
+      </summary>
+      <param name="assemblyData">Assembly to verify.</param>
+      <param name="authorizationKey">Public key used to verify assembly.</param>
+      <returns>
+        <para>Loaded, verified, assembly, or null if the assembly cannot be verfied.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Security.PrefetchSocketPolicy(System.String,System.Int32)">
+      <summary>
+        <para>Prefetch the webplayer socket security policy from a non-default port number.</para>
+      </summary>
+      <param name="ip">IP address of server.</param>
+      <param name="atPort">Port from where socket policy is read.</param>
+      <param name="timeout">Time to wait for response.</param>
+    </member>
+    <member name="M:UnityEngine.Security.PrefetchSocketPolicy(System.String,System.Int32,System.Int32)">
+      <summary>
+        <para>Prefetch the webplayer socket security policy from a non-default port number.</para>
+      </summary>
+      <param name="ip">IP address of server.</param>
+      <param name="atPort">Port from where socket policy is read.</param>
+      <param name="timeout">Time to wait for response.</param>
+    </member>
+    <member name="T:UnityEngine.SelectionBaseAttribute">
+      <summary>
+        <para>Add this attribute to a script class to mark its GameObject as a selection base object for Scene View picking.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SendMessageOptions">
+      <summary>
+        <para>Options for how to send a message.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SendMessageOptions.DontRequireReceiver">
+      <summary>
+        <para>No receiver is required for SendMessage.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SendMessageOptions.RequireReceiver">
+      <summary>
+        <para>A receiver is required for SendMessage.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.Serialization.FormerlySerializedAsAttribute">
+      <summary>
+        <para>Use this attribute to rename a field without losing its serialized value.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Serialization.FormerlySerializedAsAttribute.oldName">
+      <summary>
+        <para>The name of the field before the rename.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Serialization.FormerlySerializedAsAttribute.#ctor(System.String)">
+      <summary>
+        <para></para>
+      </summary>
+      <param name="oldName">The name of the field before renaming.</param>
+    </member>
+    <member name="T:UnityEngine.SerializeField">
+      <summary>
+        <para>Force Unity to serialize a private field.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.Shader">
+      <summary>
+        <para>Shader scripts used for all rendering.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.globalMaximumLOD">
+      <summary>
+        <para>Shader LOD level for all shaders.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.globalRenderPipeline">
+      <summary>
+        <para>Render pipeline currently in use.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.globalShaderHardwareTier">
+      <summary>
+        <para>Shader hardware tier classification for current device.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.isSupported">
+      <summary>
+        <para>Can this shader run on the end-users graphics card? (Read Only)</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.maximumLOD">
+      <summary>
+        <para>Shader LOD level for this shader.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Shader.renderQueue">
+      <summary>
+        <para>Render queue of this shader. (Read Only)</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Shader.DisableKeyword(System.String)">
+      <summary>
+        <para>Unset a global shader keyword.</para>
+      </summary>
+      <param name="keyword"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.EnableKeyword(System.String)">
+      <summary>
+        <para>Set a global shader keyword.</para>
+      </summary>
+      <param name="keyword"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.Find(System.String)">
+      <summary>
+        <para>Finds a shader with the given name.</para>
+      </summary>
+      <param name="name"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalColor(System.String)">
+      <summary>
+        <para>Gets a global color property for all shaders previously set using SetGlobalColor.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalColor(System.Int32)">
+      <summary>
+        <para>Gets a global color property for all shaders previously set using SetGlobalColor.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloat(System.String)">
+      <summary>
+        <para>Gets a global float property for all shaders previously set using SetGlobalFloat.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloat(System.Int32)">
+      <summary>
+        <para>Gets a global float property for all shaders previously set using SetGlobalFloat.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloatArray(System.String)">
+      <summary>
+        <para>Gets a global float array for all shaders previously set using SetGlobalFloatArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloatArray(System.Int32)">
+      <summary>
+        <para>Gets a global float array for all shaders previously set using SetGlobalFloatArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloatArray(System.String,System.Collections.Generic.List`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Fetches a global float array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalFloatArray(System.Int32,System.Collections.Generic.List`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Fetches a global float array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalInt(System.String)">
+      <summary>
+        <para>Gets a global int property for all shaders previously set using SetGlobalInt.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalInt(System.Int32)">
+      <summary>
+        <para>Gets a global int property for all shaders previously set using SetGlobalInt.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrix(System.String)">
+      <summary>
+        <para>Gets a global matrix property for all shaders previously set using SetGlobalMatrix.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrix(System.Int32)">
+      <summary>
+        <para>Gets a global matrix property for all shaders previously set using SetGlobalMatrix.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrixArray(System.String)">
+      <summary>
+        <para>Gets a global matrix array for all shaders previously set using SetGlobalMatrixArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrixArray(System.Int32)">
+      <summary>
+        <para>Gets a global matrix array for all shaders previously set using SetGlobalMatrixArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrixArray(System.String,System.Collections.Generic.List`1&lt;UnityEngine.Matrix4x4&gt;)">
+      <summary>
+        <para>Fetches a global matrix array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalMatrixArray(System.Int32,System.Collections.Generic.List`1&lt;UnityEngine.Matrix4x4&gt;)">
+      <summary>
+        <para>Fetches a global matrix array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalTexture(System.String)">
+      <summary>
+        <para>Gets a global texture property for all shaders previously set using SetGlobalTexture.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalTexture(System.Int32)">
+      <summary>
+        <para>Gets a global texture property for all shaders previously set using SetGlobalTexture.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVector(System.String)">
+      <summary>
+        <para>Gets a global vector property for all shaders previously set using SetGlobalVector.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVector(System.Int32)">
+      <summary>
+        <para>Gets a global vector property for all shaders previously set using SetGlobalVector.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVectorArray(System.String)">
+      <summary>
+        <para>Gets a global vector array for all shaders previously set using SetGlobalVectorArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVectorArray(System.Int32)">
+      <summary>
+        <para>Gets a global vector array for all shaders previously set using SetGlobalVectorArray.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVectorArray(System.String,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;)">
+      <summary>
+        <para>Fetches a global vector array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.GetGlobalVectorArray(System.Int32,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;)">
+      <summary>
+        <para>Fetches a global vector array into a list.</para>
+      </summary>
+      <param name="values">The list to hold the returned array.</param>
+      <param name="name"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.IsKeywordEnabled(System.String)">
+      <summary>
+        <para>Is global shader keyword enabled?</para>
+      </summary>
+      <param name="keyword"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.PropertyToID(System.String)">
+      <summary>
+        <para>Gets unique identifier for a shader property name.</para>
+      </summary>
+      <param name="name">Shader property name.</param>
+      <returns>
+        <para>Unique integer for the name.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalBuffer(System.String,UnityEngine.ComputeBuffer)">
+      <summary>
+        <para>Sets a global compute buffer property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="buffer"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalBuffer(System.Int32,UnityEngine.ComputeBuffer)">
+      <summary>
+        <para>Sets a global compute buffer property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="buffer"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalColor(System.String,UnityEngine.Color)">
+      <summary>
+        <para>Sets a global color property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalColor(System.Int32,UnityEngine.Color)">
+      <summary>
+        <para>Sets a global color property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloat(System.String,System.Single)">
+      <summary>
+        <para>Sets a global float property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloat(System.Int32,System.Single)">
+      <summary>
+        <para>Sets a global float property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloatArray(System.String,System.Single[])">
+      <summary>
+        <para>Sets a global float array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloatArray(System.Int32,System.Single[])">
+      <summary>
+        <para>Sets a global float array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloatArray(System.String,System.Collections.Generic.List`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Sets a global float array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalFloatArray(System.Int32,System.Collections.Generic.List`1&lt;System.Single&gt;)">
+      <summary>
+        <para>Sets a global float array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalInt(System.String,System.Int32)">
+      <summary>
+        <para>Sets a global int property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalInt(System.Int32,System.Int32)">
+      <summary>
+        <para>Sets a global int property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrix(System.String,UnityEngine.Matrix4x4)">
+      <summary>
+        <para>Sets a global matrix property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrix(System.Int32,UnityEngine.Matrix4x4)">
+      <summary>
+        <para>Sets a global matrix property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrixArray(System.String,UnityEngine.Matrix4x4[])">
+      <summary>
+        <para>Sets a global matrix array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrixArray(System.Int32,UnityEngine.Matrix4x4[])">
+      <summary>
+        <para>Sets a global matrix array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrixArray(System.String,System.Collections.Generic.List`1&lt;UnityEngine.Matrix4x4&gt;)">
+      <summary>
+        <para>Sets a global matrix array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalMatrixArray(System.Int32,System.Collections.Generic.List`1&lt;UnityEngine.Matrix4x4&gt;)">
+      <summary>
+        <para>Sets a global matrix array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalTexture(System.String,UnityEngine.Texture)">
+      <summary>
+        <para>Sets a global texture property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalTexture(System.Int32,UnityEngine.Texture)">
+      <summary>
+        <para>Sets a global texture property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVector(System.String,UnityEngine.Vector4)">
+      <summary>
+        <para>Sets a global vector property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVector(System.Int32,UnityEngine.Vector4)">
+      <summary>
+        <para>Sets a global vector property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="value"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVectorArray(System.String,UnityEngine.Vector4[])">
+      <summary>
+        <para>Sets a global vector array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVectorArray(System.Int32,UnityEngine.Vector4[])">
+      <summary>
+        <para>Sets a global vector array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVectorArray(System.String,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;)">
+      <summary>
+        <para>Sets a global vector array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.SetGlobalVectorArray(System.Int32,System.Collections.Generic.List`1&lt;UnityEngine.Vector4&gt;)">
+      <summary>
+        <para>Sets a global vector array property for all shaders.</para>
+      </summary>
+      <param name="name"></param>
+      <param name="values"></param>
+      <param name="nameID"></param>
+    </member>
+    <member name="M:UnityEngine.Shader.WarmupAllShaders">
+      <summary>
+        <para>Fully load all shaders to prevent future performance hiccups.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ShaderVariantCollection">
+      <summary>
+        <para>ShaderVariantCollection records which shader variants are actually used in each shader.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.ShaderVariantCollection.isWarmedUp">
+      <summary>
+        <para>Is this ShaderVariantCollection already warmed up? (Read Only)</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.ShaderVariantCollection.shaderCount">
+      <summary>
+        <para>Number of shaders in this collection (Read Only).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.ShaderVariantCollection.variantCount">
+      <summary>
+        <para>Number of total varians in this collection (Read Only).</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.Add(UnityEngine.ShaderVariantCollection/ShaderVariant)">
+      <summary>
+        <para>Adds a new shader variant to the collection.</para>
+      </summary>
+      <param name="variant">Shader variant to add.</param>
+      <returns>
+        <para>False if already in the collection.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.Clear">
+      <summary>
+        <para>Remove all shader variants from the collection.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.Contains(UnityEngine.ShaderVariantCollection/ShaderVariant)">
+      <summary>
+        <para>Checks if a shader variant is in the collection.</para>
+      </summary>
+      <param name="variant">Shader variant to check.</param>
+      <returns>
+        <para>True if the variant is in the collection.</para>
+      </returns>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.#ctor">
+      <summary>
+        <para>Create a new empty shader variant collection.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.Remove(UnityEngine.ShaderVariantCollection/ShaderVariant)">
+      <summary>
+        <para>Adds shader variant from the collection.</para>
+      </summary>
+      <param name="variant">Shader variant to add.</param>
+      <returns>
+        <para>False if was not in the collection.</para>
+      </returns>
+    </member>
+    <member name="T:UnityEngine.ShaderVariantCollection.ShaderVariant">
+      <summary>
+        <para>Identifies a specific variant of a shader.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShaderVariantCollection.ShaderVariant.keywords">
+      <summary>
+        <para>Array of shader keywords to use in this variant.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShaderVariantCollection.ShaderVariant.passType">
+      <summary>
+        <para>Pass type to use in this variant.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShaderVariantCollection.ShaderVariant.shader">
+      <summary>
+        <para>Shader to use in this variant.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.ShaderVariant.#ctor(UnityEngine.Shader,UnityEngine.Rendering.PassType,System.String[])">
+      <summary>
+        <para>Creates a ShaderVariant structure.</para>
+      </summary>
+      <param name="shader"></param>
+      <param name="passType"></param>
+      <param name="keywords"></param>
+    </member>
+    <member name="M:UnityEngine.ShaderVariantCollection.WarmUp">
+      <summary>
+        <para>Fully load shaders in ShaderVariantCollection.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ShadowmaskMode">
+      <summary>
+        <para>The rendering mode of Shadowmask.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowmaskMode.DistanceShadowmask">
+      <summary>
+        <para>Static shadow casters will be rendered into realtime shadow maps. Shadowmasks and occlusion from Light Probes will only be used past the realtime shadow distance.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowmaskMode.Shadowmask">
+      <summary>
+        <para>Static shadow casters won't be rendered into realtime shadow maps. All shadows from static casters are handled via Shadowmasks and occlusion from Light Probes.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ShadowProjection">
+      <summary>
+        <para>Shadow projection type for.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowProjection.CloseFit">
+      <summary>
+        <para>Close fit shadow maps with linear fadeout.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowProjection.StableFit">
+      <summary>
+        <para>Stable shadow maps with spherical fadeout.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ShadowQuality">
+      <summary>
+        <para>Determines which type of shadows should be used.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowQuality.All">
+      <summary>
+        <para>Hard and Soft Shadows.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowQuality.Disable">
+      <summary>
+        <para>Disable Shadows.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowQuality.HardOnly">
+      <summary>
+        <para>Hard Shadows Only.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.ShadowResolution">
+      <summary>
+        <para>Default shadow resolution.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowResolution.High">
+      <summary>
+        <para>High shadow map resolution.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowResolution.Low">
+      <summary>
+        <para>Low shadow map resolution.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowResolution.Medium">
+      <summary>
+        <para>Medium shadow map resolution.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.ShadowResolution.VeryHigh">
+      <summary>
+        <para>Very high shadow map resolution.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SharedBetweenAnimatorsAttribute">
+      <summary>
+        <para>SharedBetweenAnimatorsAttribute is an attribute that specify that this StateMachineBehaviour should be instantiate only once and shared among all Animator instance. This attribute reduce the memory footprint for each controller instance.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SkeletonBone">
+      <summary>
+        <para>Details of the Transform name mapped to a model's skeleton bone and its default position and rotation in the T-pose.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkeletonBone.name">
+      <summary>
+        <para>The name of the Transform mapped to the bone.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkeletonBone.position">
+      <summary>
+        <para>The T-pose position of the bone in local space.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkeletonBone.rotation">
+      <summary>
+        <para>The T-pose rotation of the bone in local space.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkeletonBone.scale">
+      <summary>
+        <para>The T-pose scaling of the bone in local space.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SkinnedMeshRenderer">
+      <summary>
+        <para>The Skinned Mesh filter.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.bones">
+      <summary>
+        <para>The bones used to skin the mesh.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.localBounds">
+      <summary>
+        <para>AABB of this Skinned Mesh in its local space.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.quality">
+      <summary>
+        <para>The maximum number of bones affecting a single vertex.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.sharedMesh">
+      <summary>
+        <para>The mesh used for skinning.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.skinnedMotionVectors">
+      <summary>
+        <para>Specifies whether skinned motion vectors should be used for this renderer.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SkinnedMeshRenderer.updateWhenOffscreen">
+      <summary>
+        <para>If enabled, the Skinned Mesh will be updated when offscreen. If disabled, this also disables updating animations.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SkinnedMeshRenderer.BakeMesh(UnityEngine.Mesh)">
+      <summary>
+        <para>Creates a snapshot of SkinnedMeshRenderer and stores it in mesh.</para>
+      </summary>
+      <param name="mesh">A static mesh that will receive the snapshot of the skinned mesh.</param>
+    </member>
+    <member name="M:UnityEngine.SkinnedMeshRenderer.GetBlendShapeWeight(System.Int32)">
+      <summary>
+        <para>Returns weight of BlendShape on this renderer.</para>
+      </summary>
+      <param name="index"></param>
+    </member>
+    <member name="M:UnityEngine.SkinnedMeshRenderer.SetBlendShapeWeight(System.Int32,System.Single)">
+      <summary>
+        <para>Sets the weight in percent of a BlendShape on this Renderer.</para>
+      </summary>
+      <param name="index">The index of the BlendShape to modify.</param>
+      <param name="value">The weight in percent for this BlendShape.</param>
+    </member>
+    <member name="T:UnityEngine.SkinQuality">
+      <summary>
+        <para>The maximum number of bones affecting a single vertex.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkinQuality.Auto">
+      <summary>
+        <para>Chooses the number of bones from the number current QualitySettings. (Default)</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkinQuality.Bone1">
+      <summary>
+        <para>Use only 1 bone to deform a single vertex. (The most important bone will be used).</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkinQuality.Bone2">
+      <summary>
+        <para>Use 2 bones to deform a single vertex. (The most important bones will be used).</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SkinQuality.Bone4">
+      <summary>
+        <para>Use 4 bones to deform a single vertex.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.Skybox">
+      <summary>
+        <para>A script interface for the.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Skybox.material">
+      <summary>
+        <para>The material used by the skybox.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SleepTimeout">
+      <summary>
+        <para>Constants for special values of Screen.sleepTimeout.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SleepTimeout.NeverSleep">
+      <summary>
+        <para>Prevent screen dimming.</para>
+      </summary>
+    </member>
+    <member name="F:UnityEngine.SleepTimeout.SystemSetting">
+      <summary>
+        <para>Set the sleep timeout to whatever the user has specified in the system settings.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SliderJoint2D">
+      <summary>
+        <para>Joint that restricts the motion of a Rigidbody2D object to a single line.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.angle">
+      <summary>
+        <para>The angle of the line in space (in degrees).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.autoConfigureAngle">
+      <summary>
+        <para>Should the angle be calculated automatically?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.jointSpeed">
+      <summary>
+        <para>The current joint speed.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.jointTranslation">
+      <summary>
+        <para>The current joint translation.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.limits">
+      <summary>
+        <para>Restrictions on how far the joint can slide in each direction along the line.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.limitState">
+      <summary>
+        <para>Gets the state of the joint limit.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.motor">
+      <summary>
+        <para>Parameters for a motor force that is applied automatically to the Rigibody2D along the line.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.referenceAngle">
+      <summary>
+        <para>The angle (in degrees) referenced between the two bodies used as the constraint for the joint.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.useLimits">
+      <summary>
+        <para>Should motion limits be used?</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SliderJoint2D.useMotor">
+      <summary>
+        <para>Should a motor force be applied automatically to the Rigidbody2D?</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SliderJoint2D.GetMotorForce(System.Single)">
+      <summary>
+        <para>Gets the motor force of the joint given the specified timestep.</para>
+      </summary>
+      <param name="timeStep">The time to calculate the motor force for.</param>
+    </member>
+    <member name="T:UnityEngine.Social">
+      <summary>
+        <para>Generic access to the Social API.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Social.localUser">
+      <summary>
+        <para>The local user (potentially not logged in).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Social.Active">
+      <summary>
+        <para>This is the currently active social platform. </para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Social.CreateAchievement">
+      <summary>
+        <para>Create an IAchievement instance.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Social.CreateLeaderboard">
+      <summary>
+        <para>Create an ILeaderboard instance.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Social.LoadAchievementDescriptions(System.Action`1&lt;UnityEngine.SocialPlatforms.IAchievementDescription[]&gt;)">
+      <summary>
+        <para>Loads the achievement descriptions accociated with this application.</para>
+      </summary>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.LoadAchievements(System.Action`1&lt;UnityEngine.SocialPlatforms.IAchievement[]&gt;)">
+      <summary>
+        <para>Load the achievements the logged in user has already achieved or reported progress on.</para>
+      </summary>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.LoadScores(System.String,System.Action`1&lt;UnityEngine.SocialPlatforms.IScore[]&gt;)">
+      <summary>
+        <para>Load a default set of scores from the given leaderboard.</para>
+      </summary>
+      <param name="leaderboardID"></param>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.LoadUsers(System.String[],System.Action`1&lt;UnityEngine.SocialPlatforms.IUserProfile[]&gt;)">
+      <summary>
+        <para>Load the user profiles accociated with the given array of user IDs.</para>
+      </summary>
+      <param name="userIDs"></param>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.ReportProgress(System.String,System.Double,System.Action`1&lt;System.Boolean&gt;)">
+      <summary>
+        <para>Reports the progress of an achievement.</para>
+      </summary>
+      <param name="achievementID"></param>
+      <param name="progress"></param>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.ReportScore(System.Int64,System.String,System.Action`1&lt;System.Boolean&gt;)">
+      <summary>
+        <para>Report a score to a specific leaderboard.</para>
+      </summary>
+      <param name="score"></param>
+      <param name="board"></param>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.Social.ShowAchievementsUI">
+      <summary>
+        <para>Show a default/system view of the games achievements.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.Social.ShowLeaderboardUI">
+      <summary>
+        <para>Show a default/system view of the games leaderboards.</para>
+      </summary>
+    </member>
+    <member name="T:UnityEngine.SocialPlatforms.GameCenter.GameCenterPlatform">
+      <summary>
+        <para>iOS GameCenter implementation for network services.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SocialPlatforms.GameCenter.GameCenterPlatform.ResetAllAchievements(System.Action`1&lt;System.Boolean&gt;)">
+      <summary>
+        <para>Reset all the achievements for the local user.</para>
+      </summary>
+      <param name="callback"></param>
+    </member>
+    <member name="M:UnityEngine.SocialPlatforms.GameCenter.GameCenterPlatform.ShowDefaultAchievementCompletionBanner(System.Boolean)">
+      <summary>
+        <para>Show the default iOS banner when achievements are completed.</para>
+      </summary>
+      <param name="value"></param>
+    </member>
+    <member name="M:UnityEngine.SocialPlatforms.GameCenter.GameCenterPlatform.ShowLeaderboardUI(System.String,UnityEngine.SocialPlatforms.TimeScope)">
+      <summary>
+        <para>Show the leaderboard UI with a specific leaderboard shown initially with a specific time scope selected.</para>
+      </summary>
+      <param name="leaderboardID"></param>
+      <param name="timeScope"></param>
+    </member>
+    <member name="?:UnityEngine.SocialPlatforms.IAchievement">
+      <summary>
+        <para>Information for a user's achievement.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievement.completed">
+      <summary>
+        <para>Set to true when percentCompleted is 100.0.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievement.hidden">
+      <summary>
+        <para>This achievement is currently hidden from the user.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievement.id">
+      <summary>
+        <para>The unique identifier of this achievement.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievement.lastReportedDate">
+      <summary>
+        <para>Set by server when percentCompleted is updated.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievement.percentCompleted">
+      <summary>
+        <para>Progress for this achievement.</para>
+      </summary>
+    </member>
+    <member name="M:UnityEngine.SocialPlatforms.IAchievement.ReportProgress(System.Action`1&lt;System.Boolean&gt;)">
+      <summary>
+        <para>Send notification about progress on this achievement.</para>
+      </summary>
+      <param name="callback"></param>
+    </member>
+    <member name="?:UnityEngine.SocialPlatforms.IAchievementDescription">
+      <summary>
+        <para>Static data describing an achievement.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievementDescription.achievedDescription">
+      <summary>
+        <para>Description when the achivement is completed.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievementDescription.hidden">
+      <summary>
+        <para>Hidden achievement are not shown in the list until the percentCompleted has been touched (even if it's 0.0).</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievementDescription.id">
+      <summary>
+        <para>Unique identifier for this achievement description.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievementDescription.image">
+      <summary>
+        <para>Image representation of the achievement.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.SocialPlatforms.IAchievementDescription.points">
+      <summary>
+        <para>Point value of this achievement.</para>
+>>>>>>> master
       </summary>
     </member>
     <member name="M:UnityEngine.ShaderVariantCollection.Contains(UnityEngine.ShaderVariantCollection/ShaderVariant)">
@@ -48785,6 +51546,7 @@ Useful for restarting a trail from a new position.</para>
     </member>
     <member name="F:UnityEngine.TreeInstance.prototypeIndex">
       <summary>
+<<<<<<< HEAD
         <para>Index of this instance in the TerrainData.treePrototypes array.</para>
       </summary>
     </member>
@@ -48793,7 +51555,11 @@ Useful for restarting a trail from a new position.</para>
         <para>Read-only. 
 
 Rotation of the tree on X-Z plane (in radians).</para>
+=======
+        <para>Makes this vector have a magnitude of 1.</para>
+>>>>>>> master
       </summary>
+      <param name="value"></param>
     </member>
     <member name="F:UnityEngine.TreeInstance.widthScale">
       <summary>
@@ -51923,6 +54689,16 @@ Rotation of the tree on X-Z plane (in radians).</para>
         <para>Gets the motor torque of the joint given the specified timestep.</para>
       </summary>
       <param name="timeStep">The time to calculate the motor torque for.</param>
+    </member>
+    <member name="T:UnityEngine.Windows.CrashReporting">
+      <summary>
+        <para>Exposes useful information related to crash reporting on Windows platforms.</para>
+      </summary>
+    </member>
+    <member name="P:UnityEngine.Windows.CrashReporting.crashReportFolder">
+      <summary>
+        <para>Returns the path to the crash report folder on Windows.</para>
+      </summary>
     </member>
     <member name="T:UnityEngine.Windows.Speech.ConfidenceLevel">
       <summary>
