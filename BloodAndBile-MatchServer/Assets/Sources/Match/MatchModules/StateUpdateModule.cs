@@ -14,6 +14,9 @@ public class StateUpdateModule : MatchModule
     BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateMessage StateUpdateMessage;
     BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateConstructionMessage StateConstructionMessage;
 
+    byte StateUpdateFrequency = 10; // Nombre de StateUpdate par seconde.
+    float StateUpdateClock = 0f;
+
     public StateUpdateModule(Match match) : base(match)
     {
 
@@ -40,11 +43,17 @@ public class StateUpdateModule : MatchModule
         SendStateConstruction();
     }
 
-    public override void Update()
+    public override void Update(float deltaTime)
     {
-        base.Update();
-        CookStateUpdate();
-        SendStateUpdate();
+        BloodAndBileEngine.Debugger.Log("StateUpdateModule.Update()");
+        StateUpdateClock += deltaTime;
+        if (StateUpdateClock >= 1f / StateUpdateFrequency)
+        {
+            CookStateUpdate();
+            SendStateUpdate();
+            StateUpdateClock = 0f;
+        }
+        BloodAndBileEngine.Debugger.Log("/ StateUpdateModule.Update()");
     }
 
     public override void Stop()
@@ -93,11 +102,14 @@ public class StateUpdateModule : MatchModule
     /// </summary>
     void SendStateUpdate()
     {
-        ModuleMatch.SendMessageToPlayers(StateUpdateMessage, 1);
+        BloodAndBileEngine.Debugger.Log("Sending state update...");
+        ModuleMatch.SendMessageToPlayers(StateUpdateMessage, 6);
+        BloodAndBileEngine.Debugger.Log("State update sent !");
     }
 
     void SendStateConstruction()
     {
-        ModuleMatch.SendMessageToPlayers(StateConstructionMessage, 0);
+        BloodAndBileEngine.Debugger.Log("Sending state construction...");
+        ModuleMatch.SendMessageToPlayers(StateConstructionMessage, 5);
     }
 }

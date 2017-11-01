@@ -23,26 +23,7 @@ namespace BloodAndBileEngine
 
             static public void Send(NetworkMessage message, int connectionID, int channelID = -1)
             {
-                if (!NetworkTransport.IsStarted)
-                {
-                    Debugger.Log("Impossible d'envoyer un message - NetworkTransport n'a pas été activé !");
-                    return;
-                }
-
-                bool isFragmented = channelID >= 5;
-
-                // Conversion de l'objet en un tableau de bytes (Serialization).
-                byte[] buffer;
-                if (!isFragmented)
-                    buffer = new byte[NetworkReceiver.STANDARD_BUFFER_SIZE];
-                else
-                    buffer = new byte[NetworkReceiver.FRAGMENTED_BUFFER_SIZE];
-                MemoryStream stream = new MemoryStream(buffer);
-                BinaryFormatter bf = new BinaryFormatter();
-                bf.Serialize(stream, message);
-
-                Instance.MessagesToSend.Enqueue(new SentMessage(buffer, connectionID, channelID));
-
+                Instance.MessagesToSend.Enqueue(new SentMessage(message, connectionID, channelID));
             }
 
             //
@@ -56,13 +37,12 @@ namespace BloodAndBileEngine
             {
                 Instance = this;
                 MessagesToSend = new Queue<SentMessage>();
-                InvokeRepeating("SendMessages", 0f, 1f / Frequency); // Executer la méthode SendMessages toutes les 1f / Frequency secondes.
             }
 
             // Monobehaviour
 
             public float Frequency = 20f; // Fréquence en Hertz de l'envoi des messages ajoutés à la queue "MessagesToSend".
-
+            float messageClock = 0f;
             private void Start()
             {
                 if (Instance != null)
@@ -83,6 +63,7 @@ namespace BloodAndBileEngine
                 while (MessagesToSend.Count > 0)
                 {
                     SentMessage msg = MessagesToSend.Dequeue();
+                    msg.Serialize();
                     byte error;
                     if (msg.ChannelID == -1)
                         NetworkTransport.Send(NetworkSocket.HostID, msg.ConnectionID, NetworkSocket.ChannelIDs[1], msg.Buffer, msg.Buffer.Length, out error);
@@ -98,7 +79,12 @@ namespace BloodAndBileEngine
 
             private void Update()
             {
-
+                messageClock += Time.deltaTime;
+                if (messageClock > 1f / Frequency)
+                {
+                    SendMessages();
+                    messageClock = 0f;
+                }
             }
         }
     }

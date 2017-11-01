@@ -81,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EntityLinkTest.cs" />
     <Compile Include="Assets\Sources\Actor\Actor.cs" />
     <Compile Include="Assets\Sources\Client\Client.cs" />
     <Compile Include="Assets\Sources\Client\States\IClientState.cs" />
@@ -89,6 +90,7 @@
     <Compile Include="Assets\Sources\Client\States\MatchmakingState.cs" />
     <Compile Include="Assets\Sources\Client\States\MatchServerSearchState.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\OnlinePlayingState.cs" />
+    <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\EntitiesSynchronizer.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\MapStateUpdater.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\StateUpdateReceiver.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\PlayingState.cs" />

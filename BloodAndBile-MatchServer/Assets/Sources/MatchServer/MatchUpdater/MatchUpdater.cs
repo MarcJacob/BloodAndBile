@@ -14,37 +14,53 @@ public class MatchUpdater
     public MatchUpdater()
     {
         // Création du Thread de mise à jour du match.
-        UpdateThread = new Thread(() => { while (true) { UpdateMatches(); } });
+        UpdateThread = new Thread(() => { while (true) {
+                lock (Matches)
+                {
+                    if (Matches.Count > 0)
+                        UpdateMatches();
+                }
+
+            } });
+        if (UpdateThread == null) { BloodAndBileEngine.Debugger.Log("Création du Thread MatchUpdater infructueuse !");
+            return; }
         BloodAndBileEngine.Debugger.Log("Création MatchUpdater...");
         UpdateThread.Start();
     }
 
     public void AddMatch(Match m)
     {
-        if(!Matches.Contains(m))
+        lock (Matches)
         {
-            BloodAndBileEngine.Debugger.Log("Ajout d'un match au MatchUpdater !");
-            Matches.Add(m);
-            m.Start();
+            if (!Matches.Contains(m))
+            {
+                BloodAndBileEngine.Debugger.Log("Ajout d'un match au MatchUpdater !");
+                Matches.Add(m);
+                m.Start();
+            }
         }
     }
 
     void UpdateMatches()
     {
-        List<Match> endedMatches = new List<Match>();
-        foreach(Match match in Matches)
-        {
-            match.Update();
-            if (match.Ongoing == false)
+            BloodAndBileEngine.Debugger.Log("Updating matches !");
+            List<Match> endedMatches = new List<Match>();
+            foreach (Match match in Matches)
             {
-                endedMatches.Add(match);
+                if (match.Ongoing)
+                {
+                    match.Update();
+                    if (match.Ongoing == false)
+                    {
+                        endedMatches.Add(match);
+                    }
+                }
             }
-        }
 
-        foreach(Match match in endedMatches)
-        {
-            Matches.Remove(match);
-        }
+            foreach (Match match in endedMatches)
+            {
+                Matches.Remove(match);
+            }
     }
 
     public void Stop()

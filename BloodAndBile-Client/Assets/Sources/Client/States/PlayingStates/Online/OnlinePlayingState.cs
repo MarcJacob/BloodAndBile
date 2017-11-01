@@ -23,6 +23,7 @@ public class OnlinePlayingState : PlayingState
         StateUpdateReceivers = new IStateUpdateReceiver[] // TODO : Déplacer l'initialisation des StateUpdateReceivers dans une classe Factory.
         {
             new MapStateUpdater(LocalWorldState),
+            new EntitiesSynchronizer(LocalWorldState),
         };
     }
 
@@ -76,6 +77,7 @@ public class OnlinePlayingState : PlayingState
     /// <param name="message"></param>
     void OnStateUpdate(BloodAndBileEngine.Networking.NetworkMessageInfo info, StateUpdateMessage message)
     {
+        BloodAndBileEngine.Debugger.Log("Received StateUpdate");
         foreach(IStateUpdateReceiver receiver in StateUpdateReceivers)
         {
             receiver.OnStateUpdate(message);

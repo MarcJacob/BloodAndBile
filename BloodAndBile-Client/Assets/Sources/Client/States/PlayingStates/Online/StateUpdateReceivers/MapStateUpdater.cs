@@ -7,6 +7,8 @@ using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 /// S'occupe de mettre à jour la partie "Map" du WorldState local. Surtout utilisé lors du StateConstruction
 /// - Chargement de la map en fonction de l'ID reçu
 /// - Chargement des cellules du CellSystem
+/// 
+/// Contient également le WorldState local.
 /// </summary>
 public class MapStateUpdater : IStateUpdateReceiver
 {

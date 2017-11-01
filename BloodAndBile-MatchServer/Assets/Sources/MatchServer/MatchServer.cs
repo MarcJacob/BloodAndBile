@@ -34,7 +34,8 @@ public class MatchServer : MonoBehaviour {
         {
             mod.Initialise();
         }
-
+        // Initialisation de la mémoire des entités TODO : déplacer ça dans un fichier plus pertinent.
+        BloodAndBileEngine.EntitiesManager.Initialise();
         Activate();
 	}
 
