@@ -23,9 +23,7 @@ public class MapStateModule : MatchModule, IStateUpdater
 
     public override void Initialise()
     {
-        if (BloodAndBileEngine.WorldState.Map.Maps == null)
-            BloodAndBileEngine.WorldState.Map.LoadMaps();
-
+        base.Initialise();
     }
 
     public StateUpdateObject[] GetStateUpdateInformation()

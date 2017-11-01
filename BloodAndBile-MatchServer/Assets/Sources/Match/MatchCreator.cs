@@ -26,17 +26,17 @@ public static class MatchCreator
 
         // Initialisation des cellules.
 
-        if (BloodAndBileEngine.WorldState.Map.Maps.Count > 0)
-        {
-            BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[(int)UnityEngine.Random.Range(0.0f, BloodAndBileEngine.WorldState.Map.Maps.Count)];
-        
-            // Création du CellSystem.
+        if (BloodAndBileEngine.WorldState.Map.Maps == null)
+            BloodAndBileEngine.WorldState.Map.LoadMaps();
 
-            BloodAndBileEngine.WorldState.CellSystem cellSystem;
-            cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map.ConstructionData);
-            startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
-            startWorldState.AddData<BloodAndBileEngine.WorldState.Map>(map);
-        }
+        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[(int)UnityEngine.Random.Range(0.0f, BloodAndBileEngine.WorldState.Map.Maps.Count)];
+        
+        // Création du CellSystem.
+
+        BloodAndBileEngine.WorldState.CellSystem cellSystem;
+        cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map.ConstructionData);
+        startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
+        startWorldState.AddData<BloodAndBileEngine.WorldState.Map>(map);
 
         //
 
