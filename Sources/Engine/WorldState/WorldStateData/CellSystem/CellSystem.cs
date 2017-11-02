@@ -70,13 +70,22 @@ namespace BloodAndBileEngine.WorldState
             while (cellID < Cells.Length && c == null) // Complexité maximale : Cells.Length.
             {
                 Cell cell = Cells[cellID];
-                if (cell.GetPosition().x < x && cell.GetPosition().x + cell.GetDimensions().x > x)
+                if (cell.GetPosition().x <= x && cell.GetPosition().x + cell.GetDimensions().x > x)
                 {
-                    if (cell.GetPosition().y < y && cell.GetPosition().y + cell.GetDimensions().y > y)
+                    if (cell.GetPosition().y <= y && cell.GetPosition().y + cell.GetDimensions().y > y)
                     {
                         c = cell;
                     }
+                    else
+                    {
+                        Debugger.Log("Lol Nope 2");
+                    }
                 }
+                else
+                {
+                    Debugger.Log("Lol Nope 1");
+                }
+                cellID++;
             }
 
             return c;
@@ -90,6 +99,54 @@ namespace BloodAndBileEngine.WorldState
         public float[] GetCellConstructionData()
         {
             return ConstructionData;
+        }
+
+        // Renvoi l'intégralité des Entités se trouvant dans ce CellSystem.
+        public Entity[] GetAllEntities()
+        {
+            List<Entity> entities = new List<Entity>();
+            foreach(Cell cell in Cells)
+            {
+                foreach(Entity entity in cell.GetEntities())
+                {
+                    entities.Add(entity);
+                }
+            }
+
+            return entities.ToArray();
+        }
+
+        // Supprime les entités dont l'ID se trouve dans cette liste.
+        public void RemoveEntitiesFromID(uint[] ids)
+        {
+            // Construire la liste des ID :
+            List<uint> idList = new List<uint>();
+            foreach(uint id in ids)
+            {
+                idList.Add(id);
+            }
+
+            int cellID = 0;
+            while (idList.Count > 0 && cellID < Cells.Length)
+            {
+                Cells[cellID].RemoveEntities(idList);
+                cellID++;
+            }
+
+            if (idList.Count > 0)
+            {
+                Debugger.Log("Certaines entités à détruire n'ont pas été trouvées !", UnityEngine.Color.red);
+            }
+        }
+
+        // A la destruction : mettre toutes les entités en "Destroyed" pour les rendre utilisable
+        // par d'autres.
+        ~CellSystem()
+        {
+            foreach(Entity entity in GetAllEntities())
+            {
+                entity.Destroy();
+            }
         }
     }
 }

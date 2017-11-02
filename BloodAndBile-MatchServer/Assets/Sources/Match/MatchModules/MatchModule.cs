@@ -35,7 +35,7 @@ public class MatchModule
 
     }
 
-    public virtual void Update()
+    public virtual void Update(float deltaTime)
     {
 
     }

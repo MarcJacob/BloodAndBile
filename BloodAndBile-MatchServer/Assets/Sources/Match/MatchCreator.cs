@@ -13,6 +13,7 @@ public static class MatchCreator
         Match m = new Match();
         m.SetPlayerConnectionIDs(players);
         m.AddModule<MapStateModule>(new MapStateModule(m)); // Création du World State lié au match
+        m.AddModule<EntitiesStateModule>(new EntitiesStateModule(m));
         m.AddModule<StateUpdateModule>(new StateUpdateModule(m)); // Création du module StateUpdate
 
         // Création du WorldState initial.
@@ -38,10 +39,7 @@ public static class MatchCreator
             cellSystem = new BloodAndBileEngine.WorldState.CellSystem(cellData);
             startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
 
-            //
-
-            
-
+        //
 
         //...
 

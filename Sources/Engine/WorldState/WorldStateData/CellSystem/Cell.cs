@@ -40,6 +40,8 @@ namespace BloodAndBileEngine.WorldState
             Heights = h;
             ID = id;
             CellSystemRef = new WeakReference(system);
+
+            Debugger.Log("Created cell at position " + Position + " and dimensions " + Dimensions);
         }
 
         /// <summary>
@@ -120,6 +122,23 @@ namespace BloodAndBileEngine.WorldState
             if (index >= 0) EntitiesInCell.RemoveAt(index);
         } // Devrait être légèrement plus rapide que la surcharge prenant
         // une entité en paramètre.
+
+        public void RemoveEntities(List<uint> ids) // Supprime toutes les entités de cette Cellule dont les IDs se trouvent dans la liste passé en paramètre.
+        {
+            List<Entity> destroyedEntities = new List<Entity>();
+            foreach(Entity entity in EntitiesInCell)
+            {
+                if(ids.Contains(entity.ID))
+                {
+                    destroyedEntities.Add(entity);
+                    ids.Remove(entity.ID);
+                }
+            }
+            foreach(Entity entity in destroyedEntities)
+            {
+                EntitiesInCell.Remove(entity);
+            }
+        }
 
         public Entity[] GetEntities()
         {

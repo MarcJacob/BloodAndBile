@@ -39,9 +39,10 @@ namespace BloodAndBileEngine
                 {
                     if ((NetworkError)error == NetworkError.MessageToLong)
                     {
+                        Debugger.Log("Message long : fragmenté !");
                         // Re-recevoir le message avec un buffer plus grand.
                         buffer = new byte[FRAGMENTED_BUFFER_SIZE];
-                        e = NetworkTransport.Receive(out recHostID, out recConnectionID, out recChannelID, buffer, STANDARD_BUFFER_SIZE, out recSize, out error);
+                        e = NetworkTransport.Receive(out recHostID, out recConnectionID, out recChannelID, buffer, FRAGMENTED_BUFFER_SIZE, out recSize, out error);
                     }
                     else
                     {
@@ -63,7 +64,8 @@ namespace BloodAndBileEngine
 
                         // Des données ont été reçues. D'abord, construire l'objet ReceivedMessage en reconstituant le NetworkMessage :
                         MemoryStream stream = new MemoryStream(buffer);
-                        ReceivedMessage msg = new ReceivedMessage((NetworkMessage)Formatter.Deserialize(stream));
+                        object info = Formatter.Deserialize(stream);
+                        ReceivedMessage msg = new ReceivedMessage((NetworkMessage)info);
                         // Ensuite, remplir l'objet NetworkMessageInfo de msg :
                         msg.RecInfo.ConnectionID = recConnectionID;
 
