@@ -8,12 +8,13 @@ public class EntityLinkTest : MonoBehaviour {
 	void Start () {
 		
 	}
-	
+    public float value;
 	// Update is called once per frame
 	void Update () {
 		if (!BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).Destroyed)
         {
             transform.position = Vector3.Lerp(transform.position, BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).Position, Time.deltaTime);
+            value = ((BloodAndBileEngine.TestController)(BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).GetComponent(typeof(BloodAndBileEngine.TestController)))).value;
         }
         else
         {

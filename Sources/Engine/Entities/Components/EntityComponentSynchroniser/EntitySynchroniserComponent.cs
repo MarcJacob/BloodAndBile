@@ -18,9 +18,9 @@ namespace BloodAndBileEngine
         // "EntitiesSynchronization".
 
 
-        public EntitySynchroniserComponent(Entity linked)
+        public EntitySynchroniserComponent()
         {
-            SynchData = new EntitySynchronizationDataObject(linked.ID);
+           
         }
 
         public EntitySynchronizationDataObject GetSynchronizationData()
@@ -30,7 +30,7 @@ namespace BloodAndBileEngine
 
         public override void Initialise()
         {
-            
+            SynchData = new EntitySynchronizationDataObject(LinkedEntity.ID);
         }
 
         // Met à jour l'objet "EntitySynchroniserObject" lié à cette instance.
@@ -46,7 +46,7 @@ namespace BloodAndBileEngine
             {
                 if (component is IEntitySynchroniser)
                 {
-                    SynchData.SetComponentSynchInfo(component.GetType(),((IEntitySynchroniser)component).GetSynchInfo(SynchData));
+                    SynchData.SetComponentSynchInfo(component.GetType(),((IEntitySynchroniser)component).GetSynchInfo());
                 }
             }
 

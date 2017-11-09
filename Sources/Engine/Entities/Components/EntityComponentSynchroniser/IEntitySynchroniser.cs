@@ -11,7 +11,7 @@ namespace BloodAndBileEngine
     // régulièrement.
     public interface IEntitySynchroniser
     {
-        StateUpdateObject[] GetSynchInfo(EntitySynchronizationDataObject synchObject);
+        StateUpdateObject[] GetSynchInfo();
         void OnSynch(ComponentSynchronizationDataObject synchData); // Lorsqu'un message StateUpdate est reçu
     }
 }

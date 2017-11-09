@@ -42,7 +42,7 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
         foreach(BloodAndBileEngine.EntitySynchronizationDataObject SynchData in (BloodAndBileEngine.EntitySynchronizationDataObject[])(stateUpdate.GetStateUpdateInfo("EntitySynchronization")[0].Information))
         {
             BloodAndBileEngine.Entity entity = BloodAndBileEngine.EntitiesManager.GetEntityFromID(SynchData.GetEntityID());
-            BloodAndBileEngine.EntitySynchroniserComponent synchComponent = entity.GetComponent<BloodAndBileEngine.EntitySynchroniserComponent>();
+            BloodAndBileEngine.EntitySynchroniserComponent synchComponent = (BloodAndBileEngine.EntitySynchroniserComponent)entity.GetComponent(typeof(BloodAndBileEngine.EntitySynchroniserComponent));
             if (synchComponent != null)
             {
                 synchComponent.GetSynchronizationData().SetSynchInfoFromSynchObject(SynchData);

@@ -19,7 +19,7 @@
 -define:UNITY_5_5_OR_NEWER
 -define:UNITY_5_6_OR_NEWER
 -define:UNITY_2017_1_OR_NEWER
--define:UNITY_2017_1_0
+-define:UNITY_2017_1_1
 -define:UNITY_2017_1
 -define:UNITY_2017
 -define:PLATFORM_ARCH_64

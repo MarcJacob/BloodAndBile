@@ -29,7 +29,7 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         BloodAndBileEngine.Debugger.Log("Created entity !", UnityEngine.Color.red);
         BloodAndBileEngine.Entity testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), 0, new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
         CreatedEntitiesID.Add(testEntity.ID);
-        testEntity.AddComponent<BloodAndBileEngine.TestController>(new BloodAndBileEngine.TestController(testEntity));
+        testEntity.AddComponent(typeof(BloodAndBileEngine.TestController));
     }
 
     public override void Update(float deltaTime)
@@ -51,7 +51,7 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         List<BloodAndBileEngine.EntitySynchronizationDataObject> SyncDataObjectList = new List<BloodAndBileEngine.EntitySynchronizationDataObject>();
         foreach(BloodAndBileEngine.Entity entity in ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetAllEntities())
         {
-            BloodAndBileEngine.EntitySynchroniserComponent syncComponent = entity.GetComponent<BloodAndBileEngine.EntitySynchroniserComponent>();
+            BloodAndBileEngine.EntitySynchroniserComponent syncComponent = (BloodAndBileEngine.EntitySynchroniserComponent)entity.GetComponent(typeof(BloodAndBileEngine.EntitySynchroniserComponent));
             if (syncComponent != null)
             {
                 syncComponent.Update(0f);

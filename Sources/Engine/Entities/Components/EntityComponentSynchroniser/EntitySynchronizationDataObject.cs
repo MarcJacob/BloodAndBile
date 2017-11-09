@@ -17,6 +17,7 @@ namespace BloodAndBileEngine
         {
             EntityID = entityID;
             BasicSyncInfo = new List<StateUpdateObject>();
+            ComponentSyncInfo = new List<ComponentSynchronizationDataObject>();
         }
 
         public void SetBasicSynchInfo(string syncInfoName, object info)

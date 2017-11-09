@@ -11,6 +11,7 @@ using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 /// </summary>
 namespace BloodAndBileEngine
 {
+    [Serializable]
     public class ComponentSynchronizationDataObject
     {
         public Type ComponentType;
