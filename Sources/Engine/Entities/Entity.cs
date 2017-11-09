@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 /// <summary>
 /// Base de toutes les entités (= quelque chose de visible en jeu, disposant d'une position, d'une rotation, d'une taille (et hauteur ), 
 /// d'une vitesse, et d'un identifiant unique)
@@ -38,25 +39,32 @@ namespace BloodAndBileEngine
         /// <typeparam name="T"> Type de component </typeparam>
         /// <param name="component"></param>
         /// <returns></returns>
-        public T AddComponent<T>(T component) where T : EntityComponent
+        public EntityComponent AddComponent(Type componentType)
         {
-            Components.Add(component);
-            component.Initialise();
-            return component;
+
+            object component = (EntityComponent)Activator.CreateInstance(componentType);
+            if (!(component is EntityComponent))
+            {
+                Debugger.Log("ERREUR : Ce type n'est pas un type de EntityComponent valide !", UnityEngine.Color.red);
+                return null;
+            }
+            EntityComponent casted = (EntityComponent)component;
+            Components.Add(casted);
+            casted.LinkEntity(this);
+            casted.Initialise();
+            return casted;
         }
 
         /// <summary>
         /// Renvoie le Component du type indiqué s'il est possédé par cette entité.
         /// </summary>
-        /// <typeparam name="T"> Type de component </typeparam>
-        /// <returns></returns>
-        public T GetComponent<T>() where T : EntityComponent
+        public EntityComponent GetComponent(Type componentType)
         {
             foreach(EntityComponent c in Components)
             {
-                if (c is T)
+                if (c.GetType() == componentType )
                 {
-                    return (T)c;
+                    return c;
                 }
             }
             return null;

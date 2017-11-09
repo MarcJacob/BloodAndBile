@@ -7,7 +7,7 @@ namespace BloodAndBileEngine
 {
     public class TestController : EntityComponent
     {
-        public TestController(Entity linked) : base(linked)
+        public TestController()
         {
 
         }
@@ -20,11 +20,9 @@ namespace BloodAndBileEngine
         public override void Update(float deltaTime)
         {
             LinkedEntity.Position += UnityEngine.Vector3.forward * deltaTime;
-        }
-
-        public override uint GetComponentID()
-        {
-            return 1;
+            UnityEngine.Quaternion newRot = LinkedEntity.Rotation;
+            newRot.eulerAngles += new UnityEngine.Vector3(0, 1f * deltaTime, 0);
+            LinkedEntity.Rotation = newRot;
         }
     }
 }

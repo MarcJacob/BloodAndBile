@@ -18,7 +18,7 @@ namespace BloodAndBileEngine
         // "EntitiesSynchronization".
 
 
-        public EntitySynchroniserComponent(Entity linked) : base(linked)
+        public EntitySynchroniserComponent(Entity linked)
         {
             SynchData = new EntitySynchronizationDataObject(linked.ID);
         }
@@ -40,18 +40,22 @@ namespace BloodAndBileEngine
             // component de l'entité implémentant IEntitySynchroniser.
             // Ajoute également les informations de base de l'entité : Position, Rotation, Cellule actuelle,
             // taille, hauteur.
+
+            // Synchronisation des Components.
             foreach(EntityComponent component in LinkedEntity.GetComponents())
             {
                 if (component is IEntitySynchroniser)
                 {
-                    ((IEntitySynchroniser)component).GetSynchInfo(SynchData);
+                    SynchData.SetComponentSynchInfo(component.GetType(),((IEntitySynchroniser)component).GetSynchInfo(SynchData));
                 }
             }
-            SynchData.SetSynchInfo("Position", LinkedEntity.Position);
-            SynchData.SetSynchInfo("Rotation", LinkedEntity.Rotation);
-            SynchData.SetSynchInfo("CurrentCell", LinkedEntity.CurrentCellID);
-            SynchData.SetSynchInfo("Size", LinkedEntity.Size);
-            SynchData.SetSynchInfo("Height", LinkedEntity.Height);
+
+            // Synchronisation des infos de base
+            SynchData.SetBasicSynchInfo("Position", LinkedEntity.Position);
+            SynchData.SetBasicSynchInfo("Rotation", LinkedEntity.Rotation);
+            SynchData.SetBasicSynchInfo("CurrentCell", LinkedEntity.CurrentCellID);
+            SynchData.SetBasicSynchInfo("Size", LinkedEntity.Size);
+            SynchData.SetBasicSynchInfo("Height", LinkedEntity.Height);
         }
 
         /// <summary>
@@ -61,11 +65,12 @@ namespace BloodAndBileEngine
         /// </summary>
         public void OnSynch()
         {
-            // Synchronisation des propriétés basiques :
             if (SynchData == null)
             {
                 Debugger.Log("ERREUR : le SynchData n'a pas été initialisé !", UnityEngine.Color.red);
+                return;
             }
+            // Synchronisation des propriétés basiques :
             Debugger.Log("Synch position", UnityEngine.Color.yellow);
             LinkedEntity.Position = (BloodAndBileEngine.SerializableVector3)SynchData.GetSynchInfo("Position");
             Debugger.Log("Synch rotation", UnityEngine.Color.yellow);
@@ -76,11 +81,31 @@ namespace BloodAndBileEngine
             LinkedEntity.Size = (float)SynchData.GetSynchInfo("Size");
             Debugger.Log("Synch Height", UnityEngine.Color.yellow);
             LinkedEntity.Height = (float)SynchData.GetSynchInfo("Height");
+
+            // Synchronisation des Components
+            // Pour chaque ComponentSynchronizationDataObject, on vérifie que l'entité
+            // possède le component correspondant, puis on exécute le GetSynch() sur ce dernier.
+            // Si l'entité n'a pas le component, on lui ajoute.
+            foreach(ComponentSynchronizationDataObject componentData in SynchData.GetComponentSynchData())
+            {
+                EntityComponent component = LinkedEntity.GetComponent(componentData.ComponentType);
+                if (component != null)
+                {
+                    if (component is IEntitySynchroniser)
+                    {
+                        ((IEntitySynchroniser)(component)).OnSynch(componentData); // On lance la synchronisation.
+                    }
+                }
+                else // On ajoute le component
+                {
+                    component = LinkedEntity.AddComponent(componentData.ComponentType);
+                    if (component != null && component is IEntitySynchroniser)
+                    {
+                        ((IEntitySynchroniser)(component)).OnSynch(componentData);
+                    }
+                }
+            }
         }
 
-        public override uint GetComponentID()
-        {
-            return 0; // Component ID 0 : Le Synchronizer lui même.
-        }
     }
 }

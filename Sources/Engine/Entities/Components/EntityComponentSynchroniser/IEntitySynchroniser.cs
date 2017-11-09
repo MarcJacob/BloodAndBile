@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 namespace BloodAndBileEngine
 {
     // Interface implémenté par un Component souhaitant être capable de faire de la synchronisation
@@ -11,7 +11,7 @@ namespace BloodAndBileEngine
     // régulièrement.
     public interface IEntitySynchroniser
     {
-        void GetSynchInfo(EntitySynchronizationDataObject synchObject);
-        void OnSynch(); // Lorsqu'un message StateUpdate est reçu
+        StateUpdateObject[] GetSynchInfo(EntitySynchronizationDataObject synchObject);
+        void OnSynch(ComponentSynchronizationDataObject synchData); // Lorsqu'un message StateUpdate est reçu
     }
 }

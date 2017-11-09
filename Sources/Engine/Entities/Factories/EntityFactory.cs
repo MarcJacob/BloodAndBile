@@ -32,7 +32,7 @@ namespace BloodAndBileEngine.EntityFactories
                 }
                 // Ajout d'un Component de synchronisation.
                 // TODO : Trouver un moyen de synchroniser les components d'une entité.
-                newEntity.AddComponent<EntitySynchroniserComponent>(new EntitySynchroniserComponent(newEntity));
+                newEntity.AddComponent(typeof(EntitySynchroniserComponent));
                 return newEntity;
             }
             

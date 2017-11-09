@@ -4,29 +4,26 @@ using System.Linq;
 using System.Text;
 using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 
+/// <summary>
+/// Objet contenant un Type de component et un ensemble de StateUpdateObjects associés à
+/// ce component. Ce type d'objet est utilisé par les EntitySynchronizationDataObject donc
+/// il faut passer par ce dernier pour connaitre l'ID de l'entité.
+/// </summary>
 namespace BloodAndBileEngine
 {
-    /// <summary>
-    /// Contient un identifiant lié à une entité, et un ensemble de StateUpdateObjects contenants
-    /// des informations. 
-    /// </summary>
-    [Serializable]
-    public class EntitySynchronizationDataObject
+    public class ComponentSynchronizationDataObject
     {
-        public EntitySynchronizationDataObject(uint entityID)
-        {
-            EntityID = entityID;
-            SyncInfo = new List<StateUpdateObject>();
-        }
+        public Type ComponentType;
+        public List<StateUpdateObject> Data;
 
         public void SetSynchInfo(string syncInfoName, object info)
         {
             Debugger.Log("SetSynchInfo() - " + syncInfoName);
             StateUpdateObject syncInfoObject = null;
             int i = 0;
-            while(syncInfoObject == null && i < SyncInfo.Count)
+            while (syncInfoObject == null && i < Data.Count)
             {
-                StateUpdateObject updateObject = SyncInfo[i];
+                StateUpdateObject updateObject = Data[i];
                 if (updateObject.Type == syncInfoName)
                 {
                     syncInfoObject = updateObject;
@@ -37,13 +34,13 @@ namespace BloodAndBileEngine
             if (syncInfoObject == null)
             {
                 syncInfoObject = new StateUpdateObject(syncInfoName, info);
-                SyncInfo.Add(syncInfoObject);
+                Data.Add(syncInfoObject);
             }
             else
             {
                 syncInfoObject.Information = info;
             }
-            
+
         }
 
         public object GetSynchInfo(string syncInfoName)
@@ -51,9 +48,9 @@ namespace BloodAndBileEngine
             Debugger.Log("GetSynchInfo()");
             StateUpdateObject syncInfoObject = null;
             int i = 0;
-            while (syncInfoObject == null && i < SyncInfo.Count)
+            while (syncInfoObject == null && i < Data.Count)
             {
-                StateUpdateObject updateObject = SyncInfo[i];
+                StateUpdateObject updateObject = Data[i];
                 if (updateObject.Type == syncInfoName)
                 {
                     syncInfoObject = updateObject;
@@ -67,24 +64,15 @@ namespace BloodAndBileEngine
             }
             else
             {
-                Debugger.Log("ERREUR : " + syncInfoName + " n'est pas présent dans ce EntitySynchronizationDataObject !" ,UnityEngine.Color.red);
+                Debugger.Log("ERREUR : " + syncInfoName + " n'est pas présent dans ce ComponentSynchInfoDataObject !", UnityEngine.Color.red);
                 return null;
             }
         }
 
-        public void SetSynchInfoFromSynchObject(EntitySynchronizationDataObject other)
+        public ComponentSynchronizationDataObject(Type type, List<StateUpdateObject> data)
         {
-            foreach(StateUpdateObject obj in other.SyncInfo)
-            {
-                SetSynchInfo(obj.Type, obj.Information);
-            }
+            ComponentType = type;
+            Data = data;
         }
-
-        uint EntityID; // Identifiant de l'entité
-        public uint GetEntityID()
-        {
-            return EntityID;
-        }
-        List<StateUpdateObject> SyncInfo; // Ensemble des informations de synchronisation.
     }
 }

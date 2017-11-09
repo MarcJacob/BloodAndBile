@@ -13,17 +13,17 @@ namespace BloodAndBileEngine
     {
         protected Entity LinkedEntity; // Entité auquel ce Component est lié.
 
-        public EntityComponent(Entity linked)
+        public EntityComponent()
+        {
+            
+        }
+
+        public void LinkEntity(Entity linked)
         {
             LinkedEntity = linked;
         }
 
         abstract public void Initialise(); // Appelé lorsque ce Component est ajouté à une Entité.
         abstract public void Update(float deltaTime); // Appelé à chaque mise à jour de l'entité.
-
-        // Renvoi l'identifiant du Component.
-        // Utilisé pour la synchronisation des Components sur un réseau : l'identifiant de chaque
-        // components sera le même sur toutes les machines.
-        abstract public uint GetComponentID();
     }
 }
