@@ -27,6 +27,12 @@ public class MapStateModule : MatchModule, IStateUpdater
 
     }
 
+    public override void Update(float deltaTime)
+    {
+        BloodAndBileEngine.Debugger.Log("MapStateModule.Update()");
+        CurrentWorldState.Simulate(deltaTime);
+    }
+
     public StateUpdateObject[] GetStateUpdateInformation()
     {
         List<StateUpdateObject> stateUpdates = new List<BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateObject>();

@@ -15,8 +15,6 @@ using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
 /// </summary>
 public interface IStateUpdateReceiver
 {
-    BloodAndBileEngine.WorldState.WorldState GetWorldState();
-
     void OnStateUpdate(StateUpdateMessage stateUpdate);
     void OnStateConstruction(StateConstructionMessage stateConstruction);
 }

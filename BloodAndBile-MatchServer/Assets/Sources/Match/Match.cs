@@ -8,7 +8,7 @@ public class Match
 {
     List<int> PlayerConnectionIDs = new List<int>();
 
-    public bool Ongoing = true; // Ce match est-il en cours ?
+    public bool Ongoing = false; // Ce match est-il en cours ?
 
     List<MatchModule> Modules = new List<MatchModule>();
 
@@ -51,7 +51,7 @@ public class Match
         {
             modules.Initialise(); // Initialisation des modules.
         }
-
+        Ongoing = true; // On lance le match.
     }
 
     public void SetPlayerConnectionIDs(int[] ids)
@@ -66,17 +66,25 @@ public class Match
     {
         foreach(int coID in PlayerConnectionIDs)
         {
+            BloodAndBileEngine.Debugger.Log("Envoi d'un message au joueur ID " + coID);
             BloodAndBileEngine.Networking.MessageSender.Send(message, coID, channelID);
         }
     }
 
+    float DeltaTime = 0.0f;
+
     public void Update()
     {
+        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
+        watch.Start();
         // Mettre à jour les modules
         foreach(MatchModule module in Modules)
         {
-            module.Update();
+            module.Update(DeltaTime);
         }
+
+        watch.Stop();
+        DeltaTime = (float)watch.Elapsed.Milliseconds / 1000;
     }
 
     public void EndMatch()

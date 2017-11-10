@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -83,6 +81,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\EntityLinkTest.cs" />
     <Compile Include="Assets\Sources\Actor\Actor.cs" />
     <Compile Include="Assets\Sources\Client\Client.cs" />
     <Compile Include="Assets\Sources\Client\States\IClientState.cs" />
@@ -91,6 +90,7 @@
     <Compile Include="Assets\Sources\Client\States\MatchmakingState.cs" />
     <Compile Include="Assets\Sources\Client\States\MatchServerSearchState.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\OnlinePlayingState.cs" />
+    <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\EntitiesSynchronizer.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\MapStateUpdater.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\Online\StateUpdateReceivers\StateUpdateReceiver.cs" />
     <Compile Include="Assets\Sources\Client\States\PlayingStates\PlayingState.cs" />
@@ -102,7 +102,6 @@
     <None Include="Assets\Resources\Trie.txt" />
     <None Include="Assets\Sources\Trie.txt" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
 </Project>

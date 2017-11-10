@@ -52,13 +52,18 @@
     <Compile Include="Debug\Console.cs" />
     <Compile Include="Debug\ConsoleLine.cs" />
     <Compile Include="Debug\Debugger.cs" />
-    <Compile Include="Entities\Controllers\Controller.cs" />
+    <Compile Include="Entities\Components\Controllers\TestController.cs" />
+    <Compile Include="Entities\Components\EntityComponent.cs" />
+    <Compile Include="Entities\Components\EntityComponentSynchroniser\ComponentSynchInfoDataObject.cs" />
+    <Compile Include="Entities\Components\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
+    <Compile Include="Entities\Components\EntityComponentSynchroniser\EntitySynchronizationDataObject.cs" />
+    <Compile Include="Entities\Components\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\EntityComponent.cs" />
-    <Compile Include="Entities\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
-    <Compile Include="Entities\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
+    <Compile Include="Entities\Factories\EntityFactory.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Misc\SerializableQuaternion.cs" />
+    <Compile Include="Misc\SerializableVector3.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />
     <Compile Include="Networking\HandlersManager.cs" />
     <Compile Include="Networking\MessageReader.cs" />
@@ -78,7 +83,6 @@
     <Compile Include="WorldState\WorldState.cs" />
     <Compile Include="WorldState\WorldStateData\CellSystem\Cell.cs" />
     <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />
-    <Compile Include="WorldState\WorldStateData\ControllersManager\ControllersManager.cs" />
     <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
   </ItemGroup>
   <ItemGroup>
