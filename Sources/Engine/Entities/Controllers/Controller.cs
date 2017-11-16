@@ -13,7 +13,7 @@ namespace BloodAndBileEngine
 {
     public abstract class Controller
     {
-        Entity ControlledEntity; // Entité controllée.
+        protected Entity ControlledEntity; // Entité controllée.
 
         public Entity GetControlledEntity()
         {

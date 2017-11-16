@@ -53,10 +53,12 @@
     <Compile Include="Debug\ConsoleLine.cs" />
     <Compile Include="Debug\Debugger.cs" />
     <Compile Include="Entities\Controllers\Controller.cs" />
+    <Compile Include="Entities\Effect.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\EntityComponent.cs" />
     <Compile Include="Entities\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
     <Compile Include="Entities\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
+    <Compile Include="Entities\EffectManager.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />

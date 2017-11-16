@@ -11,7 +11,7 @@ namespace BloodAndBileEngine
 {
     public abstract class EntityComponent
     {
-        Entity LinkedEntity; // Entité auquel ce Component est lié.
+        protected Entity LinkedEntity; // Entité auquel ce Component est lié.
 
         public EntityComponent(Entity linked)
         {
