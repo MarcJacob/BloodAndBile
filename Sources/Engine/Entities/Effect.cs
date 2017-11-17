@@ -29,16 +29,14 @@ namespace BloodAndBileEngine
 
         public void Update(int id, float deltaTime)
         {
+            EffectAction(id);
             OnUpdate(id);
             Time -= deltaTime;
         }
 
 
         public virtual void OnBirth(int id) { }
-        public virtual void OnUpdate(int id)
-        {
-            EffectAction(id);
-        }
+        public virtual void OnUpdate(int id) { }
         public virtual void OnDeath(int id) { }
     }
 }

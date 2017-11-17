@@ -18,34 +18,34 @@ namespace BloodAndBileEngine
         {
             EntityEffects = new List<Effect>();
             foreach (Effect e in effects)
-                EntityEffects.Add(e);
+                AddEffect(e);
         }
 
 
-        public override void Initialise()
-        {
-            foreach (Effect e in EntityEffects)
-            {
-                e.OnBirth(LinkedEntity.ID);
-                if (e.Time <= 0f)
-                    EntityEffects.Remove(e);
-            }
-        }
+        public override void Initialise() {}
 
         public override void Update(float deltaTime)
         {
-            List<Effect> DeadEffects = new List<Effect>();
             foreach (Effect e in EntityEffects)
             {
                 e.Update(LinkedEntity.ID, deltaTime);
                 if (e.Time <= 0f)
-                    DeadEffects.Add(e);
+                    RemoveEffect(e);
             }
-            foreach(Effect e in DeadEffects)
-            {
-                e.OnDeath(LinkedEntity.ID);
-                EntityEffects.Remove(e);
-            }
+        }
+
+        public void AddEffect(Effect e)
+        {
+            EntityEffects.Add(e);
+            e.OnBirth(LinkedEntity.ID);
+            if (e.Time <= 0f)
+                RemoveEffect(e);
+        }
+
+        public void RemoveEffect(Effect e)
+        {
+            e.OnDeath(LinkedEntity.ID);
+            EntityEffects.Remove(e);
         }
     }
 }
