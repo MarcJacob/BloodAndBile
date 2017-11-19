@@ -58,6 +58,9 @@
     <Compile Include="Entities\Components\EntityComponentSynchroniser\EntitySynchroniserComponent.cs" />
     <Compile Include="Entities\Components\EntityComponentSynchroniser\EntitySynchronizationDataObject.cs" />
     <Compile Include="Entities\Components\EntityComponentSynchroniser\IEntitySynchroniser.cs" />
+    <Compile Include="Entities\Components\Humors\HumorsComponent.cs" />
+    <Compile Include="Entities\Components\Movers\EntityMover.cs" />
+    <Compile Include="Entities\Components\SpellComponent\SpellComponent.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Factories\EntityFactory.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
@@ -80,6 +83,9 @@
     <Compile Include="Networking\Messaging\SentMessage.cs" />
     <Compile Include="Networking\NetworkReceiver.cs" />
     <Compile Include="Networking\NetworkSocket.cs" />
+    <Compile Include="Spells\Spell.cs" />
+    <Compile Include="Spells\SpellInstance.cs" />
+    <Compile Include="Spells\SpellsManager.cs" />
     <Compile Include="WorldState\WorldState.cs" />
     <Compile Include="WorldState\WorldStateData\CellSystem\Cell.cs" />
     <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />

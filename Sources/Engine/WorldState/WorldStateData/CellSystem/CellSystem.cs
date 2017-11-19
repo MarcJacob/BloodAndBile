@@ -70,20 +70,12 @@ namespace BloodAndBileEngine.WorldState
             while (cellID < Cells.Length && c == null) // Complexité maximale : Cells.Length.
             {
                 Cell cell = Cells[cellID];
-                if (cell.GetPosition().x <= x && cell.GetPosition().x + cell.GetDimensions().x > x)
+                if (cell.GetPosition().x <= y && cell.GetPosition().x + cell.GetDimensions().y > y)
                 {
-                    if (cell.GetPosition().y <= y && cell.GetPosition().y + cell.GetDimensions().y > y)
+                    if (cell.GetPosition().z <= x && cell.GetPosition().z + cell.GetDimensions().x > x)
                     {
                         c = cell;
                     }
-                    else
-                    {
-                        Debugger.Log("Lol Nope 2");
-                    }
-                }
-                else
-                {
-                    Debugger.Log("Lol Nope 1");
                 }
                 cellID++;
             }

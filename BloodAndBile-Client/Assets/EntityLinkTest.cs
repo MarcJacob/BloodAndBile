@@ -4,21 +4,19 @@ using UnityEngine;
 
 public class EntityLinkTest : MonoBehaviour {
 
+    BloodAndBileEngine.Entity entity;
+
 	// Use this for initialization
 	void Start () {
-		
+        entity = BloodAndBileEngine.EntitiesManager.GetEntityFromID(0);
 	}
     public float value;
 	// Update is called once per frame
 	void Update () {
 		if (!BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).Destroyed)
         {
-            transform.position = Vector3.Lerp(transform.position, BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).Position, Time.deltaTime);
-            value = ((BloodAndBileEngine.TestController)(BloodAndBileEngine.EntitiesManager.GetEntityFromID(0).GetComponent(typeof(BloodAndBileEngine.TestController)))).value;
-        }
-        else
-        {
-            Debug.Log("lol");
+            transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime);
+            value = entity.CurrentCellID;
         }
 	}
 }

@@ -23,7 +23,7 @@ namespace BloodAndBileEngine
             LinkedEntity = linked;
         }
 
-        abstract public void Initialise(); // Appelé lorsque ce Component est ajouté à une Entité.
+        abstract public void Initialise(BloodAndBileEngine.WorldState.WorldState worldState); // Appelé lorsque ce Component est ajouté à une Entité.
         abstract public void Update(float deltaTime); // Appelé à chaque mise à jour de l'entité.
     }
 }

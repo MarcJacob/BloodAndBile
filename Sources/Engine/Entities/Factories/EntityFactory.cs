@@ -21,6 +21,10 @@ namespace BloodAndBileEngine.EntityFactories
             newEntity.Destroyed = false;
             // Destruction des components existants
             newEntity.Reset();
+
+            // Assignation du WorldState à l'entité
+            newEntity.SetWorldState(world);
+
             // Placement de l'entité sur une cellule.
             CellSystem cellSystem = world.GetData<CellSystem>();
             if (cellSystem != null)
@@ -30,9 +34,8 @@ namespace BloodAndBileEngine.EntityFactories
                 {
                     cell.AddEntity(newEntity);
                 }
-                // Ajout d'un Component de synchronisation.
-                // TODO : Trouver un moyen de synchroniser les components d'une entité.
                 newEntity.AddComponent(typeof(EntitySynchroniserComponent));
+                newEntity.AddComponent(typeof(EntityMover));
                 return newEntity;
             }
             
