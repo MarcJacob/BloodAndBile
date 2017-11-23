@@ -10,7 +10,7 @@ using System.Text;
 /// Ce qu'il contient est, de son côté, abstrait. WorldState contient purement de l'information et ne met pas lui
 /// même à jour ses informations. En revanche, il est possible de lui demander de "Simuler" ce qui doit se passer avec
 /// le temps, notamment en mettant à jour les contrôleurs d'entité (cela est un exemple, WorldState n'est même pas au courant
-/// de l'existence d'"entités" ou de "contrôleurs". 
+/// de l'existence d'"entités" ou de "contrôleurs"). 
 /// </summary>
 namespace BloodAndBileEngine.WorldState
 {

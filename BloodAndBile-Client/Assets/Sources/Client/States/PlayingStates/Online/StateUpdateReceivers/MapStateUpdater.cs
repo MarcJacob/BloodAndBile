@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BloodAndBileEngine.WorldState;
 using BloodAndBileEngine.Networking.Messaging.NetworkMessages;
+using UnityEngine;
 
 /// <summary>
 /// S'occupe de mettre à jour la partie "Map" du WorldState local. Surtout utilisé lors du StateConstruction
@@ -64,7 +65,8 @@ public class MapStateUpdater : IStateUpdateReceiver
     void LoadMap(int mapID)
     {
         BloodAndBileEngine.Debugger.Log("Chargement de la carte...");
-        // TODO : Instancier le modèle de la map.
+        World.AddData<Map>(Map.Maps[mapID]);
+        GameObject.Instantiate((GameObject) Resources.Load(Map.Maps[mapID].MapPrefabPath));
     }
 
     WorldState World;

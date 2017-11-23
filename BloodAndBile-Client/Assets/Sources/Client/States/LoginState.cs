@@ -26,6 +26,8 @@ public class LoginState : IClientState
     // FONCTIONS DE CLIENTSTATE
     public void OnEntry()
     {
+        if (BloodAndBileEngine.WorldState.Map.Maps == null)
+            BloodAndBileEngine.WorldState.Map.LoadMaps();
         InputHandlers.Add("Login", Login);
         InputHandlers.Add("LoginToMatchServer", LoginToMatchServer); // Permet de rapidement tester le Match Server (et surtout de ne pas avoir besoin de lancer un Master Server.)
         NetworkSocket.RegisterOnConnectionEstablishedCallback(OnConnection);

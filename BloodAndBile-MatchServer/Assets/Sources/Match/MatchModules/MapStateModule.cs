@@ -24,7 +24,6 @@ public class MapStateModule : MatchModule, IStateUpdater
     public override void Initialise()
     {
         base.Initialise();
-
     }
 
     public override void Update(float deltaTime)
@@ -61,12 +60,14 @@ public class MapStateModule : MatchModule, IStateUpdater
     public StateUpdateObject[] GetConstructionStateInformation()
     {
         // Ajout des informations relative aux cellules.
-        StateUpdateObject cellInfo;
+        StateUpdateObject cellInfo, mapID;
         float[] data = CurrentWorldState.GetData<BloodAndBileEngine.WorldState.CellSystem>().GetCellConstructionData();
 
         cellInfo = new StateUpdateObject("CELL_CONSTRUCTION_DATA", data);
+        int id = CurrentWorldState.GetData<BloodAndBileEngine.WorldState.Map>().ID;
+        mapID = new StateUpdateObject("MAP_ID", id);
 
-        return new StateUpdateObject[] { cellInfo };
+        return new StateUpdateObject[] { cellInfo, mapID };
     }
 
 }

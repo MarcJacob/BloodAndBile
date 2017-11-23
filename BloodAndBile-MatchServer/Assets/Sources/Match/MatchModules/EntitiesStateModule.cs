@@ -42,6 +42,7 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Stop();
     }
 
+<<<<<<< HEAD
     // Lance une mise à jour de chaque EntitySynchroniserComponent et regroupe leurs
     // EntitySynchronizationDataObjects dans un objet StateUpdateObject portant le nom "EntitySynchronization".
     // Renvoi également un StateUpdateObject "CreatedEntities" et un StateUpdateObject "DestroyedEntities".
@@ -67,11 +68,20 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         DestroyedEntitiesID.Clear();
         return new StateUpdateObject[] { EntitySyncObject, CreatedEntities, DestroyedEntities };
 
+=======
+    public StateUpdateObject[] GetStateUpdateInformation() 
+    {
+        return null;
+>>>>>>> Trunk-Ilan
     }
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
+<<<<<<< HEAD
         // Pas d'informations de construction.
         return new StateUpdateObject[0];
+=======
+        return null;
+>>>>>>> Trunk-Ilan
     }
 }
