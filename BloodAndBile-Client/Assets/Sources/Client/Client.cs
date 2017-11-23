@@ -33,6 +33,7 @@ public class Client : MonoBehaviour {
             Instance = this;
             NetworkSocket.Initialise(24999); // Initialise un Socket pour cette application sur le port 24999.
             BloodAndBileEngine.EntitiesManager.Initialise();
+            BloodAndBileEngine.NetworkCommandManager.Initialize();
         }	
         else
         {

@@ -18,9 +18,10 @@ namespace BloodAndBileEngine
                 int idConnection;
                 if (args[0] is string)
                 {
+                    Debugger.Log("Conversion de l'ID de connexion vers un nombre...", UnityEngine.Color.yellow);
                     if (Int32.TryParse((string)args[0], out idConnection))
                     {
-                        idConnection = (int)args[0];
+                        Debugger.Log("Conversion réussie !");
                     }
                     else
                     {
@@ -57,7 +58,7 @@ namespace BloodAndBileEngine
         static void NetworkCommandReceiver(NetworkMessageInfo info, NetworkMessage message)
         {
             NetworkCommandMessage commandMessage = (NetworkCommandMessage)message;
-            if(commandMessage.Args.Length > 1) InputManager.SendCommand(commandMessage.Command, commandMessage.Args);
+            if(commandMessage.Args.Length > 0) InputManager.SendCommand(commandMessage.Command, commandMessage.Args);
             else InputManager.SendCommand(commandMessage.Command);
         }
     }
