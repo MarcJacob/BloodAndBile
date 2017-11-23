@@ -30,7 +30,7 @@ public static class MatchCreator
             {
                 // Positions    // Dimensions   // Hauteurs
                 0f, 0f, 0f,     10f, 10f,       0f, 0f ,     // Cellule dans l'angle de la map de 10 x 10 plate.
-                0f, 0f, 10f,    10f, 10f,       1f, 1f ,     // Cellule de 10x10 pentue.   
+                0f, 0f, 10f,    10f, 10f,       3f, 0f ,     // Cellule de 10x10 pentue.   
             };
 
             // Création du CellSystem.

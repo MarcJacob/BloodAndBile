@@ -20,6 +20,8 @@ namespace BloodAndBileEngine
         // Est relatif à un CellSystem, donc il faut être sur de se trouver dans le bon match avant de relier
         // un objet Cell à cette entité avec cet attribut.
 
+        WeakReference WorldStateWeakRef = new WeakReference(null);
+
         public Entity()
         {
             ID = 0;
@@ -51,7 +53,7 @@ namespace BloodAndBileEngine
             EntityComponent casted = (EntityComponent)component;
             Components.Add(casted);
             casted.LinkEntity(this);
-            casted.Initialise();
+            casted.Initialise(GetWorldState());
             return casted;
         }
 
@@ -80,6 +82,18 @@ namespace BloodAndBileEngine
             CurrentCellID = id;
         } // Change CurrentCellID. Appelé par un objet Cell quand celui ci perçoit
         // que cette entité est sortie de la cellule et se trouve dans une nouvelle.
+
+
+        public void SetWorldState(BloodAndBileEngine.WorldState.WorldState worldState)
+        {
+            WorldStateWeakRef.Target = worldState;
+        }
+
+        public WorldState.WorldState GetWorldState()
+        {
+            return (WorldState.WorldState)(WorldStateWeakRef.Target);
+        }
+
 
         /// <summary>
         /// 

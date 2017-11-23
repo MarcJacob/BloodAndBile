@@ -28,7 +28,7 @@ namespace BloodAndBileEngine
             return SynchData;
         }
 
-        public override void Initialise()
+        public override void Initialise(BloodAndBileEngine.WorldState.WorldState worldState)
         {
             SynchData = new EntitySynchronizationDataObject(LinkedEntity.ID);
         }

@@ -15,14 +15,16 @@ namespace BloodAndBileEngine
 
         public float value = 0;
 
-        public override void Initialise()
+        public override void Initialise(BloodAndBileEngine.WorldState.WorldState worldState)
         {
-            
+            Mover = (EntityMover)LinkedEntity.GetComponent(typeof(EntityMover));
         }
+
+        EntityMover Mover;
 
         public override void Update(float deltaTime)
         {
-            LinkedEntity.Position += UnityEngine.Vector3.forward * deltaTime;
+            Mover.Move(deltaTime, 0);
             UnityEngine.Quaternion newRot = LinkedEntity.Rotation;
             newRot.eulerAngles += new UnityEngine.Vector3(0, 1f * deltaTime, 0);
             LinkedEntity.Rotation = newRot;

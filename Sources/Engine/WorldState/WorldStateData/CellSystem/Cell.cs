@@ -46,36 +46,18 @@ namespace BloodAndBileEngine.WorldState
 
         /// <summary>
         /// Renvoi la hauteur d'un point se trouvant aux coordonnées indiquées à vue d'oiseau.
-        /// Si le point ne se trouve pas dans la cellule, on appelle récursivement la fonction sur la cellule que l'on
-        /// trouve à l'aide de la référence au CellSystem.
-        /// 
-        /// Si la référence au CellSystem n'est pas valide, ou s'il n'y a pas de cellule aux coordonnées indiquées,
-        /// alors la hauteur renvoyée est de -500 (hauteur minimum).
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-            if (Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
-            {
-                x = (x - Position.x) / Dimensions.x;
-                y = (y - Position.y) / Dimensions.y;
+                x = (x - Position.z) / Dimensions.x;
+                y = (y - Position.x) / Dimensions.y;
                 float xHeight = Heights.x * x;
                 float yHeight = Heights.y * y;
-
+                Debugger.Log("Hauteur : " + Position.y + xHeight + yHeight + " from : " + Heights + " and " + x + " ; " + y);
                 return Position.y + xHeight + yHeight; // ATTENTION : Pour Position, l'élément y est la hauteur !
-            }
-            else if (CellSystemRef.IsAlive)
-            {
-                Cell c = ((CellSystem)CellSystemRef.Target).GetCellFromPosition(x, y);
-                if (c != null)
-                {
-                    return c.GetHeightFrom2DCoordinates(x, y);
-                }
-            }
-
-            return -500;
         }
 
         public UnityEngine.Vector3 GetPosition()
@@ -163,13 +145,13 @@ namespace BloodAndBileEngine.WorldState
                 if (e.Destroyed) DestroyedEntities.Add(e);
                 else
                 {
-                    if (e.Position.x < Position.x || e.Position.x > Position.x + Dimensions.x || e.Position.z < Position.z || e.Position.z > Position.z + Dimensions.y)
+                    if (e.Position.x < Position.x || e.Position.x > Position.x + Dimensions.y || e.Position.z < Position.z || e.Position.z > Position.z + Dimensions.x)
                     {
                         Cell newCell = GetCellSystem().GetCellFromPosition(e.Position.z, e.Position.x);
-                        if (newCell != null)
+                        if (newCell != null)    
                         {
                             newCell.AddEntity(e);
-                            EntitiesInCell.Remove(e);
+                            DestroyedEntities.Add(e);
                         }
                         else
                         {
