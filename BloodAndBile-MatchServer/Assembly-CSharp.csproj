@@ -5,7 +5,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <ProjectGuid>{F8A7C178-4D6D-2DA6-EE9C-F4853775B777}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -46,37 +47,43 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Sources\Match\Match.cs" />
-     <Compile Include="Assets\Sources\Match\MatchCreator.cs" />
-     <Compile Include="Assets\Sources\Match\MatchModules\MatchModule.cs" />
-     <Compile Include="Assets\Sources\Match\MatchStates\MatchState.cs" />
-     <Compile Include="Assets\Sources\MatchServer\MatchServer.cs" />
-     <Compile Include="Assets\Sources\MatchServer\MatchUpdater\MatchUpdater.cs" />
-     <Compile Include="Assets\Sources\MatchServer\Modules\IMatchServerModule.cs" />
-     <Compile Include="Assets\Sources\MatchServer\Modules\MasterServerConnectionModule.cs" />
-     <Compile Include="Assets\Sources\MatchServer\Modules\MatchesManagerModule.cs" />
-     <Compile Include="Assets\Sources\MatchServer\Modules\PlayersManagerModule.cs" />
-     <None Include="Assets\Misc\Règles ASSETS.txt" />
-     <None Include="Assets\Bulk\Trie.txt" />
-     <None Include="Assets\Resources\Trie.txt" />
- <Reference Include="UnityEngine.UI">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Networking">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.PlaymodeTestsRunner">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.Analytics">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.HoloLens">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
- </Reference>
- <Reference Include="UnityEngine.VR">
- <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
- </Reference>
+    <Compile Include="Assets\Sources\Match\Match.cs" />
+    <Compile Include="Assets\Sources\Match\MatchCreator.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\EntitiesStateModule.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\IStateUpdater.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\MapStateModule.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\MatchModule.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\StateUpdateModule.cs" />
+    <Compile Include="Assets\Sources\MatchServer\MatchServer.cs" />
+    <Compile Include="Assets\Sources\MatchServer\MatchUpdater\MatchUpdater.cs" />
+    <Compile Include="Assets\Sources\MatchServer\Modules\IMatchServerModule.cs" />
+    <Compile Include="Assets\Sources\MatchServer\Modules\MasterServerConnectionModule.cs" />
+    <Compile Include="Assets\Sources\MatchServer\Modules\MatchesManagerModule.cs" />
+    <Compile Include="Assets\Sources\MatchServer\Modules\PlayersManagerModule.cs" />
+    <None Include="Assets\Misc\Règles ASSETS.txt" />
+    <None Include="Assets\Bulk\Trie.txt" />
+    <None Include="Assets\Resources\Trie.txt" />
+    <Reference Include="UnityEngine.UI">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Networking">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PlaymodeTestsRunner">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/PlaymodeTestsRunner/UnityEngine.PlaymodeTestsRunner.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.Analytics">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityAnalytics/UnityEngine.Analytics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.HoloLens">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.VR">
+      <HintPath>D:/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
+    </Reference>
+    <Reference Include="BloodAndBileEngine">
+      <HintPath>D:/BloodAndBile/BloodAndBile/BloodAndBile-MatchServer/Assets/DLLs/BloodAndBileEngine.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -86,5 +93,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  
 </Project>

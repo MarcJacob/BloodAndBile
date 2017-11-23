@@ -55,7 +55,7 @@ public class MasterServer : MonoBehaviour {
         NetworkSocket.Initialise(25001, 500); // Initialise un socket au port 25000 avec 500 connexions au max.
         InitialiseModules();
         Activate();
-
+        BloodAndBileEngine.NetworkCommandManager.Initialize();
         InputHandlers = new BloodAndBileEngine.InputHandlersManager();
         InputHandlers.Add("Activate", (object[] parameters) => Activate());
         InputHandlers.Add("Deactivate", (object[] parameters) => Deactivate());

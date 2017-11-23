@@ -61,13 +61,9 @@
     <Compile Include="Entities\Factories\EntityFactory.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
-<<<<<<< HEAD
-    <Compile Include="Map\Cell.cs" />
-    <Compile Include="Map\World.cs" />
-=======
+    <Compile Include="Input\NetworkCommandManager.cs" />
     <Compile Include="Misc\SerializableQuaternion.cs" />
     <Compile Include="Misc\SerializableVector3.cs" />
->>>>>>> origin/Trunk-Marc
     <Compile Include="Networking\ConnectionInfo.cs" />
     <Compile Include="Networking\HandlersManager.cs" />
     <Compile Include="Networking\MessageReader.cs" />
@@ -78,6 +74,7 @@
     <Compile Include="Networking\Messaging\NetworkMessages\CellArrayMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\ConditionCheckResponseMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\IPListMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\NetworkCommandMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateObject.cs" />
     <Compile Include="Networking\Messaging\ReceivedMessage.cs" />
@@ -90,7 +87,6 @@
     <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Map\Description.txt" />
     <Content Include="Networking\Messaging\A lire.txt" />
   </ItemGroup>
   <ItemGroup />

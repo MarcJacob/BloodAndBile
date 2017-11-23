@@ -27,23 +27,11 @@ namespace BloodAndBileEngine
             Size = 1f;
             Height = 1f;
             Destroyed = true;
-            CurrentCellID = 0; 
+            CurrentCellID = 0;
         } // Etat par défaut des entités en mémoire.
 
         List<EntityComponent> Components = new List<EntityComponent>(); // Ensemble des Components possédés par cette Entité.
 
-<<<<<<< HEAD
-    public Entity(Vector3 pos, Quaternion rot, float size, float height, World world)
-    {
-        ID = LastID++;
-        Position = pos;
-        Rotation = rot;
-        Size = size;
-        Height = height;
-        world.GetCellFromPosition(pos).AddEntity(this);
-        Destroyed = false;
-    }
-=======
         /// <summary>
         /// Ajoute un Component du type spécifié à l'entité et en renvoi la référence.
         /// </summary>
@@ -56,7 +44,6 @@ namespace BloodAndBileEngine
             component.Initialise();
             return component;
         }
->>>>>>> master
 
         /// <summary>
         /// Renvoie le Component du type indiqué s'il est possédé par cette entité.
@@ -65,7 +52,7 @@ namespace BloodAndBileEngine
         /// <returns></returns>
         public T GetComponent<T>() where T : EntityComponent
         {
-            foreach(EntityComponent c in Components)
+            foreach (EntityComponent c in Components)
             {
                 if (c is T)
                 {
@@ -157,7 +144,7 @@ namespace BloodAndBileEngine
         public static void Initialise()
         {
             _entitiesArray = new Entity[MAX_ENTITY_COUNT];
-            for(int entityID = 0; entityID < MAX_ENTITY_COUNT; entityID++)
+            for (int entityID = 0; entityID < MAX_ENTITY_COUNT; entityID++)
             {
                 _entitiesArray[entityID] = new Entity();
             }
@@ -166,7 +153,7 @@ namespace BloodAndBileEngine
         public static int GetEntityCount()
         {
             int amount = 0;
-            foreach(Entity entity in _entitiesArray)
+            foreach (Entity entity in _entitiesArray)
             {
                 if (!entity.Destroyed)
                 {
@@ -191,7 +178,7 @@ namespace BloodAndBileEngine
         public static uint GetNextID() // Cherche l'ID disponible la plus proche de 0.
         {
             uint ID = 0;
-            while(!_entitiesArray[ID].Destroyed)
+            while (!_entitiesArray[ID].Destroyed)
             {
                 ID++;
             }

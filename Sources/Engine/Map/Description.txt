@@ -1,1 +1,0 @@
-Ce dossier contient l'ensemble des éléments nécessaires au fonctionnement de la carte du jeu ainsi que des cellules
