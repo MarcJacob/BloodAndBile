@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\..\..\..\Program Files\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\..\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -65,6 +65,7 @@
     <Compile Include="Entities\Factories\EntityFactory.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Input\NetworkCommandManager.cs" />
     <Compile Include="Misc\SerializableQuaternion.cs" />
     <Compile Include="Misc\SerializableVector3.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />
@@ -77,6 +78,7 @@
     <Compile Include="Networking\Messaging\NetworkMessages\CellArrayMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\ConditionCheckResponseMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\IPListMessage.cs" />
+    <Compile Include="Networking\Messaging\NetworkMessages\NetworkCommandMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateMessage.cs" />
     <Compile Include="Networking\Messaging\NetworkMessages\StateUpdate\StateUpdateObject.cs" />
     <Compile Include="Networking\Messaging\ReceivedMessage.cs" />
