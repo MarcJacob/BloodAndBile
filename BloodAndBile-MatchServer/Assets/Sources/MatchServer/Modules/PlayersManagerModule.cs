@@ -9,6 +9,9 @@ using BloodAndBileEngine.Networking.NetworkMessages;
  */
 public class PlayersManagerModule : IMatchServerModule
 {
+
+    BloodAndBileEngine.PlayerControlCommandManager PlayerControlManager;
+
     Dictionary<int, string> ConnectedPlayers; // Joueurs connectés. Relie un ID de connexion à un nom de joueur.
     List<int> MatchmakingQueue; // Ensemble des joueurs attendant un match.
     public string GetPlayerNameFromID(int coID)
@@ -50,6 +53,8 @@ public class PlayersManagerModule : IMatchServerModule
 
         MatchmakingQueue = new List<int>();
 
+        PlayerControlManager = new BloodAndBileEngine.PlayerControlCommandManager();
+        PlayerControlManager.SetExecuteLocally();
     }
 
     public void Activate()

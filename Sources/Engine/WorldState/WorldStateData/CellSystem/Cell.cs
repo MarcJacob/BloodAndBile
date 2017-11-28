@@ -52,19 +52,20 @@ namespace BloodAndBileEngine.WorldState
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-<<<<<<< HEAD
-                x = (x - Position.z) / Dimensions.x;
-                y = (y - Position.x) / Dimensions.y;
-=======
+
             if (Position.x <= x && Position.y <= y && Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
             {
-                x = (x - Position.x) / Dimensions.x;
-                y = (y - Position.y) / Dimensions.y;
->>>>>>> Trunk-Ilan
+                x = (x - Position.z) / Dimensions.x;
+                y = (y - Position.x) / Dimensions.y;
                 float xHeight = Heights.x * x;
                 float yHeight = Heights.y * y;
                 Debugger.Log("Hauteur : " + Position.y + xHeight + yHeight + " from : " + Heights + " and " + x + " ; " + y);
                 return Position.y + xHeight + yHeight; // ATTENTION : Pour Position, l'élément y est la hauteur !
+            }
+            else
+            {
+                return -500;
+            }
         }
 
         public UnityEngine.Vector3 GetPosition()

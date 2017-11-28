@@ -12,7 +12,7 @@ public class OnlinePlayingState : PlayingState
 {
 
     BloodAndBileEngine.Networking.HandlersManager NetworkHandlers;
-
+    BloodAndBileEngine.PlayerControlCommandManager PlayerControlManager;
     int MatchServerConnectionID; // ID de connexion au MatchServer -> Permet de savoir quand le MatchServer n'est plus
     // connecté au client et de revenir au MainMenuState.
 
@@ -25,6 +25,9 @@ public class OnlinePlayingState : PlayingState
             new MapStateUpdater(LocalWorldState),
             new EntitiesSynchronizer(LocalWorldState),
         };
+
+        PlayerControlManager = new BloodAndBileEngine.PlayerControlCommandManager();
+        PlayerControlManager.SetSendToNetworkHandler(matchServerConnectionID);
     }
 
     public override void OnEntry()

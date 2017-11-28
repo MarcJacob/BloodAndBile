@@ -42,7 +42,6 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Stop();
     }
 
-<<<<<<< HEAD
     // Lance une mise à jour de chaque EntitySynchroniserComponent et regroupe leurs
     // EntitySynchronizationDataObjects dans un objet StateUpdateObject portant le nom "EntitySynchronization".
     // Renvoi également un StateUpdateObject "CreatedEntities" et un StateUpdateObject "DestroyedEntities".
@@ -50,7 +49,7 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
     {
         StateUpdateObject EntitySyncObject = new StateUpdateObject("EntitySynchronization", null);
         List<BloodAndBileEngine.EntitySynchronizationDataObject> SyncDataObjectList = new List<BloodAndBileEngine.EntitySynchronizationDataObject>();
-        foreach(BloodAndBileEngine.Entity entity in ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetAllEntities())
+        foreach (BloodAndBileEngine.Entity entity in ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetAllEntities())
         {
             BloodAndBileEngine.EntitySynchroniserComponent syncComponent = (BloodAndBileEngine.EntitySynchroniserComponent)entity.GetComponent(typeof(BloodAndBileEngine.EntitySynchroniserComponent));
             if (syncComponent != null)
@@ -67,21 +66,11 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         CreatedEntitiesID.Clear();
         DestroyedEntitiesID.Clear();
         return new StateUpdateObject[] { EntitySyncObject, CreatedEntities, DestroyedEntities };
-
-=======
-    public StateUpdateObject[] GetStateUpdateInformation() 
-    {
-        return null;
->>>>>>> Trunk-Ilan
     }
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
-<<<<<<< HEAD
         // Pas d'informations de construction.
         return new StateUpdateObject[0];
-=======
-        return null;
->>>>>>> Trunk-Ilan
     }
 }
