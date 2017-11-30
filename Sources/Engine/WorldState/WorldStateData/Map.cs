@@ -26,7 +26,13 @@ namespace BloodAndBileEngine.WorldState
         public static void LoadMaps()
         {
             Maps = new List<Map>();
-            Map map1 = new Map("Prefabs/Maps/Terrain", new float[] { 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f });
+            float[] cellData = new float[]
+            {
+                // Positions    // Dimensions   // Hauteurs
+                0f, 0f, 0f,     10f, 10f,       0f, 0f ,     // Cellule dans l'angle de la map de 10 x 10 plate.
+                0f, 0f, 10f,    10f, 10f,       3f, 0f ,     // Cellule de 10x10 pentue.   
+            };
+            Map map1 = new Map("Prefabs/Maps/Terrain", cellData);
         }
     }
 }

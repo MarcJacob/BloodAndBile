@@ -24,7 +24,6 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
         // La liste des entités détruites est passé en paramètre de la fonction "RemoveEntitiesFromID" du CellSystem
         // du WorldState actuel.
         // Création des entités :
-
         uint[] createdEntities = (uint[])stateUpdate.GetStateUpdateInfo("CreatedEntities")[0].Information;
         foreach(uint id in createdEntities)
         {
@@ -39,14 +38,19 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
         // Synchronisation
         // Chaque EntitySynchronizationDataObject a un identifiant d'entité à synchroniser, il suffit donc
         // d'appliquer la synchronisation à l'entité en question.
-        foreach(BloodAndBileEngine.EntitySynchronizationDataObject SynchData in (BloodAndBileEngine.EntitySynchronizationDataObject[])(stateUpdate.GetStateUpdateInfo("EntitySynchronization")[0].Information))
+        BloodAndBileEngine.EntitySynchronizationDataObject[] synchObject = (BloodAndBileEngine.EntitySynchronizationDataObject[])(stateUpdate.GetStateUpdateInfo("EntitySynchronization")[0].Information);
+        if (synchObject == null || synchObject.Length == 0)
+        {
+            BloodAndBileEngine.Debugger.Log("ERREUR : pas de EntitySynchronizationDataObject !", UnityEngine.Color.red);
+        }
+        foreach(BloodAndBileEngine.EntitySynchronizationDataObject SynchData in synchObject)
         {
             BloodAndBileEngine.Entity entity = BloodAndBileEngine.EntitiesManager.GetEntityFromID(SynchData.GetEntityID());
             BloodAndBileEngine.EntitySynchroniserComponent synchComponent = (BloodAndBileEngine.EntitySynchroniserComponent)entity.GetComponent(typeof(BloodAndBileEngine.EntitySynchroniserComponent));
             if (synchComponent != null)
             {
                 synchComponent.GetSynchronizationData().SetSynchInfoFromSynchObject(SynchData);
-                
+
                 synchComponent.OnSynch();
             }
         }

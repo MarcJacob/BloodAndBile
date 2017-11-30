@@ -61,12 +61,14 @@
     <Compile Include="Entities\Components\Humors\HumorsComponent.cs" />
     <Compile Include="Entities\Components\Movers\EntityMover.cs" />
     <Compile Include="Entities\Components\SpellComponent\SpellComponent.cs" />
+    <Compile Include="Entities\EntitiesManager.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Factories\EntityFactory.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
-    <Compile Include="Input\NetworkCommandManager.cs" />
-    <Compile Include="Input\PlayerControlCommandManager.cs" />
+    <Compile Include="Input\NetworkCommand\INetworkCommandSecurityLayer.cs" />
+    <Compile Include="Input\NetworkCommand\NetworkCommandManager.cs" />
+    <Compile Include="Input\PlayerControl\PlayerControlCommandManager.cs" />
     <Compile Include="Misc\SerializableQuaternion.cs" />
     <Compile Include="Misc\SerializableVector3.cs" />
     <Compile Include="Networking\ConnectionInfo.cs" />

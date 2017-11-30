@@ -65,6 +65,7 @@ namespace BloodAndBileEngine
         /// </summary>
         public void OnSynch()
         {
+            Debugger.Log("Test", UnityEngine.Color.cyan);
             if (SynchData == null)
             {
                 Debugger.Log("ERREUR : le SynchData n'a pas été initialisé !", UnityEngine.Color.red);

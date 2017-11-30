@@ -46,7 +46,7 @@ public class StateUpdateModule : MatchModule
     public override void Update(float deltaTime)
     {
         StateUpdateClock += deltaTime;
-        if (StateUpdateClock >= 1f / StateUpdateFrequency)
+        if (StateUpdateClock >= 1f / (float)StateUpdateFrequency)
         {
             CookStateUpdate();
             SendStateUpdate();

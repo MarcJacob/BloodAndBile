@@ -28,5 +28,10 @@ namespace BloodAndBileEngine
         {
             return new SerializableVector3(v.x, v.y, v.z);
         }
+
+        public override string ToString()
+        {
+            return "(" + x + "," + y + "," + z + ")";
+        }
     }
 }

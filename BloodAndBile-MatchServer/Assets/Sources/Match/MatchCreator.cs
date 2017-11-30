@@ -29,13 +29,6 @@ public static class MatchCreator
 
         if (BloodAndBileEngine.WorldState.Map.Maps == null)
             BloodAndBileEngine.WorldState.Map.LoadMaps();
-
-            float[] cellData = new float[]
-            {
-                // Positions    // Dimensions   // Hauteurs
-                0f, 0f, 0f,     10f, 10f,       0f, 0f ,     // Cellule dans l'angle de la map de 10 x 10 plate.
-                0f, 0f, 10f,    10f, 10f,       3f, 0f ,     // Cellule de 10x10 pentue.   
-            };
         BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[(int)UnityEngine.Random.Range(0.0f, BloodAndBileEngine.WorldState.Map.Maps.Count)];
         
         // Création du CellSystem.
