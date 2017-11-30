@@ -13,6 +13,7 @@ public class MasterServer : MonoBehaviour {
     IMasterServerModule[] Modules; // Modules tournants sur ce Master Server.
 
     BloodAndBileEngine.InputHandlersManager InputHandlers;
+    BloodAndBileEngine.PlayerControlCommandManager PlayerControlManager;
 
     void Activate()
     {
@@ -59,6 +60,9 @@ public class MasterServer : MonoBehaviour {
         InputHandlers = new BloodAndBileEngine.InputHandlersManager();
         InputHandlers.Add("Activate", (object[] parameters) => Activate());
         InputHandlers.Add("Deactivate", (object[] parameters) => Deactivate());
+
+        PlayerControlManager = new BloodAndBileEngine.PlayerControlCommandManager();
+        PlayerControlManager.SetExecuteLocally();
     }
 	
 	void Update ()

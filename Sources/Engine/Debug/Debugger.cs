@@ -14,16 +14,32 @@ namespace BloodAndBileEngine
          */
         static public void Log(object[] elements, Color consoleColor)
         {
+            if (elements == null || elements.Length == 0)
+            {
+                Log("ERREUR : Pas d'élements !", UnityEngine.Color.red);
+                return;
+            }
             if (ConsoleComponent == null) ConsoleComponent = GameObject.FindObjectOfType<Console>();
             StringBuilder msg = new StringBuilder();
+            Debug.Log("Ajout de " + elements.Length + " éléments");
             foreach (object element in elements)
             {
-                msg.Append(element.ToString());
+                if (element != null)
+                {
+                    msg.Append(element.ToString());
+                }
+                else
+                {
+                    Log("ERREUR : élement null !", UnityEngine.Color.red);
+                }
             }
             if (Enabled)
             {
                 Debug.Log(msg);
-                ConsoleComponent.WriteLine(msg.ToString(), consoleColor);
+                if (ConsoleComponent != null)
+                    ConsoleComponent.WriteLine(msg.ToString(), consoleColor);
+                else
+                    Debug.Log("ERREUR : Pas de component Console !");
             }
         }
 

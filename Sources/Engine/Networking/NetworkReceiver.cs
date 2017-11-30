@@ -39,7 +39,6 @@ namespace BloodAndBileEngine
                 {
                     if ((NetworkError)error == NetworkError.MessageToLong)
                     {
-                        Debugger.Log("Message long : fragmenté !");
                         // Re-recevoir le message avec un buffer plus grand.
                         buffer = new byte[FRAGMENTED_BUFFER_SIZE];
                         e = NetworkTransport.Receive(out recHostID, out recConnectionID, out recChannelID, buffer, FRAGMENTED_BUFFER_SIZE, out recSize, out error);

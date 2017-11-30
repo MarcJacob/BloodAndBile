@@ -45,7 +45,6 @@ public class StateUpdateModule : MatchModule
 
     public override void Update(float deltaTime)
     {
-        BloodAndBileEngine.Debugger.Log("StateUpdateModule.Update()");
         StateUpdateClock += deltaTime;
         if (StateUpdateClock >= 1f / StateUpdateFrequency)
         {
@@ -53,7 +52,6 @@ public class StateUpdateModule : MatchModule
             SendStateUpdate();
             StateUpdateClock = 0f;
         }
-        BloodAndBileEngine.Debugger.Log("/ StateUpdateModule.Update()");
     }
 
     public override void Stop()
@@ -102,14 +100,11 @@ public class StateUpdateModule : MatchModule
     /// </summary>
     void SendStateUpdate()
     {
-        BloodAndBileEngine.Debugger.Log("Sending state update...");
         ModuleMatch.SendMessageToPlayers(StateUpdateMessage, 6);
-        BloodAndBileEngine.Debugger.Log("State update sent !");
     }
 
     void SendStateConstruction()
     {
-        BloodAndBileEngine.Debugger.Log("Sending state construction...");
         ModuleMatch.SendMessageToPlayers(StateConstructionMessage, 5);
     }
 }

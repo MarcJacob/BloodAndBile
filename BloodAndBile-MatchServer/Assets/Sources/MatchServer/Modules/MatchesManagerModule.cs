@@ -75,4 +75,12 @@ public class MatchesManagerModule : IMatchServerModule
     {
 
     }
+
+    public void Stop()
+    {
+        foreach(MatchUpdater updater in Updaters)
+        {
+            updater.Stop();
+        }
+    }
 }

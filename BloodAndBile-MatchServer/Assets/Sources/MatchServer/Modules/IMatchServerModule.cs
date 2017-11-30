@@ -9,4 +9,5 @@ interface IMatchServerModule
     void Update();
     void Activate();
     void Deactivate();
+    void Stop();
 }

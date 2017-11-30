@@ -12,7 +12,7 @@ public class MatchServer : MonoBehaviour {
 
     BloodAndBileEngine.InputHandlersManager InputHandlers;
     BloodAndBileEngine.Networking.HandlersManager NetworkHandlers;
-
+    BloodAndBileEngine.PlayerControlCommandManager PlayerControlManager;
     IMatchServerModule[] Modules;
 
 	void Start ()
@@ -22,6 +22,8 @@ public class MatchServer : MonoBehaviour {
         MasterServerConnectionModule masterServerConnection = new MasterServerConnectionModule();
         PlayersManagerModule playersManager = new PlayersManagerModule();
         MatchesManagerModule matchesModule = new MatchesManagerModule(playersManager);
+        PlayerControlManager = new BloodAndBileEngine.PlayerControlCommandManager();
+        PlayerControlManager.SetExecuteLocally();
 
         Modules = new IMatchServerModule[] // Initialisation des modules du Match Server.
         {
@@ -34,7 +36,7 @@ public class MatchServer : MonoBehaviour {
         {
             mod.Initialise();
         }
-        // Initialisation de la mémoire des entités TODO : déplacer ça dans un fichier plus pertinent.
+         //Initialisation de la mémoire des entités TODO : déplacer ça dans un fichier plus pertinent.
         BloodAndBileEngine.EntitiesManager.Initialise();
         Activate();
 	}
@@ -60,6 +62,15 @@ public class MatchServer : MonoBehaviour {
         foreach (IMatchServerModule mod in Modules)
         {
             mod.Update();
+        }
+    }
+
+    private void OnApplicationQuit()
+    {
+        Debug.Log("Killing all threads !");
+        foreach(IMatchServerModule mod in Modules)
+        {
+            mod.Stop();
         }
     }
 }

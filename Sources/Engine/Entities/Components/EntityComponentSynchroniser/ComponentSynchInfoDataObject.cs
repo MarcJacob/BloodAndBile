@@ -19,7 +19,6 @@ namespace BloodAndBileEngine
 
         public void SetSynchInfo(string syncInfoName, object info)
         {
-            Debugger.Log("SetSynchInfo() - " + syncInfoName);
             StateUpdateObject syncInfoObject = null;
             int i = 0;
             while (syncInfoObject == null && i < Data.Count)
@@ -46,7 +45,6 @@ namespace BloodAndBileEngine
 
         public object GetSynchInfo(string syncInfoName)
         {
-            Debugger.Log("GetSynchInfo()");
             StateUpdateObject syncInfoObject = null;
             int i = 0;
             while (syncInfoObject == null && i < Data.Count)

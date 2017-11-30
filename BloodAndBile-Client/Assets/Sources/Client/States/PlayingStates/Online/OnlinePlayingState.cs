@@ -80,7 +80,6 @@ public class OnlinePlayingState : PlayingState
     /// <param name="message"></param>
     void OnStateUpdate(BloodAndBileEngine.Networking.NetworkMessageInfo info, StateUpdateMessage message)
     {
-        BloodAndBileEngine.Debugger.Log("Received StateUpdate");
         foreach(IStateUpdateReceiver receiver in StateUpdateReceivers)
         {
             receiver.OnStateUpdate(message);

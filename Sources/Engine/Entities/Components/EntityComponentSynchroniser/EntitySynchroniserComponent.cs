@@ -71,15 +71,10 @@ namespace BloodAndBileEngine
                 return;
             }
             // Synchronisation des propriétés basiques :
-            Debugger.Log("Synch position", UnityEngine.Color.yellow);
             LinkedEntity.Position = (BloodAndBileEngine.SerializableVector3)SynchData.GetSynchInfo("Position");
-            Debugger.Log("Synch rotation", UnityEngine.Color.yellow);
             LinkedEntity.Rotation = (BloodAndBileEngine.SerializableQuaternion)SynchData.GetSynchInfo("Rotation");
-            Debugger.Log("Synch CellID", UnityEngine.Color.yellow);
             LinkedEntity.SetCellID((int)SynchData.GetSynchInfo("CurrentCell"));
-            Debugger.Log("Synch Size", UnityEngine.Color.yellow);
             LinkedEntity.Size = (float)SynchData.GetSynchInfo("Size");
-            Debugger.Log("Synch Height", UnityEngine.Color.yellow);
             LinkedEntity.Height = (float)SynchData.GetSynchInfo("Height");
 
             // Synchronisation des Components

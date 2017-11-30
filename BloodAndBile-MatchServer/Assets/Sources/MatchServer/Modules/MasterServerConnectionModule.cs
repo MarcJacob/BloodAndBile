@@ -80,7 +80,7 @@ public class MasterServerConnectionModule : IMatchServerModule
 
     public void Update()
     {
-        if (Activated && !Connecting) ConnectToMasterServer(null);
+       // if (Activated && !Connecting) ConnectToMasterServer(null);
     }
 
     void ConnectToMasterServer(object[] args)
@@ -135,5 +135,10 @@ public class MasterServerConnectionModule : IMatchServerModule
         Connecting = false;
 
         MasterServerConnectionID = -1;
+    }
+
+    public void Stop()
+    {
+
     }
 }

@@ -129,4 +129,9 @@ public class PlayersManagerModule : IMatchServerModule
             MatchmakingQueue.Remove(coID);
         }
     }
+
+    public void Stop()
+    {
+
+    }
 }

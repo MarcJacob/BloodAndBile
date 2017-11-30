@@ -110,7 +110,6 @@ namespace BloodAndBileEngine
         }
         public void Update(float deltaTime)
         {
-            Debugger.Log("Entity.Update()");
             foreach (EntityComponent component in Components)
             {
                 component.Update(deltaTime);

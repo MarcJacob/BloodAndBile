@@ -10,11 +10,11 @@ public class MatchUpdater
 {
     Thread UpdateThread;
     List<Match> Matches = new List<Match>(); // Ensemble de matchs à mettre à jour.
-
+    bool Activated = true;
     public MatchUpdater()
     {
         // Création du Thread de mise à jour du match.
-        UpdateThread = new Thread(() => { while (true) {
+        UpdateThread = new Thread(() => { while (Activated) {
                 lock (Matches)
                 {
                     if (Matches.Count > 0)
@@ -43,7 +43,6 @@ public class MatchUpdater
 
     void UpdateMatches()
     {
-            BloodAndBileEngine.Debugger.Log("Updating matches !");
             List<Match> endedMatches = new List<Match>();
             foreach (Match match in Matches)
             {
@@ -65,7 +64,13 @@ public class MatchUpdater
 
     public void Stop()
     {
+        Activated = false;
+        UnityEngine.Debug.Log("Ending thread");
         UpdateThread.Abort();
+        foreach(Match m in Matches)
+        {
+            m.EndMatch();
+        }
         Matches.Clear();
     }
 

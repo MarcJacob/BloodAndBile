@@ -18,12 +18,7 @@ namespace BloodAndBileEngine
                 int idConnection;
                 if (args[0] is string)
                 {
-                    Debugger.Log("Conversion de l'ID de connexion vers un nombre...", UnityEngine.Color.yellow);
-                    if (Int32.TryParse((string)args[0], out idConnection))
-                    {
-                        Debugger.Log("Conversion réussie !");
-                    }
-                    else
+                    if (!Int32.TryParse((string)args[0], out idConnection))
                     {
                         Debugger.Log("Erreur conversion ID de connexion lors du TryParse", UnityEngine.Color.red);
                         return;

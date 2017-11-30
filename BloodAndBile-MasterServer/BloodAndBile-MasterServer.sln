@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2017
+# Visual Studio 2015
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodAndBile-MasterServer", "BloodAndBile-MasterServer.csproj", "{0F2B9A1E-DE6A-3DB4-36C2-C42DB60A76D1}"
 EndProject
 Global

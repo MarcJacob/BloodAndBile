@@ -84,17 +84,19 @@ namespace BloodAndBileEngine
             {
                 string commandName = (string)parameters[0];
                 object[] newParameters = new object[parameters.Length - 1];
-                for (int i = 1; i < newParameters.Length; i++)
+                for (int i = 1; i < newParameters.Length + 1; i++)
                 {
-                    newParameters[i] = parameters[i - 1];
+                    newParameters[i-1] = parameters[i];
                 }
-
                 InputManager.SendCommand(commandName, newParameters);
             });
         }
 
         #endregion
 
-
+        ~PlayerControlCommandManager()
+        {
+            ClearHandler();
+        }
     }
 }
