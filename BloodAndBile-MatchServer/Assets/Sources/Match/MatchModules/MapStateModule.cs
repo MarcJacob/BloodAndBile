@@ -59,15 +59,12 @@ public class MapStateModule : MatchModule, IStateUpdater
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
-        // Ajout des informations relative aux cellules.
-        StateUpdateObject cellInfo, mapID;
-        float[] data = CurrentWorldState.GetData<BloodAndBileEngine.WorldState.CellSystem>().GetCellConstructionData();
-
-        cellInfo = new StateUpdateObject("CELL_CONSTRUCTION_DATA", data);
+        // Ajout des informations relative à la map.
+        StateUpdateObject mapID;
         int id = CurrentWorldState.GetData<BloodAndBileEngine.WorldState.Map>().ID;
         mapID = new StateUpdateObject("MAP_ID", id);
 
-        return new StateUpdateObject[] { cellInfo, mapID };
+        return new StateUpdateObject[] { mapID };
     }
 
 }

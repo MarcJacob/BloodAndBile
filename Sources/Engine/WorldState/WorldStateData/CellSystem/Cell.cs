@@ -11,8 +11,8 @@ namespace BloodAndBileEngine.WorldState
     [Serializable]
     public class Cell
     {
-        int ID; // ID de cette cellule. Est déterminé par sa place dans le tableau des cellules du CellSystem.
-
+        public int ID { get; private set; } // ID de cette cellule. Est déterminé par sa place dans le tableau des cellules du CellSystem.
+        public bool PlayerSpawn { get; private set; }
 
         UnityEngine.Vector3 Position; // Position de l'angle nord-ouest de cette cellule.
         UnityEngine.Vector2 Dimensions; // Longueur et largeur de la cellule.
@@ -40,6 +40,7 @@ namespace BloodAndBileEngine.WorldState
             Heights = h;
             ID = id;
             CellSystemRef = new WeakReference(system);
+            PlayerSpawn = false;
 
             Debugger.Log("Created cell at position " + Position + " and dimensions " + Dimensions);
         }
@@ -52,15 +53,8 @@ namespace BloodAndBileEngine.WorldState
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-<<<<<<< HEAD
                 x = (x - Position.z) / Dimensions.x;
                 y = (y - Position.x) / Dimensions.y;
-=======
-            if (Position.x <= x && Position.y <= y && Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
-            {
-                x = (x - Position.x) / Dimensions.x;
-                y = (y - Position.y) / Dimensions.y;
->>>>>>> Trunk-Ilan
                 float xHeight = Heights.x * x;
                 float yHeight = Heights.y * y;
                 Debugger.Log("Hauteur : " + Position.y + xHeight + yHeight + " from : " + Heights + " and " + x + " ; " + y);
@@ -171,6 +165,11 @@ namespace BloodAndBileEngine.WorldState
             {
                 EntitiesInCell.Remove(e);
             }
+        }
+
+        public void SetPlayerSpawn(bool spawn)
+        {
+            PlayerSpawn = spawn;
         }
     }
 }

@@ -27,7 +27,7 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Initialise();
         // Create a test entity
         BloodAndBileEngine.Debugger.Log("Created entity !", UnityEngine.Color.red);
-        BloodAndBileEngine.Entity testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), 0, new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
+        BloodAndBileEngine.Entity testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
         CreatedEntitiesID.Add(testEntity.ID);
         testEntity.AddComponent(typeof(BloodAndBileEngine.TestController));
     }
@@ -42,7 +42,6 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         base.Stop();
     }
 
-<<<<<<< HEAD
     // Lance une mise à jour de chaque EntitySynchroniserComponent et regroupe leurs
     // EntitySynchronizationDataObjects dans un objet StateUpdateObject portant le nom "EntitySynchronization".
     // Renvoi également un StateUpdateObject "CreatedEntities" et un StateUpdateObject "DestroyedEntities".
@@ -67,21 +66,11 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         CreatedEntitiesID.Clear();
         DestroyedEntitiesID.Clear();
         return new StateUpdateObject[] { EntitySyncObject, CreatedEntities, DestroyedEntities };
-
-=======
-    public StateUpdateObject[] GetStateUpdateInformation() 
-    {
-        return null;
->>>>>>> Trunk-Ilan
     }
 
     public StateUpdateObject[] GetConstructionStateInformation()
     {
-<<<<<<< HEAD
         // Pas d'informations de construction.
         return new StateUpdateObject[0];
-=======
-        return null;
->>>>>>> Trunk-Ilan
     }
 }

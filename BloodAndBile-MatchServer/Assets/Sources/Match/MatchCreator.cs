@@ -30,34 +30,31 @@ public static class MatchCreator
         if (BloodAndBileEngine.WorldState.Map.Maps == null)
             BloodAndBileEngine.WorldState.Map.LoadMaps();
 
-<<<<<<< HEAD
-            float[] cellData = new float[]
-            {
-                // Positions    // Dimensions   // Hauteurs
-                0f, 0f, 0f,     10f, 10f,       0f, 0f ,     // Cellule dans l'angle de la map de 10 x 10 plate.
-                0f, 0f, 10f,    10f, 10f,       3f, 0f ,     // Cellule de 10x10 pentue.   
-            };
-=======
-        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[(int)UnityEngine.Random.Range(0.0f, BloodAndBileEngine.WorldState.Map.Maps.Count)];
+        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[UnityEngine.Random.Range(0, BloodAndBileEngine.WorldState.Map.Maps.Count-1)];
         
         // Création du CellSystem.
->>>>>>> Trunk-Ilan
 
         BloodAndBileEngine.WorldState.CellSystem cellSystem;
-        cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map.ConstructionData);
+        cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map);
         startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
         startWorldState.AddData<BloodAndBileEngine.WorldState.Map>(map);
 
-        //
+        //Création des joueurs, placement sur la map, et assignation d'un connexionID pour chaque
 
-<<<<<<< HEAD
-        //
-=======
-
-
->>>>>>> Trunk-Ilan
-
-        //...
+        List<int> usedCells = new List<int>();
+        foreach(int coId in players)
+        {
+            BloodAndBileEngine.WorldState.Cell cell = cellSystem.FindSpawnPoint(usedCells.ToArray());
+            if (cell != null)
+            {
+                usedCells.Add(cell.ID);
+                BloodAndBileEngine.Entity player = BloodAndBileEngine.EntityFactories.EntityFactory.BuildPlayer(startWorldState, cell.GetPosition(), Quaternion.identity, 0.5f, 2.0f);
+                m.SetPlayerEntity(coId, (int)player.ID);
+                Debug.Log("Entité joueur d'ID " + player.ID + " associée à la connexion d'ID " + coId);
+            }
+            else
+                Debug.Log("Aucun point de spawn trouvé !");
+        }
 
         return m;
     }

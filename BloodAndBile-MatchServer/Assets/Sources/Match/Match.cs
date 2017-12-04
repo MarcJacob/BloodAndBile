@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 /**
  * <summary> Un Match est un ensemble de module et une State Machine combinés pour contrôler le déroulement d'un match en ligne.</summary>
  */ 
 public class Match
 {
-    List<int> PlayerConnectionIDs = new List<int>();
+
+    /// <summary>
+    /// Dictionnaire avec comme clé l'ID de connexion du client associé à l'ID de l'entité qu'il contrôle. Si cette dernière n'éxiste pas, alors cette valeur est à -1;
+    /// </summary>
+    Dictionary<int, int> PlayerConnectionIDs = new Dictionary<int, int>();
 
     public bool Ongoing = false; // Ce match est-il en cours ?
 
@@ -58,13 +63,18 @@ public class Match
     {
         foreach(int coID in ids)
         {
-            PlayerConnectionIDs.Add(coID);
+            PlayerConnectionIDs.Add(coID, -1);
         }
+    }
+
+    public void SetPlayerEntity(int coId, int entityId)
+    {
+        PlayerConnectionIDs[coId] = entityId;
     }
 
     public void SendMessageToPlayers(BloodAndBileEngine.Networking.NetworkMessage message, int channelID = -1)
     {
-        foreach(int coID in PlayerConnectionIDs)
+        foreach(int coID in PlayerConnectionIDs.Keys)
         {
             BloodAndBileEngine.Debugger.Log("Envoi d'un message au joueur ID " + coID);
             BloodAndBileEngine.Networking.MessageSender.Send(message, coID, channelID);
@@ -101,7 +111,7 @@ public class Match
 
     public void OnPlayerDisconnected(int coID)
     {
-        if(PlayerConnectionIDs.Contains(coID))
+        if(PlayerConnectionIDs.Keys.Contains(coID))
         {
             PlayerConnectionIDs.Remove(coID);
         }

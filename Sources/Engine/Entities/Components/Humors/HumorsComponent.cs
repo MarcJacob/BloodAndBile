@@ -12,12 +12,12 @@ namespace BloodAndBileEngine
 {
     public class HumorsComponent : EntityComponent, IEntitySynchroniser
     {
-        float Blood;
-        float Phlegm;
-        float YellowBile;
-        float BlackBile;
+        int Blood;
+        int Phlegm;
+        int YellowBile;
+        int BlackBile;
 
-        float LOP;
+        int LOP;
 
         public override void Initialise(WorldState.WorldState worldState)
         {
@@ -29,7 +29,7 @@ namespace BloodAndBileEngine
             
         }
 
-        public float GetLOP()
+        public int GetLOP()
         {
             return LOP;
         }
@@ -38,9 +38,9 @@ namespace BloodAndBileEngine
         {
             LOP = Blood + Phlegm + YellowBile + BlackBile;
             float bloodRatio = Blood / LOP;
-            float phlegmRatio = Blood / LOP;
-            float yellowBileRatio = Blood / LOP;
-            float blackBileRatio = Blood / LOP;
+            float phlegmRatio = Phlegm / LOP;
+            float yellowBileRatio = YellowBile / LOP;
+            float blackBileRatio = BlackBile / LOP;
             if ( bloodRatio > 0.6f || phlegmRatio > 0.6f || yellowBileRatio > 0.6f || blackBileRatio > 0.6f)
             {
                 LinkedEntity.Destroy();
@@ -56,50 +56,50 @@ namespace BloodAndBileEngine
             }
         }
 
-        public float GetBlood()
+        public int GetBlood()
         {
             return Blood;
         }
 
-        public void ChangeBlood(float amount)
+        public void ChangeBlood(int amount)
         {
             Blood += amount;
             RecalculateLOP();
         }
 
-        public float GetPhlegm()
+        public int GetPhlegm()
         {
             return Phlegm;
         }
 
-        public void ChangePhlegm(float amount)
+        public void ChangePhlegm(int amount)
         {
             Phlegm += amount;
         }
 
-        public float GetYellowBile()
+        public int GetYellowBile()
         {
             return YellowBile;
         }
 
-        public void ChangeYellowBile(float amount)
+        public void ChangeYellowBile(int amount)
         {
             YellowBile += amount;
         }
 
-        public float GetBlackBile()
+        public int GetBlackBile()
         {
             return BlackBile;
         }
 
-        public void ChangeBlackBile(float amount)
+        public void ChangeBlackBile(int amount)
         {
             BlackBile += amount;
         }
 
         public StateUpdateObject[] GetSynchInfo()
         {
-            StateUpdateObject humors = new StateUpdateObject("Humors", new float[] { Blood, Phlegm, YellowBile, BlackBile });
+            StateUpdateObject humors = new StateUpdateObject("Humors", new int[] { Blood, Phlegm, YellowBile, BlackBile });
             return new StateUpdateObject[] { humors };
         }
 
