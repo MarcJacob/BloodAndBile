@@ -26,9 +26,21 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
     {
         base.Initialise();
         // Create a test entity
-        BloodAndBileEngine.Entity testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
+        BloodAndBileEngine.Entity testEntity;
+        BloodAndBileEngine.Entity testEntity2;
+        BloodAndBileEngine.Entity testEntity3;
+        testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
         CreatedEntitiesID.Add(testEntity.ID);
+        testEntity2 = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(5f, 0f, 5f), UnityEngine.Quaternion.identity, 1f, 1f);
+        CreatedEntitiesID.Add(testEntity2.ID);
+        testEntity3 = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 5f), UnityEngine.Quaternion.identity, 1f, 1f);
+        CreatedEntitiesID.Add(testEntity3.ID);
         testEntity.AddComponent(typeof(BloodAndBileEngine.TestController));
+
+        foreach(uint i in CreatedEntitiesID)
+        {
+            UnityEngine.Debug.Log(i);
+        }
     }
 
     public override void Update(float deltaTime)

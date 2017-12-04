@@ -31,9 +31,10 @@ namespace BloodAndBileEngine
         public static void Initialise()
         {
             _entitiesArray = new Entity[MAX_ENTITY_COUNT];
-            for (int entityID = 0; entityID < MAX_ENTITY_COUNT; entityID++)
+            for (uint entityID = 0; entityID < MAX_ENTITY_COUNT; entityID++)
             {
                 _entitiesArray[entityID] = new Entity();
+                _entitiesArray[entityID].SetID(entityID);
             }
             InitialiseCommands();
         }

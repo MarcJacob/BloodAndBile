@@ -27,6 +27,7 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
         uint[] createdEntities = (uint[])stateUpdate.GetStateUpdateInfo("CreatedEntities")[0].Information;
         foreach(uint id in createdEntities)
         {
+            EntityRenderer.OnEntityCreation(id);
             BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(LocalWorldState, id, UnityEngine.Vector3.zero, UnityEngine.Quaternion.identity, 1f, 1f);
             BloodAndBileEngine.Debugger.Log("Created entity : " + id);
         }

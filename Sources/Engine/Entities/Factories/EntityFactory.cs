@@ -36,6 +36,12 @@ namespace BloodAndBileEngine.EntityFactories
                 }
                 newEntity.AddComponent(typeof(EntitySynchroniserComponent));
                 newEntity.AddComponent(typeof(EntityMover));
+
+                newEntity.Position = pos;
+                newEntity.Rotation = rot;
+                newEntity.Height = height;
+                newEntity.Size = size;
+
                 return newEntity;
             }
             

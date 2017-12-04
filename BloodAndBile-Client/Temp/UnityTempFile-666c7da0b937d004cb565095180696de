@@ -100,19 +100,21 @@
 -define:ENABLE_NATIVE_ARRAY_CHECKS
 -define:UNITY_TEAM_LICENSE
 -define:ENABLE_VSTU
-Assets/Sources/Match/Match.cs
-Assets/Sources/Match/MatchCreator.cs
-Assets/Sources/Match/MatchModules/EntitiesStateModule.cs
-Assets/Sources/Match/MatchModules/IStateUpdater.cs
-Assets/Sources/Match/MatchModules/MapStateModule.cs
-Assets/Sources/Match/MatchModules/MatchModule.cs
-Assets/Sources/Match/MatchModules/StateUpdateModule.cs
-Assets/Sources/MatchServer/MatchServer.cs
-Assets/Sources/MatchServer/MatchUpdater/MatchUpdater.cs
-Assets/Sources/MatchServer/Modules/IMatchServerModule.cs
-Assets/Sources/MatchServer/Modules/MasterServerConnectionModule.cs
-Assets/Sources/MatchServer/Modules/MatchesManagerModule.cs
-Assets/Sources/MatchServer/Modules/PlayersManagerModule.cs
+Assets/EntityLinkTest.cs
+Assets/Sources/Actor/Actor.cs
+Assets/Sources/Client/Client.cs
+Assets/Sources/Client/States/IClientState.cs
+Assets/Sources/Client/States/LoginState.cs
+Assets/Sources/Client/States/MainMenuState.cs
+Assets/Sources/Client/States/MatchmakingState.cs
+Assets/Sources/Client/States/MatchServerSearchState.cs
+Assets/Sources/Client/States/PlayingStates/Online/OnlinePlayingState.cs
+Assets/Sources/Client/States/PlayingStates/Online/StateUpdateReceivers/EntitiesSynchronizer.cs
+Assets/Sources/Client/States/PlayingStates/Online/StateUpdateReceivers/MapStateUpdater.cs
+Assets/Sources/Client/States/PlayingStates/Online/StateUpdateReceivers/StateUpdateReceiver.cs
+Assets/Sources/Client/States/PlayingStates/PlayingState.cs
+"Assets/Sources/Client/WorldState renderers/EntityRenderer.cs"
+Assets/Sources/Connections/ClientConnectionsManager.cs
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Runtime.Serialization.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\System.Xml.Linq.dll"
 -r:"C:\Program Files\Unity\Editor\Data\Mono\lib\mono\unity\UnityScript.dll"

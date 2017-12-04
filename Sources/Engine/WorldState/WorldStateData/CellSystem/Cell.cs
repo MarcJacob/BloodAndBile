@@ -59,7 +59,6 @@ namespace BloodAndBileEngine.WorldState
                 y = (y - Position.x) / Dimensions.y;
                 float xHeight = Heights.x * x;
                 float yHeight = Heights.y * y;
-                Debugger.Log("Hauteur : " + Position.y + xHeight + yHeight + " from : " + Heights + " and " + x + " ; " + y);
                 return Position.y + xHeight + yHeight; // ATTENTION : Pour Position, l'élément y est la hauteur !
             }
             else

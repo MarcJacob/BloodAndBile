@@ -139,5 +139,20 @@ namespace BloodAndBileEngine
         {
             Components.Clear();
         }
+
+
+        bool IDSet = false;
+        public void SetID(uint id)
+        {
+            if (!IDSet)
+            {
+                ID = id;
+                IDSet = true;
+            }
+            else
+            {
+                Debugger.Log("ERREUR : Impossible d'assigner l'ID d'une même entité plus d'une fois !", UnityEngine.Color.red);
+            }
+        }
     }
 }

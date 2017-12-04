@@ -14,8 +14,8 @@ using UnityEngine;
 /// </summary>
 public class Actor : MonoBehaviour
 {
-    BloodAndBileEngine.Entity LinkedEntity;
-
+    uint LinkedEntityID;
+    bool EntityIDInitialized = false;
     public string ActorName; // Nom de l'acteur.
 
     Animator AnimationController; // Contrôleur d'animations de ce GameObject.
@@ -31,18 +31,32 @@ public class Actor : MonoBehaviour
 
     private void Update()
     {
-        if (TrackPosition)
+        if (EntityIDInitialized)
         {
-            // "Lerper" constamment vers la position de l'entité.
-            transform.position = Vector3.Lerp(transform.position, LinkedEntity.Position, Time.deltaTime * 2f);
-        }
+            BloodAndBileEngine.Entity entity = GetControlledEntity();
+            if (TrackPosition)
+            {
+                // "Lerper" constamment vers la position de l'entité.
+                transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime / 2);
+            }
 
-        if ((transform.position - LinkedEntity.Position).sqrMagnitude > 25)
-        {
-            transform.position = LinkedEntity.Position;
+            if ((transform.position - entity.Position).sqrMagnitude > 25)
+            {
+                transform.position = entity.Position;
+            }
         }
     }
 
+    public void SetEntityID(uint id)
+    {
+        LinkedEntityID = id;
+        EntityIDInitialized = true;
+    }
+
+    public BloodAndBileEngine.Entity GetControlledEntity()
+    {
+        return BloodAndBileEngine.EntitiesManager.GetEntityFromID(LinkedEntityID);
+    }
     void OnActorEvent(object[] args)
     {
         if (args.Length < 2)
@@ -50,11 +64,14 @@ public class Actor : MonoBehaviour
             BloodAndBileEngine.Debugger.Log("ERREUR - Pas assez d'arguments pour la commande d'évènement d'acteur.", Color.red);
             return;
         }
-
-        int entityID = (int)args[0];
+        uint entityID;
+        if (args[0] is uint)
+            entityID = (uint)args[0];
+        else
+            uint.TryParse((string)args[0], out entityID);
         string eventName = (string)args[1];
 
-        if (entityID == LinkedEntity.ID)
+        if (entityID == GetControlledEntity().ID)
         {
             ReactToEvent(eventName);
         }
