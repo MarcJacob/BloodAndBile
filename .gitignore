@@ -246,8 +246,15 @@ ModelManifest.xml
 
 #Libraries
 
-.lib
-
-.unity
-
-.sln
+/*.userprefs
+/*.csproj
+/*.pidb
+*.pidb.meta
+/*.suo
+/*.sln*
+/*.user
+/*.unityproj
+/*.booproj
+.consulo/
+/*.tmp
+/*.svd
