@@ -23,6 +23,9 @@ public class PlayingState : IClientState
         BloodAndBileEngine.Debugger.Log("Match started !");
         // Initialisation du WorldState local.
         LocalWorldState = new BloodAndBileEngine.WorldState.WorldState();
+        // Initialisation de la commande "SetControlledEntity".
+        BloodAndBileEngine.InputManager.AddHandler("SetControlledEntity", SetControlledEntity);
+
 
     }
 
@@ -34,6 +37,31 @@ public class PlayingState : IClientState
     public virtual void OnExit()
     {
 
+    }
+
+    /// <summary>
+    /// Recherche l'Actor contrôlant l'entité d'ID args[0] et lui assigne un script EntityController.
+    /// </summary>
+    void SetControlledEntity(object[] args)
+    {
+        BloodAndBileEngine.Debugger.Log("Setting controlled entity to ID " + args[0], UnityEngine.Color.magenta);
+        Actor[] actors = UnityEngine.GameObject.FindObjectsOfType<Actor>();
+        Actor act = null;
+        int i = 0;
+        uint entityID;
+        uint.TryParse((string)args[0], out entityID);
+        while (i < actors.Length && act == null)
+        {
+            if (actors[i].GetControlledEntity().ID == entityID)
+            {
+                act = actors[i];
+            }
+        }
+
+        if (act != null && act.GetComponent<EntityController>() == null)
+        {
+            act.gameObject.AddComponent<EntityController>();
+        }
     }
 
     

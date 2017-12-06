@@ -78,6 +78,7 @@ namespace BloodAndBileEngine
         static void InitialiseCommands()
         {
             InputManager.AddHandler("SetEntityPosition", SetEntityPosition);
+            InputManager.AddHandler("SetEntityRotation", SetEntityRotation);
         }
 
         #region Commandes d'entité
@@ -162,6 +163,103 @@ namespace BloodAndBileEngine
                 SerializableVector3 newPos = new SerializableVector3(posX, posY, posZ);
                 e.Position = newPos;
                 Debugger.Log("Nouvelle position de l'entité " + ID + " : " + newPos);
+            }
+        }
+
+        static void SetEntityRotation(object[] args)
+        {
+            if (args.Length < 5)
+            {
+                Debugger.Log("ERREUR : Pas assez de paramètres dans l'appel de la commande SetEntityRotation !", UnityEngine.Color.red);
+                return;
+            }
+
+            uint ID;
+            float rotX = 0f;
+            float rotY = 0f;
+            float rotZ = 0f;
+            float rotW = 0f;
+
+            // On vérifie que chaque argument soit du bon type. S'ils ne le sont pas, on les converti.
+            if (args[0] is uint)
+            {
+                ID = (uint)args[0];
+            }
+            else
+            {
+                if (!(args[0] is string) || !uint.TryParse((string)args[0], out ID))
+                {
+                    Debugger.Log("ERREUR : Commande SetEntityPosition - L'ID de l'entité doit être un entier ou une chaine de caractères !");
+                    return;
+                }
+            }
+
+            if (args[1] is float)
+            {
+                rotX = (float)args[1];
+            }
+            else
+            {
+                if (!(args[1] is string) || !float.TryParse((string)args[1], out rotX))
+                {
+                    Debugger.Log("ERREUR : Commande SetEntityRotation - La rotation X de l'entité doit être un entier ou une chaine de caractères !");
+                    return;
+                }
+            }
+
+
+            if (args[2] is float)
+            {
+                rotY = (float)args[2];
+            }
+            else
+            {
+                if (!(args[2] is string) || !float.TryParse((string)args[2], out rotY))
+                {
+                    Debugger.Log("ERREUR : Commande SetEntityRotation - La rotation Y de l'entité doit être un entier ou une chaine de caractères !");
+                    return;
+                }
+            }
+
+            if (args[3] is float)
+            {
+                rotZ = (float)args[3];
+            }
+            else
+            {
+                if (!(args[3] is string) || !float.TryParse((string)args[3], out rotZ))
+                {
+                    Debugger.Log("ERREUR : Commande SetEntityRotation - La rotation Z de l'entité doit être un entier ou une chaine de caractères !");
+                    return;
+                }
+            }
+
+            if (args[4] is float)
+            {
+                rotW = (float)args[4];
+            }
+            else
+            {
+                if (!(args[4] is string) || !float.TryParse((string)args[4], out rotW))
+                {
+                    Debugger.Log("ERREUR : Commande SetEntityRotation - La rotation W de l'entité doit être un entier ou une chaine de caractères !");
+                    return;
+                }
+            }
+
+            // Tout est bon ! La position de l'entité peut être changée. Si l'entité est détruite, affichage d'un warning.
+
+            Entity e = GetEntityFromID(ID);
+            if (e == null || e.Destroyed)
+            {
+                Debugger.Log("WARNING : Tentative de modifier la position de l'entité " + ID + " qui n'existe pas ou est détruite !", UnityEngine.Color.yellow);
+            }
+
+            if (e != null)
+            {
+                SerializableQuaternion newRot = new SerializableQuaternion(rotX, rotY, rotZ, rotW);
+                e.Rotation = newRot;
+                Debugger.Log("Nouvelle rotation de l'entité " + ID + " : " + newRot);
             }
         }
 

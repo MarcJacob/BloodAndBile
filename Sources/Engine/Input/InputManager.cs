@@ -51,7 +51,7 @@ namespace BloodAndBileEngine
          * <summary> Envoie une commande. Si command est lié à un objet Action dans le dictionnaire des handler, cet objet Action sera
          * exécuté. Des paramètres peuvent / doivent être passés en fonction de la commande sous la forme d'un tableau d'objets. </summary>
          */
-        static public void SendCommand(string command, object[] parameters = null)
+        static public void SendCommand(string command, params object[] parameters)
         {
             Debugger.Log("Execution de la commande '" + command + "'");
             if (CommandHandlers.ContainsKey(command) && CommandHandlers[command] != null)

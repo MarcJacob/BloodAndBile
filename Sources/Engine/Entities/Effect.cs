@@ -17,11 +17,11 @@ namespace BloodAndBileEngine
 
 
         /// <summary>
-        /// Permet d'ajouter du "temps d'existence" à l'effet. Retourne alors la nouvelle valeur.
+        /// Permet d'ajouter ou diminuer du "temps d'existence" à l'effet. Retourne alors la nouvelle valeur.
         /// </summary>
         /// <param name="deltaTime"></param>
         /// <returns></returns>
-        public float AddTime(float deltaTime)
+        public float ChangeTime(float deltaTime)
         {
             Time += deltaTime;
             return Time;

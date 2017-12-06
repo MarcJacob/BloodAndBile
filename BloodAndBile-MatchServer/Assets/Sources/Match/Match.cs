@@ -1,12 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 /**
  * <summary> Un Match est un ensemble de module et une State Machine combinés pour contrôler le déroulement d'un match en ligne.</summary>
  */ 
 public class Match
 {
-    List<int> PlayerConnectionIDs = new List<int>();
+
+    /// <summary>
+    /// Dictionnaire avec comme clé l'ID de connexion du client associé à l'ID de l'entité qu'il contrôle. Si cette dernière n'éxiste pas, alors cette valeur est à -1;
+    /// </summary>
+    Dictionary<int, uint> PlayerConnectionIDs = new Dictionary<int, uint>();
 
     public bool Ongoing = false; // Ce match est-il en cours ?
 
@@ -37,6 +42,23 @@ public class Match
         return module;
     }
 
+    public int[] GetPlayerConnectionIDs()
+    {
+        return PlayerConnectionIDs.Keys.ToArray();
+    }
+
+    public uint GetControlledEntityID(int playerCoID)
+    {
+        if (PlayerConnectionIDs.ContainsKey(playerCoID))
+        {
+            return PlayerConnectionIDs[playerCoID];
+        }
+        else
+        {
+            throw new Exception("ERREUR : Cet joueur ne fait pas partie de ce match !");
+        }
+    }
+
     public void Start()
     {
         BloodAndBileEngine.Networking.NetworkSocket.RegisterOnDisconnectionCallback(OnPlayerDisconnected);
@@ -58,33 +80,33 @@ public class Match
     {
         foreach(int coID in ids)
         {
-            PlayerConnectionIDs.Add(coID);
+            PlayerConnectionIDs.Add(coID, 0);
         }
+    }
+
+    public void SetPlayerEntity(int coId, uint entityId)
+    {
+        PlayerConnectionIDs[coId] = entityId;
     }
 
     public void SendMessageToPlayers(BloodAndBileEngine.Networking.NetworkMessage message, int channelID = -1)
     {
-        foreach(int coID in PlayerConnectionIDs)
+        foreach(int coID in PlayerConnectionIDs.Keys)
         {
             BloodAndBileEngine.Debugger.Log("Envoi d'un message au joueur ID " + coID);
             BloodAndBileEngine.Networking.MessageSender.Send(message, coID, channelID);
         }
     }
 
-    float DeltaTime = 0.0f;
-
-    public void Update()
+    public void Update(float deltaTime)
     {
-        System.Diagnostics.Stopwatch watch = new System.Diagnostics.Stopwatch();
-        watch.Start();
+
         // Mettre à jour les modules
         foreach(MatchModule module in Modules)
         {
-            module.Update(DeltaTime);
+            module.Update(deltaTime);
         }
 
-        watch.Stop();
-        DeltaTime = (float)watch.Elapsed.Milliseconds / 1000;
     }
 
     public void EndMatch()
@@ -101,7 +123,7 @@ public class Match
 
     public void OnPlayerDisconnected(int coID)
     {
-        if(PlayerConnectionIDs.Contains(coID))
+        if(PlayerConnectionIDs.Keys.Contains(coID))
         {
             PlayerConnectionIDs.Remove(coID);
         }

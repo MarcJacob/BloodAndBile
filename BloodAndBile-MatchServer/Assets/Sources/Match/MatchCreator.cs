@@ -29,15 +29,14 @@ public static class MatchCreator
 
         if (BloodAndBileEngine.WorldState.Map.Maps == null)
             BloodAndBileEngine.WorldState.Map.LoadMaps();
-        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[(int)UnityEngine.Random.Range(0.0f, BloodAndBileEngine.WorldState.Map.Maps.Count)];
+        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[UnityEngine.Random.Range(0, BloodAndBileEngine.WorldState.Map.Maps.Count-1)];
         
         // Création du CellSystem.
 
         BloodAndBileEngine.WorldState.CellSystem cellSystem;
-        cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map.ConstructionData);
+        cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map);
         startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
         startWorldState.AddData<BloodAndBileEngine.WorldState.Map>(map);
-        //...
 
         return m;
     }

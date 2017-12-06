@@ -24,6 +24,11 @@ public class Actor : MonoBehaviour
     bool TrackPosition = true; // Cet actor doit-il constamment suivre la position de l'entité ou seulement
     //  en cas de trop grande différence de position ? False notamment lorsque l'Actor est contrôlé par le joueur.
 
+    public void SetTrackPosition(bool track)
+    {
+        TrackPosition = track;
+    }
+
     private void Start()
     {
         BloodAndBileEngine.InputManager.AddHandler("ExecuteActorEvent", OnActorEvent);

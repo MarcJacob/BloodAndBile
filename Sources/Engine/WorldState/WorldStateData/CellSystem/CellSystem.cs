@@ -17,7 +17,8 @@ namespace BloodAndBileEngine.WorldState
     public class CellSystem : IWorldStateData
     {
         Cell[] Cells;
-        float[] ConstructionData;
+        Map CurrentMap;
+
         /// <summary>
         /// Initialise un CellSystem à partir d'un tableau de float.
         /// Taille du tableau : Nombre de cellules * (3+2+2) = Nombre de cellules * 7.
@@ -25,10 +26,10 @@ namespace BloodAndBileEngine.WorldState
         /// pour la largeur et la longueur, 2 floats pour les hauteurs aux angles nord-est et sud-ouest.
         /// </summary>
         /// <param name="data"> Tableau en entrée </param>
-        public CellSystem(float[] data)
+        public CellSystem(Map map)
         {
             // On vérifie que le tableau soit d'une taille valide.
-            if (data.Length % 7 != 0)
+            if (map.ConstructionData.Length % 7 != 0)
             {
                 Debugger.Log("ERREUR - le tableau donné en entrée du CellSystem n'est pas d'une forme valide !", UnityEngine.Color.red);
                 // On n'initialise pas les cellules.
@@ -38,19 +39,21 @@ namespace BloodAndBileEngine.WorldState
                 Debugger.Log("Initialisation du CellSystem.");
                 List<Cell> cells = new List<Cell>();
                 // Lecture du tableau
-                for (int cellID = 0; cellID < data.Length; cellID += 7)
+                for (int cellID = 0; cellID < map.ConstructionData.Length; cellID += 7)
                 {
                     Cell newCell;
-                    UnityEngine.Vector3 cellPos = new UnityEngine.Vector3(data[cellID], data[cellID + 1], data[cellID + 2]);
-                    UnityEngine.Vector2 cellDimensions = new UnityEngine.Vector2(data[cellID + 3], data[cellID + 4]);
-                    UnityEngine.Vector2 cellHeights = new UnityEngine.Vector2(data[cellID + 5], data[cellID + 6]);
+                    UnityEngine.Vector3 cellPos = new UnityEngine.Vector3(map.ConstructionData[cellID], map.ConstructionData[cellID + 1], map.ConstructionData[cellID + 2]);
+                    UnityEngine.Vector2 cellDimensions = new UnityEngine.Vector2(map.ConstructionData[cellID + 3], map.ConstructionData[cellID + 4]);
+                    UnityEngine.Vector2 cellHeights = new UnityEngine.Vector2(map.ConstructionData[cellID + 5], map.ConstructionData[cellID + 6]);
                     newCell = new Cell(this, cellID / 7, cellPos, cellDimensions, cellHeights);
+                    if (map.SpawnPoints.Contains(cellID))
+                        newCell.SetPlayerSpawn(true);
                     cells.Add(newCell);
                 }
 
                 // Initialisation du tableau Cells
                 Cells = cells.ToArray();
-                ConstructionData = data;
+                CurrentMap = map;
             }
         }
 
@@ -90,7 +93,12 @@ namespace BloodAndBileEngine.WorldState
 
         public float[] GetCellConstructionData()
         {
-            return ConstructionData;
+            return CurrentMap.ConstructionData;
+        }
+
+        public Map GetMap()
+        {
+            return CurrentMap;
         }
 
         // Renvoi l'intégralité des Entités se trouvant dans ce CellSystem.
@@ -129,6 +137,28 @@ namespace BloodAndBileEngine.WorldState
             {
                 Debugger.Log("Certaines entités à détruire n'ont pas été trouvées !", UnityEngine.Color.red);
             }
+        }
+
+        public Cell FindSpawnPoint()
+        {
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            return Cells[cellId];
+        }
+        
+        public Cell FindSpawnPoint(int[] unwantedIDs)
+        {
+            if (unwantedIDs.Count() == 0)
+                return FindSpawnPoint();
+
+            int i = 0;
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            while (unwantedIDs.Contains(cellId) && i < 10)
+            {
+                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+                i++;
+            }
+            if (unwantedIDs.Contains(cellId)) return null;
+            return Cells[cellId];
         }
 
         // A la destruction : mettre toutes les entités en "Destroyed" pour les rendre utilisable

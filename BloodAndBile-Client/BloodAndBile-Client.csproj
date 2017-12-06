@@ -13,13 +13,11 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile>
-    </CompilerResponseFile>
+    <CompilerResponseFile></CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace>
-    </RootNamespace>
+    <RootNamespace></RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -98,6 +96,7 @@
     <Compile Include="Assets\Sources\Client\States\PlayingStates\PlayingState.cs" />
     <Compile Include="Assets\Sources\Client\WorldState renderers\EntityRenderer.cs" />
     <Compile Include="Assets\Sources\Connections\ClientConnectionsManager.cs" />
+    <Compile Include="Assets\Sources\PlayerControl\EntityController.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Bulk\Trie.txt" />

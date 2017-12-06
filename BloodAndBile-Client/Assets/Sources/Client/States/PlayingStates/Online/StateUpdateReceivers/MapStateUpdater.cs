@@ -30,22 +30,12 @@ public class MapStateUpdater : IStateUpdateReceiver
 
     public void OnStateConstruction(StateConstructionMessage stateConstruction)
     {
-        float[] data;
-        if (stateConstruction.GetStateConstructionInfo("CELL_CONSTRUCTION_DATA").Length > 0)
-        {
-            data = (float[])(stateConstruction.GetStateConstructionInfo("CELL_CONSTRUCTION_DATA")[0].Information); // Prend l'information du premier éléments des StateUpdateObjects de type "CELL_CONSTRUCTION_DATA" et le cast en float[].
-            BuildCellSystem(data);
-        }
-        else
-        {
-            BloodAndBileEngine.Debugger.Log("WARNING - Pas de données de construction des cellules !", UnityEngine.Color.yellow);
-        }
-
         int mapID;
         if (stateConstruction.GetStateConstructionInfo("MAP_ID").Length > 0)
         {
             mapID = (int)(stateConstruction.GetStateConstructionInfo("MAP_ID")[0].Information); // Prend l'information du premier éléments des StateUpdateObjects de type "MAP_ID" et le cast en int.
             LoadMap(mapID);
+            BuildCellSystem(mapID);
         }
         else
         {
@@ -56,10 +46,10 @@ public class MapStateUpdater : IStateUpdateReceiver
 
     }
 
-    void BuildCellSystem(float[] data)
+    void BuildCellSystem(int mapId)
     {
         BloodAndBileEngine.Debugger.Log("Construction des cellules...");
-        World.AddData<CellSystem>(new CellSystem(data));
+        World.AddData<CellSystem>(new CellSystem(Map.Maps[mapId]));
     }
 
     void LoadMap(int mapID)

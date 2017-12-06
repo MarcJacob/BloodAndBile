@@ -64,6 +64,10 @@
     <Compile Include="Entities\EntitiesManager.cs" />
     <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Factories\EntityFactory.cs" />
+    <Compile Include="Entities\Controllers\Controller.cs" />
+    <Compile Include="Entities\Effect.cs" />
+    <Compile Include="Entities\Components\EffectManager.cs" />
+    <Compile Include="Entities\IMovableEntity.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\NetworkCommand\INetworkCommandSecurityLayer.cs" />

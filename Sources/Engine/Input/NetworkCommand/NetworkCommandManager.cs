@@ -37,7 +37,7 @@ namespace BloodAndBileEngine
                 string[] parameters = new string[args.Length - 2];
                 for (int i = 2; i < args.Length; i++)
                 {
-                    parameters[i - 2] = (string)args[i];
+                    parameters[i - 2] = args[i].ToString();
                 }
                 MessageSender.Send(new NetworkCommandMessage(command, parameters), idConnection);
             }

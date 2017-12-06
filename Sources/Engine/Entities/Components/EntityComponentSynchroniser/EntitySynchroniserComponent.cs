@@ -36,13 +36,14 @@ namespace BloodAndBileEngine
         // Met à jour l'objet "EntitySynchroniserObject" lié à cette instance.
         public override void Update(float deltaTime)
         {
+
             // A chaque synchronisation : récolte des données de synchronisation auprès de chaque
             // component de l'entité implémentant IEntitySynchroniser.
             // Ajoute également les informations de base de l'entité : Position, Rotation, Cellule actuelle,
             // taille, hauteur.
 
             // Synchronisation des Components.
-            foreach(EntityComponent component in LinkedEntity.GetComponents())
+            foreach (EntityComponent component in LinkedEntity.GetComponents())
             {
                 if (component is IEntitySynchroniser)
                 {
@@ -65,7 +66,8 @@ namespace BloodAndBileEngine
         /// </summary>
         public void OnSynch()
         {
-            Debugger.Log("Test", UnityEngine.Color.cyan);
+            BloodAndBileEngine.Debugger.Log("Test2", UnityEngine.Color.cyan);
+
             if (SynchData == null)
             {
                 Debugger.Log("ERREUR : le SynchData n'a pas été initialisé !", UnityEngine.Color.red);

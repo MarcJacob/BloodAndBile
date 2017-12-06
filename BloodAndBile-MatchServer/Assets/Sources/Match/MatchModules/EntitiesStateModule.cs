@@ -25,26 +25,40 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
     public override void Initialise()
     {
         base.Initialise();
-        // Create a test entity
-        BloodAndBileEngine.Entity testEntity;
-        BloodAndBileEngine.Entity testEntity2;
-        BloodAndBileEngine.Entity testEntity3;
-        testEntity = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 1f), UnityEngine.Quaternion.identity, 1f, 1f);
-        CreatedEntitiesID.Add(testEntity.ID);
-        testEntity2 = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(5f, 0f, 5f), UnityEngine.Quaternion.identity, 1f, 1f);
-        CreatedEntitiesID.Add(testEntity2.ID);
-        testEntity3 = BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(GetWorldState(), new UnityEngine.Vector3(1f, 0f, 5f), UnityEngine.Quaternion.identity, 1f, 1f);
-        CreatedEntitiesID.Add(testEntity3.ID);
-        testEntity.AddComponent(typeof(BloodAndBileEngine.TestController));
 
-        foreach(uint i in CreatedEntitiesID)
+        //Création des joueurs, placement sur la map, et assignation d'un connexionID pour chaque
+
+        List<int> usedCells = new List<int>();
+        foreach (int coId in ModuleMatch.GetPlayerConnectionIDs())
         {
-            UnityEngine.Debug.Log(i);
+            BloodAndBileEngine.WorldState.Cell cell = ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().FindSpawnPoint(usedCells.ToArray());
+            if (cell != null)
+            {
+                usedCells.Add(cell.ID);
+                BloodAndBileEngine.Entity player = BloodAndBileEngine.EntityFactories.EntityFactory.BuildPlayer(ModuleMatch.GetModule<MapStateModule>().GetWorldState(), cell.GetPosition(), UnityEngine.Quaternion.identity, 0.5f, 2.0f);
+                ModuleMatch.SetPlayerEntity(coId, (uint)player.ID);
+                CreatedEntitiesID.Add(player.ID);
+                BloodAndBileEngine.Debugger.Log("Entité joueur d'ID " + player.ID + " associée à la connexion d'ID " + coId);
+            }
+            else
+                BloodAndBileEngine.Debugger.Log("Aucun point de spawn trouvé !");
         }
     }
 
+    float ControlledEntityRefreshPeriod = 5f;
+    float CurrentControlledEntityRefreshTimer = 0f;
     public override void Update(float deltaTime)
     {
+        CurrentControlledEntityRefreshTimer += deltaTime;
+        if (CurrentControlledEntityRefreshTimer > ControlledEntityRefreshPeriod)
+        {
+            BloodAndBileEngine.Debugger.Log("Mise à jour des entités contrôlées par les clients...");
+            CurrentControlledEntityRefreshTimer = 0f;
+            foreach(int coID in ModuleMatch.GetPlayerConnectionIDs())
+            {
+                BloodAndBileEngine.InputManager.SendCommand("NetCommand", coID, "SetControlledEntity", ModuleMatch.GetControlledEntityID(coID));
+            }
+        }
     }
 
     public override void Stop()

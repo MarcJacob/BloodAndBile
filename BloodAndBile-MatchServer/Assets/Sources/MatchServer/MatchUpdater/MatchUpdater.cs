@@ -11,15 +11,29 @@ public class MatchUpdater
     Thread UpdateThread;
     List<Match> Matches = new List<Match>(); // Ensemble de matchs à mettre à jour.
     bool Activated = true;
+    float DeltaTime = 0f;
+
+
+
     public MatchUpdater()
     {
         // Création du Thread de mise à jour du match.
         UpdateThread = new Thread(() => { while (Activated) {
+                System.Diagnostics.Stopwatch Watch = System.Diagnostics.Stopwatch.StartNew();
+                Watch.Start();
                 lock (Matches)
                 {
                     if (Matches.Count > 0)
-                        UpdateMatches();
+                    {
+
+                        UpdateMatches(DeltaTime);
+
+                    }
                 }
+                Thread.Sleep(10); // Temps minimal entre chaque mise à jour : 10ms.
+                Watch.Stop();
+                DeltaTime = (float)Watch.ElapsedTicks / (float)System.Diagnostics.Stopwatch.Frequency;
+
 
             } });
         if (UpdateThread == null) { BloodAndBileEngine.Debugger.Log("Création du Thread MatchUpdater infructueuse !");
@@ -41,14 +55,14 @@ public class MatchUpdater
         }
     }
 
-    void UpdateMatches()
+    void UpdateMatches(float deltaTime)
     {
             List<Match> endedMatches = new List<Match>();
             foreach (Match match in Matches)
             {
                 if (match.Ongoing)
                 {
-                    match.Update();
+                    match.Update(deltaTime);
                     if (match.Ongoing == false)
                     {
                         endedMatches.Add(match);

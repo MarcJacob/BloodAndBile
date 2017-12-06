@@ -44,6 +44,8 @@ public class MatchmakingState : IClientState
         }
         else
         {
+            ClientConnectionsManager.AddConnection("MatchServer", MatchServerConnectionID);
+
             NetworkHandlers = new BloodAndBileEngine.Networking.HandlersManager();
             InputHandlers = new BloodAndBileEngine.InputHandlersManager();
 

@@ -18,7 +18,7 @@ public class MatchServer : MonoBehaviour {
 	void Start ()
     {
         BloodAndBileEngine.Networking.NetworkSocket.Initialise(25000, 500);
-
+        BloodAndBileEngine.NetworkCommandManager.Initialize();
         MasterServerConnectionModule masterServerConnection = new MasterServerConnectionModule();
         PlayersManagerModule playersManager = new PlayersManagerModule();
         MatchesManagerModule matchesModule = new MatchesManagerModule(playersManager);
@@ -39,6 +39,7 @@ public class MatchServer : MonoBehaviour {
          //Initialisation de la mémoire des entités TODO : déplacer ça dans un fichier plus pertinent.
         BloodAndBileEngine.EntitiesManager.Initialise();
         Activate();
+        masterServerConnection.Deactivate();
 	}
 
     void Activate()
