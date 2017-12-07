@@ -14,11 +14,11 @@ Développé en C# sur Unity. Pour le réseau, utilisation de l'API bas niveau UN
 
 Equipe :
 
-Marc Jacob - Chef de projet, Développeur & Game Designer
-Ilan Piperno - Développeur
-Manuel Picon Bravo - Développeur
-Martin Dalery - Développeur
-Tom Toulier - Infographiste 3D & 2D
+- Marc Jacob - Chef de projet, Développeur & Game Designer
+- Ilan Piperno - Développeur
+- Manuel Picon Bravo - Développeur
+- Martin Dalery - Développeur
+- Tom Toulier - Infographiste 3D & 2D
 
 Le répertoire est divisé en une branche "Trunk" et une branche "Sandbox" par développeur. La branche Trunk sert de lieu de développement principal pour le développeur concerné. Lorsqu'une "Milestone" importante est atteinte, les branches Trunk sont fusionnées dans la branche "master", puis les branches Trunk sont mises à jour avec le contenu de master. "Sandbox" est une branche utilisée de manière optionnelle étant faite pour la prise de risques : si besoin, celle ci peut être supprimée et re-créée. Cela permet de n'effectuer que le développement "contrôlé" dans Trunk et ainsi d'être certain d'avoir un historique des commits sans trop de coquilles.
 
