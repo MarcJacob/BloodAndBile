@@ -56,6 +56,7 @@ public class PlayingState : IClientState
             {
                 act = actors[i];
             }
+            i++;
         }
 
         if (act != null && act.GetComponent<EntityController>() == null)

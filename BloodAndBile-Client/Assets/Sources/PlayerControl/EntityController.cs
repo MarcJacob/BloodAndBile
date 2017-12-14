@@ -21,6 +21,7 @@ public class EntityController : MonoBehaviour
         // Récupération de l'actor.
         ControlledActor = GetComponent<Actor>();
         ControlledActor.SetTrackPosition(false);
+        ControlledActor.SetTrackRotation(false);
     }
 
     float CurrentWorldStateEntityUpdateTimer = 0f;

@@ -53,7 +53,7 @@ namespace BloodAndBileEngine
          */
         static public void SendCommand(string command, params object[] parameters)
         {
-            Debugger.Log("Execution de la commande '" + command + "'");
+
             if (CommandHandlers.ContainsKey(command) && CommandHandlers[command] != null)
             {
                 CommandHandlers[command](parameters);

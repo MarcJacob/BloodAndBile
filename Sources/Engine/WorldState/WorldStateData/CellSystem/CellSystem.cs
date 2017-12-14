@@ -141,7 +141,7 @@ namespace BloodAndBileEngine.WorldState
 
         public Cell FindSpawnPoint()
         {
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
             return Cells[cellId];
         }
         
@@ -151,10 +151,10 @@ namespace BloodAndBileEngine.WorldState
                 return FindSpawnPoint();
 
             int i = 0;
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
             while (unwantedIDs.Contains(cellId) && i < 10)
             {
-                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
                 i++;
             }
             if (unwantedIDs.Contains(cellId)) return null;

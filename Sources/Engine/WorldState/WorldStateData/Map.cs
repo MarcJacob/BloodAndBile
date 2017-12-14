@@ -29,7 +29,12 @@ namespace BloodAndBileEngine.WorldState
         public static void LoadMaps()
         {
             Maps = new List<Map>();
-            Map map1 = new Map("Prefabs/Maps/Terrain", new float[] { 0.0f, 0.0f, 0.0f, 10.0f, 10.0f, 0.0f, 0.0f }, new int[] { 0 });
+            float[] cellData = new float[]
+            {
+                0.0f, 0.0f, 0.0f, 10.0f, 10.0f, 0.0f, 0.0f,
+                10.0f, 0.0f, 0.0f, 10.0f, 10.0f, 0.0f, 1.0f,
+            };
+            Map map1 = new Map("Prefabs/Maps/Terrain", cellData, new int[] { 0, 1 });
         }
     }
 }

@@ -162,7 +162,6 @@ namespace BloodAndBileEngine
             {
                 SerializableVector3 newPos = new SerializableVector3(posX, posY, posZ);
                 e.Position = newPos;
-                Debugger.Log("Nouvelle position de l'entité " + ID + " : " + newPos);
             }
         }
 
@@ -259,7 +258,6 @@ namespace BloodAndBileEngine
             {
                 SerializableQuaternion newRot = new SerializableQuaternion(rotX, rotY, rotZ, rotW);
                 e.Rotation = newRot;
-                Debugger.Log("Nouvelle rotation de l'entité " + ID + " : " + newRot);
             }
         }
 

@@ -93,7 +93,6 @@ public class Match
     {
         foreach(int coID in PlayerConnectionIDs.Keys)
         {
-            BloodAndBileEngine.Debugger.Log("Envoi d'un message au joueur ID " + coID);
             BloodAndBileEngine.Networking.MessageSender.Send(message, coID, channelID);
         }
     }

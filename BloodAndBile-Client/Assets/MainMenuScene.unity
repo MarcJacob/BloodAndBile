@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 728306815}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 230323394}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1137725539, guid: f2115843ca5a9184c840040392a2ce2c, type: 3}
+  m_Script: {fileID: 1137725539, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Frequency: 20
@@ -197,6 +197,20 @@ Light:
   m_Lightmapping: 4
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
+  m_FalloffTable:
+    m_Table[0]: 0
+    m_Table[1]: 0
+    m_Table[2]: 0
+    m_Table[3]: 0
+    m_Table[4]: 0
+    m_Table[5]: 0
+    m_Table[6]: 0
+    m_Table[7]: 0
+    m_Table[8]: 0
+    m_Table[9]: 0
+    m_Table[10]: 0
+    m_Table[11]: 0
+    m_Table[12]: 0
   m_ColorTemperature: 6570
   m_UseColorTemperature: 0
   m_ShadowRadius: 0
@@ -441,7 +455,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1490976139}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 1521079683, guid: f2115843ca5a9184c840040392a2ce2c, type: 3}
+  m_Script: {fileID: 1521079683, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1490976141
@@ -470,7 +484,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1544503602}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -1081237219, guid: f2115843ca5a9184c840040392a2ce2c, type: 3}
+  m_Script: {fileID: -1081237219, guid: 9b2cff565b80c1a4c969a0c2ce281166, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   TextLinePrefab: {fileID: 1612439136291140, guid: 403c2b7766afdb44681983c10b2a496f,

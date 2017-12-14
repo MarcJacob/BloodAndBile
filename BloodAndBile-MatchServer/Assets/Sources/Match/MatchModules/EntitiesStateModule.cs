@@ -52,7 +52,6 @@ public class EntitiesStateModule : MatchModule, IStateUpdater
         CurrentControlledEntityRefreshTimer += deltaTime;
         if (CurrentControlledEntityRefreshTimer > ControlledEntityRefreshPeriod)
         {
-            BloodAndBileEngine.Debugger.Log("Mise à jour des entités contrôlées par les clients...");
             CurrentControlledEntityRefreshTimer = 0f;
             foreach(int coID in ModuleMatch.GetPlayerConnectionIDs())
             {

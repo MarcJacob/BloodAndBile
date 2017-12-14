@@ -7,7 +7,7 @@ public class MatchesManagerModule : IMatchServerModule
 {
     PlayersManagerModule PlayersManager;
     MatchUpdater[] Updaters;
-    int PlayersPerMatch = 1;
+    int PlayersPerMatch = 2;
 
     public MatchesManagerModule(PlayersManagerModule players, int maxUpdaters = 1)
     {
