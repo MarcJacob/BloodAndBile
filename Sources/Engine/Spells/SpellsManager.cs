@@ -13,6 +13,7 @@ namespace BloodAndBileEngine
     {
         static bool Initialised = false; // La liste des sorts a-t-elle été initialisée ?
         static Spell[] Spells; // Ensemble des sorts.
+        static public int SpellsCount = 0;
         static public Spell GetSpellByID(uint ID)
         {
             if (!Initialised)
@@ -44,19 +45,26 @@ namespace BloodAndBileEngine
                     0f, // Durée (Duration)
                     0.5f, // Temps de lancement (CastTime)
                     0f, // Cooldown
-                    0f, // Coût Sang (Costs[0])
-                    0f, // Coût Phlegm (Costs[1])
-                    20f, // Coût Yellow Bile (Costs[2])
-                    0f, // Coût Black Bile (Costs[3])
+                    0f, // Coût Sang (Costs[0]) -OnCast
+                    0f, // Coût Phlegm (Costs[1]) -OnCast
+                    20f, // Coût Yellow Bile (Costs[2]) -OnCast
+                    0f, // Coût Black Bile (Costs[3]) -OnCast
+                    0f, // Coût Sang (Costs[0]) -OnCanalise
+                    0f, // Coût Phlegm (Costs[1]) -OnCanalise
+                    0f, // Coût Yellow Bile (Costs[2]) -OnCanalise
+                    0f, // Coût Black Bile (Costs[3]) -OnCanalise
                     (instance) => // Quand le sort est lancé. Lancé après le CastTime.
                     {
                         // Téléporter le lanceur
+                        Debugger.Log("Warp se lance");
                         if (instance.GetTarget() is UnityEngine.Vector3 || instance.GetTarget() is SerializableVector3)
                         {
-                            UnityEngine.Vector3 pos = (UnityEngine.Vector3)instance.GetTarget();
-                            WorldState.Cell targetCell = instance.GetCaster().GetWorldState().GetData<WorldState.CellSystem>().GetCellFromPosition(pos.z, pos.x);
+                            SerializableVector3 pos = (SerializableVector3)instance.GetTarget();
+                            WorldState.Cell targetCell = ((WorldState.CellSystem) instance.GetCaster().GetWorldState().GetData<WorldState.CellSystem>()).GetCellFromPosition(pos.z, pos.x);
                             if (targetCell != null)
+                            {
                                 pos.y = targetCell.GetHeightFrom2DCoordinates(pos.z, pos.x);
+                            }
                             instance.GetCaster().Position = pos;
                         }
                     },
@@ -77,7 +85,44 @@ namespace BloodAndBileEngine
                     } // NOTE : en pratique, le sort Warp n'est pas canalisable donc seule la fonction "OnCast" sera exécutée.
                     // Les autres fonctions sont toujours définies à titre d'exemple.
                 ),
+                new Spell(
+                  "BloodToPhlegm", // Nom du sort
+                    "Convert 20 Blood into 15 Phlegm", // Description
+                    SpellFlags.TARGETS_SELF, // Flags du sort
+                    0f, // Durée (Duration)
+                    0.5f, // Temps de lancement (CastTime)
+                    5f, // Cooldown
+                    20f, // Coût Sang (Costs[0]) -OnCast
+                    0f, // Coût Phlegm (Costs[1]) -OnCast
+                    0f, // Coût Yellow Bile (Costs[2]) -OnCast
+                    0f, // Coût Black Bile (Costs[3]) -OnCast
+                    0f, // Coût Sang (Costs[0]) -OnCanalise
+                    0f, // Coût Phlegm (Costs[1]) -OnCanalise
+                    0f, // Coût Yellow Bile (Costs[2]) -OnCanalise
+                    0f, // Coût Black Bile (Costs[3]) -OnCanalise
+                    (instance) => // Quand le sort est lancé. Lancé après le CastTime.
+                    {
+                        ((HumorsComponent)instance.GetCaster().GetComponent(typeof(HumorsComponent))).ChangePhlegm(15);
+          
+                    },
+
+                    (instance) => // Quand le sort est en cours de canalisation (que le joueur n'a pas relâché la touche de lancement et que la durée de vie du sort n'a pas dépassé la variable Duration.
+                    {
+
+                    },
+
+                    (instance) => // Quand le sort est terminé (durée atteinte)
+                    {
+
+                    },
+
+                    (instance) => // Quand le sort est annulé.
+                    {
+
+                    }
+                ),
             };
+            SpellsCount = Spells.Count();
         } // Fonction de construction des sorts
 
         static void AssignIDs()

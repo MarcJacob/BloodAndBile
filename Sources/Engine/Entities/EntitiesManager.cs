@@ -79,6 +79,7 @@ namespace BloodAndBileEngine
         {
             InputManager.AddHandler("SetEntityPosition", SetEntityPosition);
             InputManager.AddHandler("SetEntityRotation", SetEntityRotation);
+            InputManager.AddHandler("CastSpell", CastSpell);
         }
 
         #region Commandes d'entité
@@ -261,6 +262,146 @@ namespace BloodAndBileEngine
                 e.Rotation = newRot;
                 Debugger.Log("Nouvelle rotation de l'entité " + ID + " : " + newRot);
             }
+        }
+
+        static void CastSpell(object[] args)
+        {
+            if (args.Length < 3)
+            {
+                Debugger.Log("ERREUR : Pas assez de paramètres dans l'appel de la commande CastSpell !", UnityEngine.Color.red);
+                return;
+            }
+            Entity e;
+            uint ID, spellID;
+            char type;
+
+            // On vérifie que chaque argument soit du bon type. S'ils ne le sont pas, on les converti.
+            if (args[0] is uint)
+            {
+                ID = (uint)args[0];
+            }
+            else
+            {
+                if (!(args[0] is string) || !uint.TryParse((string)args[0], out ID))
+                {
+                    Debugger.Log("ERREUR : Commande CastSpell - L'ID de l'entité doit être un entier ou une chaine de caractères !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+
+            if (args[1] is uint)
+            {
+                spellID = (uint)args[1];
+            }
+            else
+            {
+                if (!(args[1] is string) || !uint.TryParse((string)args[1], out spellID))
+                {
+                    Debugger.Log("ERREUR : Commande CastSpell - L'ID du sort doit être un entier ou une chaine de caractères !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+            if (args[2] is char)
+            {
+                type = (char)args[2];
+            }
+            else
+            {
+                if (!(args[2] is string) || !char.TryParse((string)args[2], out type))
+                {
+                    Debugger.Log("ERREUR : Commande CastSpell - Le type de la cible doit être un caractère !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+
+            switch(type)
+            {
+                case 'p':
+                    if(args.Length < 6)
+                    {
+                        Debugger.Log("ERREUR : Pas assez de paramètres dans l'appel de la commande CastSpell !", UnityEngine.Color.red);
+                        return;
+                    }
+                    float posX, posY, posZ;
+
+                    if (args[3] is float)
+                    {
+                        posX = (int)args[3];
+                    }
+                    else
+                    {
+                        if (!(args[3] is string) || !float.TryParse((string)args[3], out posX))
+                        {
+                            Debugger.Log("ERREUR : Commande CastSpell - La position Y de la cible doit être un entier ou une chaine de caractères !");
+                            return;
+                        }
+                    }
+
+                    if (args[4] is float)
+                    {
+                        posY = (int)args[4];
+                    }
+                    else
+                    {
+                        if (!(args[4] is string) || !float.TryParse((string)args[4], out posY))
+                        {
+                            Debugger.Log("ERREUR : Commande CastSpell - La position Y de la cible doit être un entier ou une chaine de caractères !");
+                            return;
+                        }
+                    }
+
+                    if (args[5] is float)
+                    {
+                        posZ = (int)args[5];
+                    }
+                    else
+                    {
+                        if (!(args[5] is string) || !float.TryParse((string)args[5], out posZ))
+                        {
+                            Debugger.Log("ERREUR : Commande CastSpell - La position Z de la cible doit être un entier ou une chaine de caractères !");
+                            return;
+                        }
+                    }
+
+                    e = GetEntityFromID(ID);
+                    SerializableVector3 targetPos = new SerializableVector3(posX, posY, posZ);
+                    ((SpellComponent)e.GetComponent(typeof(SpellComponent))).AttemptCast(spellID, targetPos);
+                    break;
+
+                case 'e':
+                    if (args.Length < 4)
+                    {
+                        Debugger.Log("ERREUR : Pas assez de paramètres dans l'appel de la commande CastSpell !", UnityEngine.Color.red);
+                        return;
+                    }
+                    uint targetId;
+
+                    if (args[3] is uint)
+                    {
+                        targetId = (uint)args[3];
+                    }
+                    else
+                    {
+                        if (!(args[3] is string) || !uint.TryParse((string)args[3], out targetId))
+                        {
+                            Debugger.Log("ERREUR : Commande CastSpell - L'ID de l'entité ciblée doit être un entier ou une chaine de caractères !");
+                            return;
+                        }
+                    }
+                    e = GetEntityFromID(ID);
+                    ((SpellComponent)e.GetComponent(typeof(SpellComponent))).AttemptCast(spellID, targetId);
+                    break;
+
+                case 's':
+
+                    e = GetEntityFromID(ID);
+                    ((SpellComponent)e.GetComponent(typeof(SpellComponent))).AttemptCast(spellID);
+                    break;
+            }
+
+
+
+            
         }
 
         #endregion

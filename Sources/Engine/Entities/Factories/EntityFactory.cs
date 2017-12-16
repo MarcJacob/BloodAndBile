@@ -79,13 +79,15 @@ namespace BloodAndBileEngine.EntityFactories
                 if (cell != null)
                 {
                     cell.AddEntity(newEntity);
-                    BloodAndBileEngine.Debugger.Log("Test2", UnityEngine.Color.cyan);
 
                 }
                 newEntity.AddComponent(typeof(EntitySynchroniserComponent));
                 newEntity.AddComponent(typeof(EntityMover));
+                newEntity.AddComponent(typeof(SpellComponent));
+                newEntity.AddComponent(typeof(HumorsComponent));
 
-                newEntity.Position = pos;
+                SerializableVector3 newPos = new SerializableVector3(pos.x, pos.y + size, pos.z);
+                newEntity.Position = newPos;
                 newEntity.Rotation = rot;
                 newEntity.Height = height;
                 newEntity.Size = size;

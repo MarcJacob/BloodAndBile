@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2015
+# Visual Studio 2017
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BloodAndBile-Client", "BloodAndBile-Client.csproj", "{C94B5644-4B10-3290-1D6C-7B61A41797CE}"
 EndProject
 Global

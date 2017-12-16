@@ -53,7 +53,7 @@ namespace BloodAndBileEngine.WorldState
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-            if (Position.x <= x && Position.y <= y && Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
+            if (Position.x <= x && Position.z <= y && Position.x + Dimensions.x > x && Position.z + Dimensions.y > y)
             {
                 x = (x - Position.z) / Dimensions.x;
                 y = (y - Position.x) / Dimensions.y;

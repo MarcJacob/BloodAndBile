@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using BloodAndBileEngine;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,6 +14,8 @@ public class EntityController : MonoBehaviour
     Vector3 CameraOffset = new Vector3(0, 1, -2); // Offset de la caméra par rapport à l'entité.
     float WorldstateEntityUpdateFrequency = 10f;
     Actor ControlledActor;
+    bool SpellCasted = false;
+    object Target = null;
 
     private void Start()
     {
@@ -39,6 +42,37 @@ public class EntityController : MonoBehaviour
         transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime, 0f, Input.GetAxis("Vertical") * Time.deltaTime);
         transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f);
         Camera.main.transform.Rotate(-Input.GetAxis("Mouse Y"), 0f, 0f);
+        Dictionary<uint, KeyCode> SpellKeys = ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).GetSpellKeyCodes();
+        foreach (uint sId in SpellKeys.Keys)
+        {
+            if(Input.GetKeyDown(SpellKeys[sId]))
+            {
+                ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).SetSelectedSpellId(sId);
+                BloodAndBileEngine.Debugger.Log("Sort sélectionné : " + BloodAndBileEngine.SpellsManager.GetSpellByID(sId).Name, Color.magenta);
+            }
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debugger.Log("Ca clique !");
+            SpellCasted = true;
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit, 100f))
+            {
+                Debugger.Log("Ca Raycast !");
+                if (hit.collider.gameObject.GetComponent<Actor>() != null && hit.collider.gameObject.GetComponent<Actor>().GetControlledEntity() != null)
+                {
+                    Target = hit.collider.gameObject.GetComponent<Actor>().GetControlledEntity().ID;
+                }
+                else
+                {
+                    Target = new SerializableVector3(hit.point.x, hit.point.y, hit.point.z);
+                }
+                
+            }
+
+        }
+            
     }
 
     /// <summary>
@@ -60,6 +94,19 @@ public class EntityController : MonoBehaviour
         // Mise à jour de la position
         SendPlayerControlCommand("SetEntityPosition", ControlledActor.GetControlledEntity().ID, transform.position.x, transform.position.y, transform.position.z);
         SendPlayerControlCommand("SetEntityRotation", ControlledActor.GetControlledEntity().ID, transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
+        if(SpellCasted)
+        {
+            uint spellID = ((SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(SpellComponent))).SelectedSpellId;
+
+            if (SpellsManager.GetSpellByID(spellID).Flags.HasFlag(SpellFlags.TARGETS_POSITION))
+                SendPlayerControlCommand("CastSpell", ControlledActor.GetControlledEntity().ID, spellID, 'p', ((SerializableVector3)Target).x, ((SerializableVector3)Target).y, ((SerializableVector3)Target).z);
+            else if (SpellsManager.GetSpellByID(spellID).Flags.HasFlag(SpellFlags.TARGETS_ENTITY))
+                SendPlayerControlCommand("CastSpell", ControlledActor.GetControlledEntity().ID, spellID, 'e', (uint)Target);
+            else if(SpellsManager.GetSpellByID(spellID).Flags.HasFlag(SpellFlags.TARGETS_SELF))
+                SendPlayerControlCommand("CastSpell", ControlledActor.GetControlledEntity().ID, spellID, 's');
+            SpellCasted = false;
+            Target = null;
+        }
     }
 
     void SendPlayerControlCommand(string command, params object[] args)
