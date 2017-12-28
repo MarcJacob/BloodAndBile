@@ -10,6 +10,7 @@ public class MatchUpdater
 {
     Thread UpdateThread;
     List<Match> Matches = new List<Match>(); // Ensemble de matchs à mettre à jour.
+    List<int> PlayersToDisconnect = new List<int>();
     bool Activated = true;
     float DeltaTime = 0f;
 
@@ -60,10 +61,10 @@ public class MatchUpdater
             List<Match> endedMatches = new List<Match>();
             foreach (Match match in Matches)
             {
-                if (match.Ongoing)
+                if (!match.NeedsStop)
                 {
                     match.Update(deltaTime);
-                    if (match.Ongoing == false)
+                    if (match.NeedsStop == true)
                     {
                         endedMatches.Add(match);
                     }
@@ -73,6 +74,11 @@ public class MatchUpdater
             foreach (Match match in endedMatches)
             {
                 Matches.Remove(match);
+                // Déconnexion des joueurs concernés.
+                foreach (int playerID in match.GetPlayerConnectionIDs())
+                {
+                    PlayersToDisconnect.Add(playerID);
+                }
             }
     }
 
@@ -96,5 +102,13 @@ public class MatchUpdater
     public int GetNumberOfMatches()
     {
         return Matches.Count;
+    }
+
+    public void UpdateDisconnects()
+    {
+        foreach(int playerID in PlayersToDisconnect)
+            BloodAndBileEngine.Networking.NetworkSocket.Disconnect(playerID);
+
+        PlayersToDisconnect.Clear();
     }
 }

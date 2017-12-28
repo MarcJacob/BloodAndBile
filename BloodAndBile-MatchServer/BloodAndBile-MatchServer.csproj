@@ -13,11 +13,13 @@
     <TargetFrameworkIdentifier>.NETFramework</TargetFrameworkIdentifier>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Unity Subset v3.5</TargetFrameworkProfile>
-    <CompilerResponseFile></CompilerResponseFile>
+    <CompilerResponseFile>
+    </CompilerResponseFile>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows64:19</UnityBuildTarget>
     <UnityVersion>2017.1.1f1</UnityVersion>
-    <RootNamespace></RootNamespace>
+    <RootNamespace>
+    </RootNamespace>
     <LangVersion Condition=" '$(VisualStudioVersion)' != '10.0' ">4</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -87,6 +89,7 @@
     <Compile Include="Assets\Sources\Match\MatchModules\IStateUpdater.cs" />
     <Compile Include="Assets\Sources\Match\MatchModules\MapStateModule.cs" />
     <Compile Include="Assets\Sources\Match\MatchModules\MatchModule.cs" />
+    <Compile Include="Assets\Sources\Match\MatchModules\MatchOutcomeManagerModule.cs" />
     <Compile Include="Assets\Sources\Match\MatchModules\StateUpdateModule.cs" />
     <Compile Include="Assets\Sources\MatchServer\MatchServer.cs" />
     <Compile Include="Assets\Sources\MatchServer\MatchUpdater\MatchUpdater.cs" />

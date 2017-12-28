@@ -23,10 +23,14 @@ public class Actor : MonoBehaviour
     bool Dying = false;
     bool TrackPosition = true; // Cet actor doit-il constamment suivre la position de l'entité ou seulement
     //  en cas de trop grande différence de position ? False notamment lorsque l'Actor est contrôlé par le joueur.
-
+    bool TrackRotation = true;
     public void SetTrackPosition(bool track)
     {
         TrackPosition = track;
+    }
+    public void SetTrackRotation(bool track)
+    {
+        TrackRotation = track;
     }
 
     private void Start()
@@ -42,13 +46,34 @@ public class Actor : MonoBehaviour
             if (TrackPosition)
             {
                 // "Lerper" constamment vers la position de l'entité.
-                transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime / 2);
+                if ((transform.position - entity.Position).sqrMagnitude < 1)
+                {
+                    transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime * 4);
+                }
+                else
+                {
+                    transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime / 2);
+                }
             }
-
-            if ((transform.position - entity.Position).sqrMagnitude > 25)
+            else if ((transform.position - entity.Position).sqrMagnitude > 16)
             {
                 transform.position = entity.Position;
             }
+
+            if (TrackRotation)
+            {
+                transform.rotation = Quaternion.Lerp(transform.rotation, entity.Rotation, Time.deltaTime * 6);
+            }
+
+            // Toujours appliquer la bonne hauteur à la position de l'entité
+            float height = GetControlledEntity().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetCellFromPosition(transform.position.z, transform.position.x).GetHeightFrom2DCoordinates(transform.position.z, transform.position.x);
+            transform.Translate(0f, height - transform.position.y, 0f);
+        }
+
+        if (GetControlledEntity().Destroyed)
+        {
+            ReactToEvent("Death");
+            Die();
         }
     }
 
@@ -96,6 +121,7 @@ public class Actor : MonoBehaviour
 
     void OnEntityDeath()
     {
+        if (AnimationController != null)
         AnimationController.Play("Death");
 
         Dying = true;
@@ -103,6 +129,10 @@ public class Actor : MonoBehaviour
 
     void Die()
     {
+        if (GetComponent<EntityController>() != null)
+        {
+            GetComponent<EntityController>().OnEntityDeath();
+        }
         Destroy(gameObject);
     }
 

@@ -53,7 +53,7 @@ namespace BloodAndBileEngine.WorldState
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-            if (Position.x <= x && Position.y <= y && Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
+            if (Position.z <= x && Position.x <= y && Position.x + Dimensions.y > y && Position.z + Dimensions.x > x)
             {
                 x = (x - Position.z) / Dimensions.x;
                 y = (y - Position.x) / Dimensions.y;
@@ -112,21 +112,31 @@ namespace BloodAndBileEngine.WorldState
         } // Devrait être légèrement plus rapide que la surcharge prenant
         // une entité en paramètre.
 
-        public void RemoveEntities(List<uint> ids) // Supprime toutes les entités de cette Cellule dont les IDs se trouvent dans la liste passé en paramètre.
+        /// <summary>
+        /// Enlève les entités dont l'ID est contenu dans la liste ids de la cellule.
+        /// Renvoi un tableau contenant l'ensemble des IDs des entités enlevées.
+        /// Si kill = true, alors les entités seront également détruites.
+        /// </summary>
+        public uint[] RemoveEntities(List<uint> ids, bool kill = false) // Supprime toutes les entités de cette Cellule dont les IDs se trouvent dans la liste passé en paramètre.
         {
-            List<Entity> destroyedEntities = new List<Entity>();
+            List<uint> removedEntityIDs = new List<uint>();
+
+            List<Entity> removedEntities = new List<Entity>();
             foreach(Entity entity in EntitiesInCell)
             {
                 if(ids.Contains(entity.ID))
                 {
-                    destroyedEntities.Add(entity);
+                    removedEntities.Add(entity);
                     ids.Remove(entity.ID);
+                    if (kill) entity.Destroy();
+                    removedEntityIDs.Add(entity.ID);
                 }
             }
-            foreach(Entity entity in destroyedEntities)
+            foreach(Entity entity in removedEntities)
             {
                 EntitiesInCell.Remove(entity);
             }
+            return removedEntityIDs.ToArray();
         }
 
         public Entity[] GetEntities()

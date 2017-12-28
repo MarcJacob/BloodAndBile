@@ -44,4 +44,9 @@ public class MatchModule
     {
 
     }
+
+    public virtual void OnPlayerDisconnected(int coID)
+    {
+
+    }
 }

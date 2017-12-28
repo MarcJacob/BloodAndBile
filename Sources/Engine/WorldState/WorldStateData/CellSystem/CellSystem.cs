@@ -79,6 +79,14 @@ namespace BloodAndBileEngine.WorldState
                     {
                         c = cell;
                     }
+                    else
+                    {
+                        Debugger.Log(cell.GetPosition().z + " trop grand pour la position " + x);
+                    }
+                }
+                else
+                {
+                    Debugger.Log(cell.GetPosition().x + " trop grand pour la position " + y);
                 }
                 cellID++;
             }
@@ -117,7 +125,7 @@ namespace BloodAndBileEngine.WorldState
         }
 
         // Supprime les entités dont l'ID se trouve dans cette liste.
-        public void RemoveEntitiesFromID(uint[] ids)
+        public void RemoveEntitiesFromID(uint[] ids, bool killEntities = false)
         {
             // Construire la liste des ID :
             List<uint> idList = new List<uint>();
@@ -129,7 +137,7 @@ namespace BloodAndBileEngine.WorldState
             int cellID = 0;
             while (idList.Count > 0 && cellID < Cells.Length)
             {
-                Cells[cellID].RemoveEntities(idList);
+                Cells[cellID].RemoveEntities(idList, killEntities);
                 cellID++;
             }
 
@@ -141,7 +149,7 @@ namespace BloodAndBileEngine.WorldState
 
         public Cell FindSpawnPoint()
         {
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
             return Cells[cellId];
         }
         
@@ -151,10 +159,10 @@ namespace BloodAndBileEngine.WorldState
                 return FindSpawnPoint();
 
             int i = 0;
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
             while (unwantedIDs.Contains(cellId) && i < 10)
             {
-                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length)];
                 i++;
             }
             if (unwantedIDs.Contains(cellId)) return null;

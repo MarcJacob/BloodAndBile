@@ -72,6 +72,13 @@ namespace BloodAndBileEngine
             return null;
         }
 
+        public T GetComponent<T>() where T : EntityComponent
+        {
+            EntityComponent comp = GetComponent(typeof(T));
+            if (comp != null) return (T)comp;
+            else return null;
+        }
+
         public EntityComponent[] GetComponents()
         {
             return Components.ToArray();
@@ -107,6 +114,7 @@ namespace BloodAndBileEngine
         public void Destroy()
         {
             Destroyed = true;
+            if (OnEntityDestroyed != null) OnEntityDestroyed(this);
         }
         public void Update(float deltaTime)
         {
@@ -116,19 +124,9 @@ namespace BloodAndBileEngine
             }
         }
 
-        public static bool operator ==(Entity a, Entity b)
-        {
-            return a.Equals(b);
-        }
-
-        public static bool operator !=(Entity a, Entity b)
-        {
-            return !a.Equals(b);
-        }
-
         public override bool Equals(object obj) // On sait que chaque entité a un ID unique par machine, donc on peut simplier la tâche de vérifier si deux référence de type Entity pointent vers le même objet.
         {
-            return obj is Entity && ((Entity)obj).ID == ID;
+            return obj is Entity && obj != null && ((Entity)obj).ID == ID;
         }
         public override int GetHashCode()
         {
@@ -138,6 +136,7 @@ namespace BloodAndBileEngine
         public void Reset()
         {
             Components.Clear();
+            OnEntityDestroyed = null;
         }
 
 
@@ -154,5 +153,22 @@ namespace BloodAndBileEngine
                 Debugger.Log("ERREUR : Impossible d'assigner l'ID d'une même entité plus d'une fois !", UnityEngine.Color.red);
             }
         }
+
+        Action<Entity> OnEntityDestroyed; // Ensemble des fonctions qui seront appelées lors de la destruction de cette entité.
+        // Pourrait potentiellement prendre beaucoup de mémoire à l'échelle d'une entité, mais ne sera jamais transmis
+        // sur le réseau donc ce n'est pas un problème.
+
+
+        public void RegisterOnEntityDestroyedCallback(Action<Entity> cb)
+        {
+            OnEntityDestroyed += cb;
+        }
+
+        public void RemoveOnEntityDestroyedCallback(Action<Entity> cb)
+        {
+            OnEntityDestroyed -= cb;
+        }
+
+
     }
 }

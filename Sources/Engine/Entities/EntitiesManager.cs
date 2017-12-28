@@ -39,6 +39,17 @@ namespace BloodAndBileEngine
             InitialiseCommands();
         }
 
+        /// <summary>
+        /// Détruit toutes les entités.
+        /// </summary>
+        public static void Clear()
+        {
+            foreach(Entity e in _entitiesArray)
+            {
+                e.Destroy();
+            }
+        }
+
         public static int GetEntityCount()
         {
             int amount = 0;
@@ -79,6 +90,7 @@ namespace BloodAndBileEngine
         {
             InputManager.AddHandler("SetEntityPosition", SetEntityPosition);
             InputManager.AddHandler("SetEntityRotation", SetEntityRotation);
+            InputManager.AddHandler("KillEntity", KillEntity);
         }
 
         #region Commandes d'entité
@@ -161,8 +173,12 @@ namespace BloodAndBileEngine
             if (e != null)
             {
                 SerializableVector3 newPos = new SerializableVector3(posX, posY, posZ);
-                e.Position = newPos;
-                Debugger.Log("Nouvelle position de l'entité " + ID + " : " + newPos);
+                if (e.GetComponent(typeof(EntityMover)) != null)
+                {
+                    e.GetComponent<EntityMover>().Teleport(newPos.z, newPos.x);
+                }
+                else
+                    e.Position = newPos;
             }
         }
 
@@ -259,10 +275,55 @@ namespace BloodAndBileEngine
             {
                 SerializableQuaternion newRot = new SerializableQuaternion(rotX, rotY, rotZ, rotW);
                 e.Rotation = newRot;
-                Debugger.Log("Nouvelle rotation de l'entité " + ID + " : " + newRot);
             }
         }
 
+        static void KillEntity(object[] args)
+        {
+            if (args.Length == 0)
+            {
+                Debugger.Log("ERREUR : KillEntity nécessite un argument : l'ID de l'entité.", UnityEngine.Color.red);
+                return;
+            }
+
+            if (args[0] is uint)
+            {
+                Entity e = GetEntityFromID((uint)args[0]);
+                if (e != null)
+                {
+                    e.Destroy();
+                    return;
+                }
+            }
+            else if (args[0] is string)
+            {
+                uint id;
+                if (uint.TryParse((string)args[0], out id))
+                {
+                    Entity e = GetEntityFromID(id);
+                    if (e != null)
+                    {
+                        e.Destroy();
+                        return;
+                    }
+                }
+                else
+                {
+                    Debugger.Log("ERREUR : KillEntity - la chaine de caractère représentant l'ID de l'entité doit être un nombre !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+            else
+            {
+                Debugger.Log("ERREUR : le type du premier argument de KillEntity doit être string ou uint !", UnityEngine.Color.red);
+                return;
+            }
+
+            Debugger.Log("ERREUR : ID de l'entité invalide !", UnityEngine.Color.red);
+        }
+
         #endregion
+
+
     }
 }

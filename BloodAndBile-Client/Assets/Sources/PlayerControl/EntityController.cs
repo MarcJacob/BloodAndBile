@@ -21,6 +21,7 @@ public class EntityController : MonoBehaviour
         // Récupération de l'actor.
         ControlledActor = GetComponent<Actor>();
         ControlledActor.SetTrackPosition(false);
+        ControlledActor.SetTrackRotation(false);
     }
 
     float CurrentWorldStateEntityUpdateTimer = 0f;
@@ -72,5 +73,11 @@ public class EntityController : MonoBehaviour
         }
 
         BloodAndBileEngine.InputManager.SendCommand("PlayerControl", newArgs);
+    }
+
+    public void OnEntityDeath()
+    {
+        Camera.main.transform.parent = null;
+        Camera.main.transform.position = Vector3.zero;
     }
 }

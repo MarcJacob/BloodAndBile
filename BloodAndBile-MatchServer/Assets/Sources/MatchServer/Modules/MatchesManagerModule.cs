@@ -59,6 +59,11 @@ public class MatchesManagerModule : IMatchServerModule
                 }
             }
         }
+
+        foreach(MatchUpdater updater in Updaters)
+        {
+            updater.UpdateDisconnects();
+        }
     }
 
     public void Activate()
