@@ -34,8 +34,8 @@ public static class MatchCreator
 
         if (BloodAndBileEngine.WorldState.Map.Maps == null)
             BloodAndBileEngine.WorldState.Map.LoadMaps();
-        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[UnityEngine.Random.Range(0, BloodAndBileEngine.WorldState.Map.Maps.Count-1)];
-        
+        BloodAndBileEngine.WorldState.Map map = BloodAndBileEngine.WorldState.Map.Maps[UnityEngine.Random.Range(0, BloodAndBileEngine.WorldState.Map.Maps.Count)];
+
         // Création du CellSystem.
 
         BloodAndBileEngine.WorldState.CellSystem cellSystem;

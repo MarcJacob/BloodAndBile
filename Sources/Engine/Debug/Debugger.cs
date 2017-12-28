@@ -21,7 +21,6 @@ namespace BloodAndBileEngine
             }
             if (ConsoleComponent == null) ConsoleComponent = GameObject.FindObjectOfType<Console>();
             StringBuilder msg = new StringBuilder();
-            Debug.Log("Ajout de " + elements.Length + " éléments");
             foreach (object element in elements)
             {
                 if (element != null)

@@ -40,6 +40,7 @@ public class EntitiesManagerModule : MatchModule, IStateUpdater
 
     public BloodAndBileEngine.Entity SpawnPlayer(int playerConnectionID, BloodAndBileEngine.WorldState.Cell cell)
     {
+        BloodAndBileEngine.Debugger.Log("SpawnPlayer aux coordonnées " + cell.GetPosition());
         BloodAndBileEngine.Entity player = EntityFactory.BuildPlayer(cell.GetPosition(), UnityEngine.Quaternion.identity, 0.5f, 2.0f);
         return player;
     }
@@ -136,7 +137,7 @@ public class EntitiesManagerModule : MatchModule, IStateUpdater
     {
         StateUpdateObject EntitySyncObject = new StateUpdateObject("EntitySynchronization", null);
         List<BloodAndBileEngine.EntitySynchronizationDataObject> SyncDataObjectList = new List<BloodAndBileEngine.EntitySynchronizationDataObject>();
-        foreach (BloodAndBileEngine.Entity entity in ModuleMatch.GetModule<MapStateModule>().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetAllEntities())
+        foreach (BloodAndBileEngine.Entity entity in LivingEntities)
         {
             BloodAndBileEngine.EntitySynchroniserComponent syncComponent = (BloodAndBileEngine.EntitySynchroniserComponent)entity.GetComponent(typeof(BloodAndBileEngine.EntitySynchroniserComponent));
             if (syncComponent != null)

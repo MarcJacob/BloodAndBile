@@ -39,6 +39,14 @@ namespace BloodAndBileEngine.WorldState.WorldStateData
                 {
                     cell.AddEntity(newEntity);
                 }
+                else
+                {
+                    Debugger.Log("ERREUR : Pas de Cell trouvée lors de la création de l'entité " + ID);
+                }
+            }
+            else
+            {
+                Debugger.Log("ERREUR : Pas de CellSystem lors de la création de l'entité " + ID);
             }
             newEntity.AddComponent(typeof(EntitySynchroniserComponent));
             newEntity.AddComponent(typeof(EntityMover));
