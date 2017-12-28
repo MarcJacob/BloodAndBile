@@ -79,14 +79,6 @@ namespace BloodAndBileEngine.WorldState
                     {
                         c = cell;
                     }
-                    else
-                    {
-                        Debugger.Log(cell.GetPosition().z + " trop grand pour la position " + x);
-                    }
-                }
-                else
-                {
-                    Debugger.Log(cell.GetPosition().x + " trop grand pour la position " + y);
                 }
                 cellID++;
             }

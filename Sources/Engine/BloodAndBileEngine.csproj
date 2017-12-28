@@ -39,13 +39,13 @@
     <Reference Include="System.Xml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="UnityEditor">
-      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
+      <HintPath>..\..\..\Programmes\Unity\Editor\Data\Managed\UnityEditor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine">
-      <HintPath>..\..\..\..\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
+      <HintPath>..\..\..\Programmes\Unity\Editor\Data\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>..\..\..\..\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
+      <HintPath>..\..\..\Programmes\Unity\Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -69,6 +69,7 @@
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\NetworkCommand\INetworkCommandSecurityLayer.cs" />
     <Compile Include="Input\NetworkCommand\NetworkCommandManager.cs" />
+    <Compile Include="Input\NetworkCommand\SecurityLayers\SetEntityPositionSecurityLayer.cs" />
     <Compile Include="Input\PlayerControl\PlayerControlCommandManager.cs" />
     <Compile Include="Misc\SerializableQuaternion.cs" />
     <Compile Include="Misc\SerializableVector3.cs" />

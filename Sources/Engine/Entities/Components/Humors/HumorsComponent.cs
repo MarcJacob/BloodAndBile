@@ -122,6 +122,14 @@ namespace BloodAndBileEngine
             BlackBile += amount;
         }
 
+        public void RemoveHumors(float[] amounts)
+        {
+            ChangeBlood(-(int)amounts[0]);
+            ChangePhlegm(-(int)amounts[1]);
+            ChangeYellowBile(-(int)amounts[2]);
+            ChangeBlackBile(-(int)amounts[3]);
+        }
+
         public StateUpdateObject[] GetSynchInfo()
         {
             StateUpdateObject humors = new StateUpdateObject("Humors", new int[] { Blood, Phlegm, YellowBile, BlackBile });

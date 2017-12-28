@@ -12,6 +12,16 @@ namespace BloodAndBileEngine
         float BaseSpeed = 2f;
         float CurrentSpeed;
 
+        public float GetBaseSpeed()
+        {
+            return BaseSpeed;
+        }
+
+        public float GetCurrentSpeed()
+        {
+            return CurrentSpeed;
+        }
+
 
         WeakReference CellSystemWeakRef = new WeakReference(null);
         public override void Initialise(BloodAndBileEngine.WorldState.WorldState worldState)

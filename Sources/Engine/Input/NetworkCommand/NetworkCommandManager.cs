@@ -34,10 +34,10 @@ namespace BloodAndBileEngine
                     return;
                 }
                 string command = (string)args[1];
-                string[] parameters = new string[args.Length - 2];
+                object[] parameters = new object[args.Length - 2];
                 for (int i = 2; i < args.Length; i++)
                 {
-                    parameters[i - 2] = args[i].ToString();
+                    parameters[i - 2] = args[i];
                 }
                 MessageSender.Send(new NetworkCommandMessage(command, parameters), idConnection);
             }
@@ -48,6 +48,8 @@ namespace BloodAndBileEngine
         {
             InputManager.AddHandler("NetCommand", NetworkCommandHandler);
             MessageReader.AddHandler(60002, NetworkCommandReceiver);
+            SetEntityPositionSecurityLayer positionLayer = new SetEntityPositionSecurityLayer();
+            AddSecurityLayer(positionLayer);
         }
 
         static void NetworkCommandReceiver(NetworkMessageInfo info, NetworkMessage message)
@@ -71,10 +73,7 @@ namespace BloodAndBileEngine
         /// Couches de sécurité.
         /// Note : les couches de sécurité seront, la plupart du temps, définis dans le code des sous-projets Unity.
         /// </summary>
-        static List<INetworkCommandSecurityLayer> SecurityLayers = new List<INetworkCommandSecurityLayer>()
-        {
-
-        };
+        static List<INetworkCommandSecurityLayer> SecurityLayers = new List<INetworkCommandSecurityLayer>();
 
         static public void AddSecurityLayer(INetworkCommandSecurityLayer layer)
         {
@@ -98,13 +97,14 @@ namespace BloodAndBileEngine
         {
             int i = 0;
             bool removed = false;
-            while (!removed && ++i < SecurityLayers.Count)
+            while (!removed && i < SecurityLayers.Count)
             {
                 if (SecurityLayers[i].GetType() == typeof(T))
                 {
                     removed = true;
                     SecurityLayers.RemoveAt(i);
                 }
+                i++;
             }
         }
 

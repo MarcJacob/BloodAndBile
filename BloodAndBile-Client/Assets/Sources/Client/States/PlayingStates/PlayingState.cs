@@ -55,7 +55,10 @@ public class PlayingState : IClientState
         Actor act = null;
         int i = 0;
         uint entityID;
-        uint.TryParse((string)args[0], out entityID);
+        if (args[0] is string)
+            uint.TryParse((string)args[0], out entityID);
+        else
+            entityID = (uint)args[0];
         while (i < actors.Length && act == null)
         {
             if (actors[i].GetControlledEntity().ID == entityID)

@@ -15,9 +15,9 @@ namespace BloodAndBileEngine.Networking
     class NetworkCommandMessage : NetworkMessage
     {
         public string Command { get; private set; }
-        public string[] Args { get; private set; }
+        public object[] Args { get; private set; }
 
-        public NetworkCommandMessage(string command, string[] args = null) : base(60002)
+        public NetworkCommandMessage(string command, object[] args = null) : base(60002)
         {
             Command = command;
             Args = args;

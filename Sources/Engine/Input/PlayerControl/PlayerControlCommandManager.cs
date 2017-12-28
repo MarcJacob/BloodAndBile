@@ -60,8 +60,17 @@ namespace BloodAndBileEngine
         {
             SetHandler((parameters) =>
             {
+                // On exécute localement d'abord
+                string commandName = (string)parameters[0];
+                object[] newParameters = new object[parameters.Length - 1];
+                for (int i = 1; i < newParameters.Length + 1; i++)
+                {
+                    newParameters[i - 1] = parameters[i];
+                }
+                InputManager.SendCommand(commandName, newParameters);
+                // Puis sur le réseau
                 // On va ajouter 2 objet aux paramètres, dans l'ordre : l'ID de connexion et "PlayerControl".
-                object[] newParameters = new object[parameters.Length + 2];
+                newParameters = new object[parameters.Length + 2];
                 newParameters[0] = connectionID;
                 newParameters[1] = "PlayerControl";
                 for (int i = 2; i < newParameters.Length; i++)

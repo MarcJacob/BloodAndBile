@@ -44,7 +44,7 @@ namespace BloodAndBileEngine
         /// </summary>
         public static void Clear()
         {
-            foreach(Entity e in _entitiesArray)
+            foreach (Entity e in _entitiesArray)
             {
                 e.Destroy();
             }
@@ -91,6 +91,7 @@ namespace BloodAndBileEngine
             InputManager.AddHandler("SetEntityPosition", SetEntityPosition);
             InputManager.AddHandler("SetEntityRotation", SetEntityRotation);
             InputManager.AddHandler("KillEntity", KillEntity);
+            
         }
 
         #region Commandes d'entité
@@ -109,13 +110,13 @@ namespace BloodAndBileEngine
             float posZ;
 
             // On vérifie que chaque argument soit du bon type. S'ils ne le sont pas, on les converti.
-            if (args[0] is int)
+            if (args[0] is uint)
             {
                 ID = (uint)args[0];
             }
             else
             {
-                if(!(args[0] is string) || !uint.TryParse((string)args[0], out ID))
+                if (!(args[0] is string) || !uint.TryParse((string)args[0], out ID))
                 {
                     Debugger.Log("ERREUR : Commande SetEntityPosition - L'ID de l'entité doit être un entier ou une chaine de caractères !");
                     return;
@@ -124,7 +125,7 @@ namespace BloodAndBileEngine
 
             if (args[1] is float)
             {
-                posX = (int)args[1];
+                posX = (float)args[1];
             }
             else
             {
@@ -138,7 +139,7 @@ namespace BloodAndBileEngine
 
             if (args[2] is float)
             {
-                posY = (int)args[2];
+                posY = (float)args[2];
             }
             else
             {
@@ -151,7 +152,7 @@ namespace BloodAndBileEngine
 
             if (args[3] is float)
             {
-                posZ = (int)args[3];
+                posZ = (float)args[3];
             }
             else
             {
@@ -321,9 +322,8 @@ namespace BloodAndBileEngine
 
             Debugger.Log("ERREUR : ID de l'entité invalide !", UnityEngine.Color.red);
         }
+        
 
         #endregion
-
-
     }
 }

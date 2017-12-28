@@ -74,6 +74,9 @@ namespace BloodAndBileEngine.WorldState.WorldStateData
         public Entity BuildPlayer(uint ID, UnityEngine.Vector3 pos, UnityEngine.Quaternion rot, float size, float height)
         {
             Entity e = BuildEntity( ID, pos, rot, size, height);
+            e.AddComponent(typeof(SpellComponent));
+            e.AddComponent(typeof(HumorsComponent));
+            e.GetComponent<HumorsComponent>().SetHumors(500, 500, 500, 500);
             return e;
         }
 

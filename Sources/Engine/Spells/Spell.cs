@@ -25,22 +25,30 @@ namespace BloodAndBileEngine
         public string Name;
         public string Desc;
 
-        public float[] Costs; // [0] = Blood, [1] = Phlegm, [2] = Yellow Bile, [3] = Black Bile
+        public float[] OnCastCosts; // [0] = Blood, [1] = Phlegm, [2] = Yellow Bile, [3] = Black Bile
+        public float[] OnCanaliseCosts; // [0] = Blood, [1] = Phlegm, [2] = Yellow Bile, [3] = Black Bile
 
         public float Cooldown;
 
-        public Spell(string name, string desc, SpellFlags flags, float duration, float castTime, float cooldown, float costBlood, float costPhlegm, float costYB, float costBB, Action<SpellInstance> onCast, Action<SpellInstance> onCanalisation, Action<SpellInstance> onEnd, Action<SpellInstance> onCancel)
+        public Spell(string name, string desc, SpellFlags flags, float duration, float castTime, float cooldown, float costBloodCast, float costPhlegmCast, float costYBCast, float costBBCast, float costBloodCanalise, float costPhlegmCanalise, float costYBCanalise, float costBBCanalise, Action<SpellInstance> onCast, Action<SpellInstance> onCanalisation, Action<SpellInstance> onEnd, Action<SpellInstance> onCancel)
         {
             ID = 0;
             IDSet = false;
             Flags = flags;
-            Duration = duration;
             CastTime = castTime;
+            Duration = duration;
+
+            if (Duration < CastTime)
+                Duration = CastTime;
             if (!Flags.HasFlag(SpellFlags.CANALISED)) // Si ce sort n'est pas canalisé, alors les actions OnCanalisation, OnEnd et OnCancel ne seront jamais exécutées.
             {
                 onCanalisation = null;
                 onEnd = null;
                 onCancel = null;
+                costBloodCanalise = 0;
+                costPhlegmCanalise = 0;
+                costYBCanalise = 0;
+                costBBCanalise = 0;
             }
 
             OnCast = onCast;
@@ -51,14 +59,15 @@ namespace BloodAndBileEngine
             Name = name;
             Desc = desc;
 
-            Costs = new float[] { costBlood, costPhlegm, costYB, costBB };
+            OnCastCosts = new float[] { costBloodCast, costPhlegmCast, costYBCast, costBBCast };
+            OnCanaliseCosts = new float[] { costBloodCanalise, costPhlegmCanalise, costYBCanalise, costBBCanalise };
             Cooldown = cooldown;
         }
 
         public float Duration { get; private set; }
         public float CastTime { get; private set; }
 
-        SpellFlags Flags;
+        public SpellFlags Flags { get; private set; }
         Action<SpellInstance> OnCast;
         Action<SpellInstance> OnCanalisation;
         Action<SpellInstance> OnEnd;
@@ -78,6 +87,7 @@ namespace BloodAndBileEngine
         public SpellInstance Cast(Entity caster, object target)
         {
             SpellInstance newSpellInstance = new SpellInstance(ID, caster, target, Flags, OnCast, OnCanalisation, OnEnd, OnCancel);
+            Debugger.Log("SpellInstance créée");
             return newSpellInstance;
         }
     }
