@@ -7,7 +7,7 @@ public class MatchesManagerModule : IMatchServerModule
 {
     PlayersManagerModule PlayersManager;
     MatchUpdater[] Updaters;
-    int PlayersPerMatch = 2;
+    int PlayersPerMatch = 1;
 
     public MatchesManagerModule(PlayersManagerModule players, int maxUpdaters = 1)
     {
@@ -58,6 +58,11 @@ public class MatchesManagerModule : IMatchServerModule
                     matchesPerUpdater++;
                 }
             }
+        }
+
+        foreach(MatchUpdater updater in Updaters)
+        {
+            updater.UpdateDisconnects();
         }
     }
 

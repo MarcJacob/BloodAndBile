@@ -19,9 +19,26 @@ namespace BloodAndBileEngine
 
         int LOP;
 
+        bool DieOfUnbalance = true;
+
         public override void Initialise(WorldState.WorldState worldState)
         {
             
+        }
+
+        public void SetHumors(int b, int p, int y, int bb)
+        {
+            Blood = b;
+            Phlegm = p;
+            YellowBile = y;
+            BlackBile = bb;
+
+            RecalculateLOP();
+        }
+
+        public void SetDieOfUnbalance(bool dieOfUnbalance)
+        {
+            DieOfUnbalance = dieOfUnbalance;
         }
 
         public override void Update(float deltaTime)
@@ -37,22 +54,30 @@ namespace BloodAndBileEngine
         void RecalculateLOP()
         {
             LOP = Blood + Phlegm + YellowBile + BlackBile;
-            float bloodRatio = Blood / LOP;
-            float phlegmRatio = Phlegm / LOP;
-            float yellowBileRatio = YellowBile / LOP;
-            float blackBileRatio = BlackBile / LOP;
-            if ( bloodRatio > 0.6f || phlegmRatio > 0.6f || yellowBileRatio > 0.6f || blackBileRatio > 0.6f)
+
+            if (DieOfUnbalance && LOP > 0)
             {
-                LinkedEntity.Destroy();
-            }
-            else
-            {
-                // On compte le nombre de ratios au dessus de 0.4f.
-                int overUnbalanceRatio = new[] { bloodRatio > 0.4f, phlegmRatio > 0.4f, yellowBileRatio > 0.4f, blackBileRatio > 0.4f }.Count(x => x);
-                if (overUnbalanceRatio >= 2)
+                float bloodRatio = Blood / LOP;
+                float phlegmRatio = Phlegm / LOP;
+                float yellowBileRatio = YellowBile / LOP;
+                float blackBileRatio = BlackBile / LOP;
+                if (bloodRatio > 0.6f || phlegmRatio > 0.6f || yellowBileRatio > 0.6f || blackBileRatio > 0.6f)
                 {
                     LinkedEntity.Destroy();
                 }
+                else
+                {
+                    // On compte le nombre de ratios au dessus de 0.4f.
+                    int overUnbalanceRatio = new[] { bloodRatio > 0.4f, phlegmRatio > 0.4f, yellowBileRatio > 0.4f, blackBileRatio > 0.4f }.Count(x => x);
+                    if (overUnbalanceRatio >= 2)
+                    {
+                        LinkedEntity.Destroy();
+                    }
+                }
+            }
+            else if (LOP == 0)
+            {
+                LinkedEntity.Destroy();
             }
         }
 

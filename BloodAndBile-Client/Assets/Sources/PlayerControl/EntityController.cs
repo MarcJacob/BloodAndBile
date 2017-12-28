@@ -74,4 +74,10 @@ public class EntityController : MonoBehaviour
 
         BloodAndBileEngine.InputManager.SendCommand("PlayerControl", newArgs);
     }
+
+    public void OnEntityDeath()
+    {
+        Camera.main.transform.parent = null;
+        Camera.main.transform.position = Vector3.zero;
+    }
 }

@@ -8,9 +8,95 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
 {
     BloodAndBileEngine.WorldState.WorldState LocalWorldState;
 
+    BloodAndBileEngine.WorldState.WorldStateData.WorldEntityFactory EntityFactory;
+
     public EntitiesSynchronizer(BloodAndBileEngine.WorldState.WorldState worldState)
     {
         LocalWorldState = worldState;
+        EntityFactory = new BloodAndBileEngine.WorldState.WorldStateData.WorldEntityFactory(LocalWorldState);
+        LocalWorldState.AddData(EntityFactory);
+        BloodAndBileEngine.InputManager.AddHandler("CreateEntity", OnCreateEntityCommand);
+        BloodAndBileEngine.InputManager.AddHandler("DestroyEntity", OnDestroyEntityCommand);
+    }
+    ~EntitiesSynchronizer()
+    {
+        BloodAndBileEngine.InputManager.RemoveHandler("CreateEntity", OnCreateEntityCommand);
+    }
+    /// <summary>
+    /// Appelée lorsqu'une commande "CreateEntity" a été reçue du serveur.
+    /// </summary>
+    public void OnCreateEntityCommand(params object[] args)
+    {
+        if (args.Length > 0)
+        {
+            uint id;
+            if (!(args[0] is uint))
+            {
+                if (args[0] is string)
+                {
+                    if (!uint.TryParse((string)args[0], out id))
+                    {
+                        BloodAndBileEngine.Debugger.Log("ERREUR : l'ID de l'entité à créer n'est pas un nombre !", UnityEngine.Color.red);
+                        return;
+                    }
+                }
+                else
+                {
+                    BloodAndBileEngine.Debugger.Log("ERREUR : l'ID de l'entité à créer doit être de type uint ou string !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+            else
+            {
+                id = (uint)args[0];
+            }
+
+            // Si on arrive ici, alors id contient une valeur valide.
+            BloodAndBileEngine.Entity entity = EntityFactory.BuildEntity(id, UnityEngine.Vector3.zero, UnityEngine.Quaternion.identity, 1.0f, 1.0f);
+            if (entity != null)
+                EntityRenderer.OnEntityCreation(id);
+        }
+        else
+        {
+            BloodAndBileEngine.Debugger.Log("ERREUR : La commande 'CreateEntity' prend un paramètre !", UnityEngine.Color.red);
+        }
+    }
+
+    public void OnDestroyEntityCommand(params object[] args)
+    {
+        if (args.Length > 0)
+        {
+            uint id;
+            if (!(args[0] is uint))
+            {
+                if (args[0] is string)
+                {
+                    if (!uint.TryParse((string)args[0], out id))
+                    {
+                        BloodAndBileEngine.Debugger.Log("ERREUR : l'ID de l'entité à détruire n'est pas un nombre !", UnityEngine.Color.red);
+                        return;
+                    }
+                }
+                else
+                {
+                    BloodAndBileEngine.Debugger.Log("ERREUR : l'ID de l'entité à détruire doit être de type uint ou string !", UnityEngine.Color.red);
+                    return;
+                }
+            }
+            else
+            {
+                id = (uint)args[0];
+            }
+
+            // Si on arrive ici, alors id contient une valeur valide.
+
+            BloodAndBileEngine.Entity entity = BloodAndBileEngine.EntitiesManager.GetEntityFromID(id);
+            entity.Destroy();
+        }
+        else
+        {
+            BloodAndBileEngine.Debugger.Log("ERREUR : La commande 'DestroyEntity' prend un paramètre !", UnityEngine.Color.red);
+        }
     }
 
     /// <summary>
@@ -20,22 +106,6 @@ public class EntitiesSynchronizer : IStateUpdateReceiver
     /// <param name="stateUpdate"></param>
     public void OnStateUpdate(BloodAndBileEngine.Networking.Messaging.NetworkMessages.StateUpdateMessage stateUpdate)
     {
-        // Destruction des entités :
-        // La liste des entités détruites est passé en paramètre de la fonction "RemoveEntitiesFromID" du CellSystem
-        // du WorldState actuel.
-        // Création des entités :
-        uint[] createdEntities = (uint[])stateUpdate.GetStateUpdateInfo("CreatedEntities")[0].Information;
-        foreach(uint id in createdEntities)
-        {
-            EntityRenderer.OnEntityCreation(id);
-            BloodAndBileEngine.EntityFactories.EntityFactory.BuildEntity(LocalWorldState, id, UnityEngine.Vector3.zero, UnityEngine.Quaternion.identity, 1f, 1f);
-            BloodAndBileEngine.Debugger.Log("Created entity : " + id);
-        }
-
-        // Destruction des entités
-        uint[] destroyedEntities = (uint[])stateUpdate.GetStateUpdateInfo("DestroyedEntities")[0].Information;
-        LocalWorldState.GetData<BloodAndBileEngine.WorldState.CellSystem>().RemoveEntitiesFromID(destroyedEntities);
-
         // Synchronisation
         // Chaque EntitySynchronizationDataObject a un identifiant d'entité à synchroniser, il suffit donc
         // d'appliquer la synchronisation à l'entité en question.

@@ -55,7 +55,7 @@ public class Actor : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime / 2);
                 }
             }
-            else if ((transform.position - entity.Position).sqrMagnitude > 25)
+            else if ((transform.position - entity.Position).sqrMagnitude > 16)
             {
                 transform.position = entity.Position;
             }
@@ -64,6 +64,16 @@ public class Actor : MonoBehaviour
             {
                 transform.rotation = Quaternion.Lerp(transform.rotation, entity.Rotation, Time.deltaTime * 6);
             }
+
+            // Toujours appliquer la bonne hauteur à la position de l'entité
+            float height = GetControlledEntity().GetWorldState().GetData<BloodAndBileEngine.WorldState.CellSystem>().GetCellFromPosition(transform.position.z, transform.position.x).GetHeightFrom2DCoordinates(transform.position.z, transform.position.x);
+            transform.Translate(0f, height - transform.position.y, 0f);
+        }
+
+        if (GetControlledEntity().Destroyed)
+        {
+            ReactToEvent("Death");
+            Die();
         }
     }
 
@@ -111,6 +121,7 @@ public class Actor : MonoBehaviour
 
     void OnEntityDeath()
     {
+        if (AnimationController != null)
         AnimationController.Play("Death");
 
         Dying = true;
@@ -118,6 +129,10 @@ public class Actor : MonoBehaviour
 
     void Die()
     {
+        if (GetComponent<EntityController>() != null)
+        {
+            GetComponent<EntityController>().OnEntityDeath();
+        }
         Destroy(gameObject);
     }
 

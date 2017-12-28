@@ -91,7 +91,7 @@ namespace BloodAndBileEngine
                 while (MessageQueue.Count > 0)
                 {
                     ReceivedMessage msg = MessageQueue.Dequeue();
-                    if (Handlers.ContainsKey(msg.Message.Type))
+                    if (Handlers.ContainsKey(msg.Message.Type) && Handlers[msg.Message.Type] != null)
                     {
                         Handlers[msg.Message.Type](msg.RecInfo, msg.Message); // Exécution des fonctions Handler correspondantes à ce type de message.
                     }

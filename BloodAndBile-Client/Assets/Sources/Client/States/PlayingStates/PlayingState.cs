@@ -12,6 +12,7 @@ public class PlayingState : IClientState
 {
 
     protected BloodAndBileEngine.WorldState.WorldState LocalWorldState;
+    protected BloodAndBileEngine.Entity ControlledEntity;
     public PlayingState()
     {
         BloodAndBileEngine.Debugger.Log("Initialisation du WorldState local...");
@@ -20,9 +21,7 @@ public class PlayingState : IClientState
 
     public virtual void OnEntry()
     {
-        BloodAndBileEngine.Debugger.Log("Match started !");
-        // Initialisation du WorldState local.
-        LocalWorldState = new BloodAndBileEngine.WorldState.WorldState();
+        BloodAndBileEngine.Debugger.Log("Match commencé !");
         // Initialisation de la commande "SetControlledEntity".
         BloodAndBileEngine.InputManager.AddHandler("SetControlledEntity", SetControlledEntity);
 
@@ -31,12 +30,19 @@ public class PlayingState : IClientState
 
     public virtual void OnUpdate()
     {
-
+        if (ControlledEntity != null)
+        {
+            if (ControlledEntity.Destroyed)
+            {
+                OnControlledEntityDeath();
+            }
+        }
     }
 
     public virtual void OnExit()
     {
-
+        // Nettoyage de toutes les entités
+        BloodAndBileEngine.EntitiesManager.Clear();
     }
 
     /// <summary>
@@ -44,7 +50,7 @@ public class PlayingState : IClientState
     /// </summary>
     void SetControlledEntity(object[] args)
     {
-        BloodAndBileEngine.Debugger.Log("Setting controlled entity to ID " + args[0], UnityEngine.Color.magenta);
+        BloodAndBileEngine.Debugger.Log("Prise de contrôle de l'entité " + args[0], UnityEngine.Color.magenta);
         Actor[] actors = UnityEngine.GameObject.FindObjectsOfType<Actor>();
         Actor act = null;
         int i = 0;
@@ -55,6 +61,7 @@ public class PlayingState : IClientState
             if (actors[i].GetControlledEntity().ID == entityID)
             {
                 act = actors[i];
+                ControlledEntity = actors[i].GetControlledEntity();
             }
             i++;
         }
@@ -65,6 +72,12 @@ public class PlayingState : IClientState
         }
     }
 
-    
-
+    /// <summary>
+    /// Exécutée à la mort de l'entité contrôlée.
+    /// Provoque un changement d'état vers le menu principal et un "cleanup" de l'affichage de WorldState local.
+    /// </summary>
+    protected virtual void OnControlledEntityDeath()
+    {
+        EntityRenderer.OnCleanup();
+    }
 }

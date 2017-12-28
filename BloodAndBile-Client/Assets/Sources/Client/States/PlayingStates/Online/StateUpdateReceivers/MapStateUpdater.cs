@@ -56,7 +56,7 @@ public class MapStateUpdater : IStateUpdateReceiver
     {
         BloodAndBileEngine.Debugger.Log("Chargement de la carte...");
         World.AddData<Map>(Map.Maps[mapID]);
-        GameObject.Instantiate((GameObject) Resources.Load(Map.Maps[mapID].MapPrefabPath));
+        GameObject.Instantiate((GameObject) Resources.Load(Map.Maps[mapID].MapPrefabPath)).name = "Map";
     }
 
     WorldState World;

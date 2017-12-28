@@ -100,4 +100,9 @@ public class OnlinePlayingState : PlayingState
             receiver.OnStateConstruction(message);
         }
     }
+
+    protected override void OnControlledEntityDeath()
+    {
+        base.OnControlledEntityDeath();
+    }
 }

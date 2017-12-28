@@ -14,9 +14,9 @@ public static class MatchCreator
         Match m = new Match();
         m.SetPlayerConnectionIDs(players);
         m.AddModule<MapStateModule>(new MapStateModule(m)); // Création du World State lié au match
-        m.AddModule<EntitiesStateModule>(new EntitiesStateModule(m));
+        m.AddModule<EntitiesManagerModule>(new EntitiesManagerModule(m));
         m.AddModule<StateUpdateModule>(new StateUpdateModule(m)); // Création du module StateUpdate
-
+        m.AddModule<MatchOutcomeManagerModule>(new MatchOutcomeManagerModule(m));
 
         // Création du WorldState initial.
 
@@ -24,6 +24,11 @@ public static class MatchCreator
         // Objectif : initialise le startWorldState en fonction des informations dont on dispose.
 
         // INITIALISER TOUS LES WorldStateData ici !
+
+
+        // Ajout du EntityFactory
+        BloodAndBileEngine.WorldState.WorldStateData.WorldEntityFactory factory = new BloodAndBileEngine.WorldState.WorldStateData.WorldEntityFactory(startWorldState);
+        startWorldState.AddData(factory);
 
         // Initialisation des cellules.
 
@@ -37,6 +42,7 @@ public static class MatchCreator
         cellSystem = new BloodAndBileEngine.WorldState.CellSystem(map);
         startWorldState.AddData<BloodAndBileEngine.WorldState.CellSystem>(cellSystem);
         startWorldState.AddData<BloodAndBileEngine.WorldState.Map>(map);
+
 
         return m;
     }

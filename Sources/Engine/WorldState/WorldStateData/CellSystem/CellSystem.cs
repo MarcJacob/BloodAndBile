@@ -117,7 +117,7 @@ namespace BloodAndBileEngine.WorldState
         }
 
         // Supprime les entités dont l'ID se trouve dans cette liste.
-        public void RemoveEntitiesFromID(uint[] ids)
+        public void RemoveEntitiesFromID(uint[] ids, bool killEntities = false)
         {
             // Construire la liste des ID :
             List<uint> idList = new List<uint>();
@@ -129,7 +129,7 @@ namespace BloodAndBileEngine.WorldState
             int cellID = 0;
             while (idList.Count > 0 && cellID < Cells.Length)
             {
-                Cells[cellID].RemoveEntities(idList);
+                Cells[cellID].RemoveEntities(idList, killEntities);
                 cellID++;
             }
 

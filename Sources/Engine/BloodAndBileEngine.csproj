@@ -63,11 +63,8 @@
     <Compile Include="Entities\Components\SpellComponent\SpellComponent.cs" />
     <Compile Include="Entities\EntitiesManager.cs" />
     <Compile Include="Entities\Entity.cs" />
-    <Compile Include="Entities\Factories\EntityFactory.cs" />
-    <Compile Include="Entities\Controllers\Controller.cs" />
     <Compile Include="Entities\Effect.cs" />
     <Compile Include="Entities\Components\EffectManager.cs" />
-    <Compile Include="Entities\IMovableEntity.cs" />
     <Compile Include="Input\InputHandlersManager.cs" />
     <Compile Include="Input\InputManager.cs" />
     <Compile Include="Input\NetworkCommand\INetworkCommandSecurityLayer.cs" />
@@ -100,6 +97,7 @@
     <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />
     <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
     <Compile Include="WorldState\WorldStateData\Map.cs" />
+    <Compile Include="WorldState\WorldStateData\WorldEntityFactory.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Networking\Messaging\A lire.txt" />
