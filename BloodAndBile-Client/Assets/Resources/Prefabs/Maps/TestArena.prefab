@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 23397885369179138}
   - component: {fileID: 95218521999389644}
   - component: {fileID: 64107071050065220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TestArena
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -36,7 +36,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1636158511173642}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

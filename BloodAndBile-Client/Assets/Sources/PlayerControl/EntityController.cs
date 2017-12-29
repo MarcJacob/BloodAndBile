@@ -36,23 +36,32 @@ public class EntityController : MonoBehaviour
             OnWorldstateUpdate();
         }
 
+        Debug.DrawLine(transform.position, ControlledActor.GetControlledEntity().Position, Color.cyan);
+
         UpdateCameraPosition();
 
-        transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime, 0f, Input.GetAxis("Vertical") * Time.deltaTime);
-        transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f);
-        Camera.main.transform.Rotate(-Input.GetAxis("Mouse Y"), 0f, 0f);
-        Dictionary<uint, KeyCode> SpellKeys = ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).GetSpellKeyCodes();
-        foreach (uint sId in SpellKeys.Keys)
+        if (ControlledActor.GetControlledEntity().GetComponent<EntityMover>().GetRootTime() <= 0f)
         {
-            if(Input.GetKeyDown(SpellKeys[sId]))
+            transform.Translate(Input.GetAxis("Horizontal") * Time.deltaTime, 0f, Input.GetAxis("Vertical") * Time.deltaTime);
+            transform.Rotate(0f, Input.GetAxis("Mouse X"), 0f);
+            Camera.main.transform.Rotate(-Input.GetAxis("Mouse Y"), 0f, 0f);
+            Dictionary<uint, KeyCode> SpellKeys = ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).GetSpellKeyCodes();
+            foreach (uint sId in SpellKeys.Keys)
             {
-                ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).SetSelectedSpellId(sId);
-                BloodAndBileEngine.Debugger.Log("Sort sélectionné : " + BloodAndBileEngine.SpellsManager.GetSpellByID(sId).Name, Color.magenta);
+                if (Input.GetKeyDown(SpellKeys[sId]))
+                {
+                    ((BloodAndBileEngine.SpellComponent)ControlledActor.GetControlledEntity().GetComponent(typeof(BloodAndBileEngine.SpellComponent))).SetSelectedSpellId(sId);
+                    BloodAndBileEngine.Debugger.Log("Sort sélectionné : " + BloodAndBileEngine.SpellsManager.GetSpellByID(sId).Name, Color.magenta);
+                }
+            }
+            if (Input.GetMouseButtonDown(0))
+            {
+                CastSpell();
             }
         }
-        if (Input.GetMouseButtonDown(0))
+        else
         {
-            CastSpell();
+            transform.position = ControlledActor.GetControlledEntity().Position;
         }
             
     }
@@ -73,12 +82,9 @@ public class EntityController : MonoBehaviour
     /// </summary>
     void OnWorldstateUpdate()
     {
-        if ((transform.position - GetComponent<Actor>().GetControlledEntity().Position).sqrMagnitude < 4)
-        {
-            // Mise à jour de la position
-            SendPlayerControlCommand("SetEntityPosition", ControlledActor.GetControlledEntity().ID, transform.position.x, transform.position.y, transform.position.z);
-            SendPlayerControlCommand("SetEntityRotation", ControlledActor.GetControlledEntity().ID, transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
-        }
+        // Mise à jour de la position
+        SendPlayerControlCommand("SetEntityPosition", ControlledActor.GetControlledEntity().ID, transform.position.x, transform.position.y, transform.position.z);
+        SendPlayerControlCommand("SetEntityRotation", ControlledActor.GetControlledEntity().ID, transform.rotation.x, transform.rotation.y, transform.rotation.z, transform.rotation.w);
     }
 
     void CastSpell()

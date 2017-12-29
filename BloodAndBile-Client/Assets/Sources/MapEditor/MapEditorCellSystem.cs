@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class MapEditorCellSystem : MonoBehaviour {
 
     public const string CELLSYSTEM_PREFAB = "MapEditor/CellSystem";
@@ -20,7 +19,7 @@ public class MapEditorCellSystem : MonoBehaviour {
     }
 
 
-    public void AddCell()
+    public MapEditorCell AddCell()
     {
         if (CellPrefab == null)
         {
@@ -28,6 +27,7 @@ public class MapEditorCellSystem : MonoBehaviour {
         }
         GameObject newCell = Instantiate<GameObject>(CellPrefab);
         newCell.transform.parent = transform;
+        return newCell.GetComponent<MapEditorCell>();
     }
 
     public MapEditorCell[] GetCells()

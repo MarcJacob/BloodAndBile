@@ -132,7 +132,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Sources\MapEditor\Editor\MapEditorCellEditor.cs" />
-    <Compile Include="Assets\Sources\MapEditor\Editor\MapEditorCellSystemEditor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Bulk\Trie.txt" />

@@ -43,6 +43,11 @@ public class Actor : MonoBehaviour
         if (EntityIDInitialized)
         {
             BloodAndBileEngine.Entity entity = GetControlledEntity();
+            Vector3 xzPosition = transform.position;
+            xzPosition.y = 0;
+            Vector3 xzEntityPosition = GetControlledEntity().Position;
+            xzEntityPosition.y = 0;
+            float xzSquareDist = (xzPosition - xzEntityPosition).sqrMagnitude;
             if (TrackPosition)
             {
                 // "Lerper" constamment vers la position de l'entité.
@@ -55,7 +60,7 @@ public class Actor : MonoBehaviour
                     transform.position = Vector3.Lerp(transform.position, entity.Position, Time.deltaTime / 2);
                 }
             }
-            else if ((transform.position - entity.Position).sqrMagnitude > 16)
+            else if (xzSquareDist > 16)
             {
                 transform.position = entity.Position;
             }

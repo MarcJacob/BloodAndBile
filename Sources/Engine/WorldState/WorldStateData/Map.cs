@@ -27,15 +27,24 @@ namespace BloodAndBileEngine.WorldState
             MapName = name;
             SpawnPoints = spawns;
             Maps.Add(this);
-            GetConstructionData();
+            LoadConstructionData();
         }
 
-        void GetConstructionData()
+        void LoadConstructionData()
         {
             BinaryFormatter formatter = new BinaryFormatter();
-            FileStream file = File.Open(CONSTRUCTION_DATA_PATH + MapName + ".mapData", FileMode.Open, FileAccess.Read);
-            float[] data = (float[])formatter.Deserialize(file);
-
+            float[] data = new float[] { };
+            FileStream file;
+            try
+            {
+                file = File.Open(CONSTRUCTION_DATA_PATH + MapName + ".mapData", FileMode.Open, FileAccess.Read);
+                data = (float[])formatter.Deserialize(file);
+                file.Close();
+                file.Dispose();
+            } catch (IOException e)
+            {
+                Debugger.Log("WARNING : Pas de données pour la map " + MapName + " !", UnityEngine.Color.yellow);
+            }
             ConstructionData = data;
         }
 

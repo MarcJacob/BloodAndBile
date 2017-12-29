@@ -65,7 +65,15 @@ namespace BloodAndBileEngine
                             {
                                 pos.y = targetCell.GetHeightFrom2DCoordinates(pos.z, pos.x);
                             }
-                            instance.GetCaster().Position = pos;
+                            if (instance.GetCaster().GetComponent<EntityMover>() != null)
+                            {
+                                instance.GetCaster().GetComponent<EntityMover>().Teleport(pos.z, pos.x);
+                                instance.GetCaster().GetComponent<EntityMover>().SetRootTime(1f);
+                            }
+                            else
+                            {
+                                instance.GetCaster().Position = pos;
+                            }
                         }
                     },
 

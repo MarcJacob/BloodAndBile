@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/MainMenuScene.unity
+- path: Assets/MapEditor.unity
   isLoaded: 1
   isActive: 1
