@@ -19,6 +19,7 @@ namespace BloodAndBileEngine.WorldState
         UnityEngine.Vector2 Heights; // Hauteurs de l'angle nord-est et sud-ouest. 0 = plat par rapport à l'angle nord-ouest.
 
         List<Entity> EntitiesInCell = new List<Entity>(); // Entités présentes dans cette cellule.
+        List<Link> Links = new List<Link>(); // Liste des liens formés avec les autres cellules.
 
         WeakReference CellSystemRef; // Référence "faible" : n'empêchera pas le garbage collector de se débarasser du CellSystem lié.
         CellSystem GetCellSystem()
@@ -176,6 +177,44 @@ namespace BloodAndBileEngine.WorldState
         public void SetPlayerSpawn(bool spawn)
         {
             PlayerSpawn = spawn;
+        }
+
+        public void AddLink(Cell cell, int cost)
+        {
+            Links.Add(new Link(cell, cost));
+        }
+
+
+        /// <summary>
+        /// Méthode qui retourne les coordonnées de chaque angle de la cellule
+        /// Premier index : Angle, Second index : coordonnées x,y,z
+        /// Index 0 : Angle nord-ouest
+        /// Index 1 : Angle sud-ouest
+        /// Index 2 : Angle nord-est
+        /// Index 3 : Angle sud-est
+        /// </summary>
+        /// <returns></returns>
+        public float[,] GetCoordinates()
+        {
+            float[,] coordinates = new float[4, 3];
+
+            coordinates[0, 0] = Position.x;
+            coordinates[0, 1] = Position.y;
+            coordinates[0, 2] = Position.z;
+
+            coordinates[1, 0] = Position.x + Dimensions.x;
+            coordinates[1, 1] = Position.y;
+            coordinates[1, 2] = Position.z + Heights.x;
+
+            coordinates[2, 0] = Position.x;
+            coordinates[2, 1] = Position.y + Dimensions.y;
+            coordinates[2, 2] = Position.z + Heights.y;
+
+            coordinates[3, 0] = Position.x + Dimensions.x;
+            coordinates[3, 1] = Position.y + Dimensions.y;
+            coordinates[3, 2] = Position.z + Heights.x + Heights.y;
+            
+            return coordinates;
         }
     }
 }

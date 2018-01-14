@@ -170,5 +170,37 @@ namespace BloodAndBileEngine.WorldState
                 entity.Destroy();
             }
         }
+
+        public void InitializeCellsLinks()
+        {
+            foreach(Cell i in Cells)
+            {
+                foreach(Cell j in Cells)
+                {
+                    float[,] iCoordinates = i.GetCoordinates();
+                    float[,] jCoordinates = j.GetCoordinates();
+                    int cost = 1;
+                    float margin = 1f;
+
+                    if((i.GetPosition().x < j.GetPosition().x +j.GetDimensions().x + margin) && (i.GetPosition().x > j.GetPosition().x + j.GetDimensions().x - margin))
+                    {
+                        i.AddLink(j, cost);
+                    }
+                    else if()
+                    {
+                        i.AddLink(j, cost);
+                    }
+
+                    else if ()
+                    {
+                        i.AddLink(j, cost);
+                    }
+                    else if()
+                    {
+                        i.AddLink(j, cost);
+                    }
+                }
+            }
+        }
     }
 }

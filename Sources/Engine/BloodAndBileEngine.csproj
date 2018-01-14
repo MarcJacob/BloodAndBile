@@ -99,6 +99,7 @@
     <Compile Include="WorldState\WorldStateData\CellSystem\Cell.cs" />
     <Compile Include="WorldState\WorldStateData\CellSystem\CellSystem.cs" />
     <Compile Include="WorldState\WorldStateData\IWorldStateData.cs" />
+    <Compile Include="WorldState\WorldStateData\Link.cs" />
     <Compile Include="WorldState\WorldStateData\Map.cs" />
   </ItemGroup>
   <ItemGroup>
