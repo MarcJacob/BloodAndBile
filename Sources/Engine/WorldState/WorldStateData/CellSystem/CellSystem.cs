@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -59,7 +59,7 @@ namespace BloodAndBileEngine.WorldState
 
         public void Simulate(float deltaTime) // Met à jour les entités dans toutes les cellules pour le temps donné.
         {
-            foreach(Cell c in Cells)
+            foreach (Cell c in Cells)
             {
                 c.UpdateEntities(deltaTime);
             }
@@ -105,9 +105,9 @@ namespace BloodAndBileEngine.WorldState
         public Entity[] GetAllEntities()
         {
             List<Entity> entities = new List<Entity>();
-            foreach(Cell cell in Cells)
+            foreach (Cell cell in Cells)
             {
-                foreach(Entity entity in cell.GetEntities())
+                foreach (Entity entity in cell.GetEntities())
                 {
                     entities.Add(entity);
                 }
@@ -121,7 +121,7 @@ namespace BloodAndBileEngine.WorldState
         {
             // Construire la liste des ID :
             List<uint> idList = new List<uint>();
-            foreach(uint id in ids)
+            foreach (uint id in ids)
             {
                 idList.Add(id);
             }
@@ -141,20 +141,20 @@ namespace BloodAndBileEngine.WorldState
 
         public Cell FindSpawnPoint()
         {
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length - 1)];
             return Cells[cellId];
         }
-        
+
         public Cell FindSpawnPoint(int[] unwantedIDs)
         {
             if (unwantedIDs.Count() == 0)
                 return FindSpawnPoint();
 
             int i = 0;
-            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+            int cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length - 1)];
             while (unwantedIDs.Contains(cellId) && i < 10)
             {
-                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length-1)];
+                cellId = CurrentMap.SpawnPoints[UnityEngine.Random.Range(0, CurrentMap.SpawnPoints.Length - 1)];
                 i++;
             }
             if (unwantedIDs.Contains(cellId)) return null;
@@ -165,9 +165,36 @@ namespace BloodAndBileEngine.WorldState
         // par d'autres.
         ~CellSystem()
         {
-            foreach(Entity entity in GetAllEntities())
+            foreach (Entity entity in GetAllEntities())
             {
                 entity.Destroy();
+            }
+        }
+
+        public void InitializeCellsLinks()
+        {
+            foreach (Cell i in Cells)
+            {
+                foreach (Cell j in Cells)
+                {
+                    float[,] iCoordinates = i.GetCoordinates();
+                    float[,] jCoordinates = j.GetCoordinates();
+                    int cost = 1;
+
+                    if (!i.IsLinkedTo(j.ID))
+                    {
+                        if ((i.GetPosition().x + i.GetDimensions().x == j.GetPosition().x) && ((j.GetPosition().y <= i.GetPosition().y && j.GetPosition().y >= i.GetPosition().y - i.GetDimensions().y) || (i.GetPosition().y <= j.GetPosition().y && i.GetPosition().y >= j.GetPosition().y - j.GetDimensions().y)))
+                        {
+                            i.AddLink(j.ID, cost);
+                            j.AddLink(i.ID, cost);
+                        }
+                        else if (i.GetPosition().y == j.GetPosition().y - j.GetDimensions().y && ((i.GetPosition().x <= j.GetPosition().x && i.GetPosition().x + i.GetDimensions().x > j.GetPosition().x) || (j.GetPosition().x <= i.GetPosition().x && j.GetPosition().x + j.GetDimensions().x > i.GetPosition().x) ))
+                        {
+                            i.AddLink(j.ID, cost);
+                            j.AddLink(i.ID, cost);
+                        }
+                    }
+                }
             }
         }
     }

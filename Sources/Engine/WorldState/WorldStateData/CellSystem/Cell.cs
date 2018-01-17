@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,6 +19,7 @@ namespace BloodAndBileEngine.WorldState
         UnityEngine.Vector2 Heights; // Hauteurs de l'angle nord-est et sud-ouest. 0 = plat par rapport à l'angle nord-ouest.
 
         List<Entity> EntitiesInCell = new List<Entity>(); // Entités présentes dans cette cellule.
+        List<Link> Links = new List<Link>(); // Liste des liens formés avec les autres cellules.
 
         WeakReference CellSystemRef; // Référence "faible" : n'empêchera pas le garbage collector de se débarasser du CellSystem lié.
         CellSystem GetCellSystem()
@@ -53,7 +54,7 @@ namespace BloodAndBileEngine.WorldState
         /// <returns></returns>
         public float GetHeightFrom2DCoordinates(float x, float y)
         {
-            if (Position.x <= x && Position.z <= y && Position.x + Dimensions.x > x && Position.z + Dimensions.y > y)
+            if (Position.x <= x && Position.y <= y && Position.x + Dimensions.x > x && Position.y + Dimensions.y > y)
             {
                 x = (x - Position.z) / Dimensions.x;
                 y = (y - Position.x) / Dimensions.y;
@@ -115,15 +116,15 @@ namespace BloodAndBileEngine.WorldState
         public void RemoveEntities(List<uint> ids) // Supprime toutes les entités de cette Cellule dont les IDs se trouvent dans la liste passé en paramètre.
         {
             List<Entity> destroyedEntities = new List<Entity>();
-            foreach(Entity entity in EntitiesInCell)
+            foreach (Entity entity in EntitiesInCell)
             {
-                if(ids.Contains(entity.ID))
+                if (ids.Contains(entity.ID))
                 {
                     destroyedEntities.Add(entity);
                     ids.Remove(entity.ID);
                 }
             }
-            foreach(Entity entity in destroyedEntities)
+            foreach (Entity entity in destroyedEntities)
             {
                 EntitiesInCell.Remove(entity);
             }
@@ -137,7 +138,7 @@ namespace BloodAndBileEngine.WorldState
         public void UpdateEntities(float deltaTime)
         {
             // Mise à jour des entités
-            foreach(Entity e in EntitiesInCell)
+            foreach (Entity e in EntitiesInCell)
             {
                 e.Update(deltaTime);
             }
@@ -147,7 +148,7 @@ namespace BloodAndBileEngine.WorldState
             // est considérée comme toujours dans cette cellule, et une vérification supplémentaire sera effectuée à
             // la prochaine Update. On vérifie également si elles sont toujours vivantes.
             List<Entity> DestroyedEntities = new List<Entity>();
-            foreach(Entity e in EntitiesInCell)
+            foreach (Entity e in EntitiesInCell)
             {
                 if (e.Destroyed) DestroyedEntities.Add(e);
                 else
@@ -155,7 +156,7 @@ namespace BloodAndBileEngine.WorldState
                     if (e.Position.x < Position.x || e.Position.x > Position.x + Dimensions.y || e.Position.z < Position.z || e.Position.z > Position.z + Dimensions.x)
                     {
                         Cell newCell = GetCellSystem().GetCellFromPosition(e.Position.z, e.Position.x);
-                        if (newCell != null)    
+                        if (newCell != null)
                         {
                             newCell.AddEntity(e);
                             DestroyedEntities.Add(e);
@@ -167,7 +168,7 @@ namespace BloodAndBileEngine.WorldState
                     }
                 }
             }
-            foreach(Entity e in DestroyedEntities)
+            foreach (Entity e in DestroyedEntities)
             {
                 EntitiesInCell.Remove(e);
             }
@@ -176,6 +177,53 @@ namespace BloodAndBileEngine.WorldState
         public void SetPlayerSpawn(bool spawn)
         {
             PlayerSpawn = spawn;
+        }
+
+        public void AddLink(int cellID, int cost)
+        {
+            Links.Add(new Link(cellID, cost));
+        }
+
+        public bool IsLinkedTo(int cellID, int cost = 1)
+        {
+            foreach(Link l in Links)
+            {
+                if (l.LinkedCellID == cellID && l.Cost <= cost)
+                    return true;
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Méthode qui retourne les coordonnées de chaque angle de la cellule
+        /// Premier index : Angle, Second index : coordonnées x,y,z
+        /// Index 0 : Angle nord-ouest
+        /// Index 1 : Angle sud-ouest
+        /// Index 2 : Angle nord-est
+        /// Index 3 : Angle sud-est
+        /// </summary>
+        /// <returns></returns>
+        public float[,] GetCoordinates()
+        {
+            float[,] coordinates = new float[4, 3];
+
+            coordinates[0, 0] = Position.x;
+            coordinates[0, 1] = Position.y;
+            coordinates[0, 2] = Position.z;
+
+            coordinates[1, 0] = Position.x + Dimensions.x;
+            coordinates[1, 1] = Position.y;
+            coordinates[1, 2] = Position.z + Heights.x;
+
+            coordinates[2, 0] = Position.x;
+            coordinates[2, 1] = Position.y + Dimensions.y;
+            coordinates[2, 2] = Position.z + Heights.y;
+
+            coordinates[3, 0] = Position.x + Dimensions.x;
+            coordinates[3, 1] = Position.y + Dimensions.y;
+            coordinates[3, 2] = Position.z + Heights.x + Heights.y;
+
+            return coordinates;
         }
     }
 }
