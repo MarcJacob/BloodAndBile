@@ -239,9 +239,7 @@ public class MapEditor : MonoBehaviour
                         {
                             if (cells[cellID].IsInCell(hit.point.x, hit.point.z))
                             {
-                                SelectedCell = cells[cellID];
-                                SelectedCell.Select();
-                                HandlesDisplayed = true;
+                                SelectCell(cells[cellID]);
                                 cellFound = true;
                             }
                             cellID++;
@@ -249,6 +247,8 @@ public class MapEditor : MonoBehaviour
                         if (!cellFound)
                         {
                             DeselectCurrentCell();
+                            CheckCreation(hit.point); // Si on a rien sélectionné, il est possible que l'utilisateur
+                                                      // veuille créer une nouvelle cellule.
                         }
                     }
                     else
@@ -258,9 +258,18 @@ public class MapEditor : MonoBehaviour
                 }
                 else
                 {
+                    Debug.Log("Pas de sélection.");
                     DeselectCurrentCell();
                 }
             }
+        }
+    }
+    void CheckCreation(Vector3 pos)
+    {
+        if (Input.GetKey(KeyCode.E))
+        {
+            var cell = CellSystem.AddCell();
+            cell.transform.position = pos;
         }
     }
 

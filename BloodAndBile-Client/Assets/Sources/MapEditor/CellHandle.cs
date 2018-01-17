@@ -36,7 +36,6 @@ public class CellHandle : MonoBehaviour
         Selected = false;
         GetComponent<MeshRenderer>().material.color = OriginalColor;
     }
-
     void Update()
     {
         if (!Selected)
@@ -55,23 +54,26 @@ public class CellHandle : MonoBehaviour
             {
                 Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 RaycastHit hit;
-                if (Physics.Raycast(ray, out hit))
+                if (Physics.Raycast(ray, out hit, 1000f))
                 {
-                    Vector3 newPos = transform.position;
-                    if (!RestrictX)
+                    if (hit.collider.tag != "TAG_HANDLE")
                     {
-                        newPos.x = hit.point.x;
+                        Vector3 newPos = transform.position;
+                        if (!RestrictX)
+                        {
+                            newPos.x = hit.point.x;
+                        }
+                        if (!RestrictY)
+                        {
+                            newPos.y = hit.point.y;
+                        }
+                        if (!RestrictZ)
+                        {
+                            newPos.z = hit.point.z;
+                        }
+                        newPos += Vector3.up / 2;
+                        transform.position = newPos;
                     }
-                    if (!RestrictY)
-                    {
-                        newPos.y = hit.point.y;
-                    }
-                    if (!RestrictZ)
-                    {
-                        newPos.z = hit.point.z;
-                    }
-                    newPos += Vector3.up / 2;
-                    transform.position = newPos;
                 }
             }
         }

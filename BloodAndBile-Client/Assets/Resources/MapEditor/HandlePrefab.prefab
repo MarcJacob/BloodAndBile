@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 65388596763951298}
   - component: {fileID: 23456875354515640}
   - component: {fileID: 114183955806877398}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: HandlePrefab
   m_TagString: TAG_HANDLE
   m_Icon: {fileID: 0}

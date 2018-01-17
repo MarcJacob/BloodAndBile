@@ -36,7 +36,13 @@ public class MapEditorCell : MonoBehaviour
     Vector3 SouthCornerLastPos;
     private void Update()
     {
-        
+        if (Neighbours.Length > 0)
+        {
+            foreach (MapEditorCell cell in Neighbours)
+            {
+                Debug.DrawLine(transform.position + EastCorner.localPosition / 2 + SouthCorner.localPosition / 2, cell.transform.position + cell.EastCorner.localPosition / 2 + cell.SouthCorner.localPosition / 2, Color.cyan);
+            }
+        }
         bool translated = false;
         if (EastCorner.position != EastCornerLastPos || SouthCorner.position != SouthCornerLastPos)
         {
@@ -44,21 +50,20 @@ public class MapEditorCell : MonoBehaviour
             UpdateCorners();
         }
 
-        if (translated && UnityEditor.Selection.Contains(gameObject.GetInstanceID()))
+        if (translated && Selected)
         {
-            MapEditorCell[] neighbours = GetNeighbours();
-            if (neighbours.Length > 0)
+            UpdateNeighbours();
+            if (Neighbours.Length > 0)
             {
-                foreach (MapEditorCell cell in neighbours)
+                foreach (MapEditorCell cell in Neighbours)
                 {
-                    Debug.DrawLine(transform.position + EastCorner.localPosition / 2 + SouthCorner.localPosition / 2, cell.transform.position + cell.EastCorner.localPosition / 2 + cell.SouthCorner.localPosition / 2, Color.cyan);
                     OnPushBack(cell);
                 }
             }
         }
     }
 
-
+    MapEditorCell[] Neighbours = new MapEditorCell[0];
 
     void UpdateCorners()
     {
@@ -78,7 +83,7 @@ public class MapEditorCell : MonoBehaviour
     }
 
     // Renvoi toutes les cellules chevauchant celle ci sur le plan X Z.
-    public MapEditorCell[] GetNeighbours()
+    public void UpdateNeighbours()
     {
         MapEditorCell[] allCells = GameObject.FindObjectsOfType<MapEditorCell>();
         List<MapEditorCell> neighbours = new List<MapEditorCell>();
@@ -97,7 +102,7 @@ public class MapEditorCell : MonoBehaviour
             }
         }
 
-        return neighbours.ToArray();
+        Neighbours = neighbours.ToArray();
     }
 
     public Transform GetEastCorner()
@@ -123,7 +128,7 @@ public class MapEditorCell : MonoBehaviour
     void OnPushBack(MapEditorCell target)
     {
         // Si target a son angle nord ouest dans cette cellule
-        if (IsInCell(target.transform))
+        if (IsInCell(target.transform, false))
         {
             // Déterminer s'il faudrait pousser target vers le sud ou l'est.
             float zDiff = EastCorner.position.z - target.transform.position.z;
@@ -163,21 +168,34 @@ public class MapEditorCell : MonoBehaviour
     }
 
     // Est ce que cette position 2D se trouve dans cette cellule ?
-    public bool IsInCell(float x, float z)
+    public bool IsInCell(float x, float z, bool countOver = true)
     {
-        if (x >= transform.position.x && x <= SouthCorner.position.x)
+        if (countOver)
         {
-            if (z >= transform.position.z && z <= EastCorner.position.z)
+            if (x >= transform.position.x && x <= SouthCorner.position.x)
             {
-                return true;
+                if (z >= transform.position.z && z <= EastCorner.position.z)
+                {
+                    return true;
+                }
+            }
+        }
+        else
+        {
+            if (x > transform.position.x && x < SouthCorner.position.x)
+            {
+                if (z > transform.position.z && z < EastCorner.position.z)
+                {
+                    return true;
+                }
             }
         }
         return false;
     }
 
-    public bool IsInCell(Transform t)
+    public bool IsInCell(Transform t, bool countOver = true)
     {
-        return IsInCell(t.position.x, t.position.z);
+        return IsInCell(t.position.x, t.position.z, countOver);
     }
 
 
